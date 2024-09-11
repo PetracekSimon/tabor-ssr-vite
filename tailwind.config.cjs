@@ -12,6 +12,10 @@ module.exports = {
       160: "40rem",
       200: "50rem",
     },
+    colors: {
+      primary: "red",
+      secondary: "#fff",
+    },
   },
   variants: {},
   plugins: [],

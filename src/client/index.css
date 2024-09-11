@@ -7,4 +7,27 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f3ef;
+}
+
+.main-hero{
+  background-image: url("/uploads/1725986648770-image-9.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.image-gallery__item {
+  width: 100%;
+}
+
+.image-gallery__item img {
+  width: 100%;
+  height: auto;
 }
