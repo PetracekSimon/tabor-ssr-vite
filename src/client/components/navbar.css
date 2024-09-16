@@ -1,0 +1,32 @@
+.navbar-main {
+
+ 
+}
+
+.navbar-main__item{
+    position: relative;
+    font-family: "Bahnschrift", sans-serif;
+}
+.navbar-main__item::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    left: 0;
+    bottom: 0;
+    background-color: transparent;
+    transition: width 0.2s ease-in-out;
+}
+.navbar-main__item:hover::before {
+    content: "";
+    height: 1px;
+    width: 100%;
+    background-color: black;
+}
+
+.navbar-main__item--child::before {
+    display: none;
+}
+.navbar-main__item--child:hover{
+    background-color: white;
+}

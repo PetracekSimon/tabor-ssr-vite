@@ -19,6 +19,10 @@ const imageSchema = new mongoose.Schema({
     folderCode: {
         type: String,
     },
+    description: {
+        type: String,
+        maxlength: 500,
+    },
 });
 
 export default mongoose.model('Image', imageSchema);

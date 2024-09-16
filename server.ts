@@ -6,9 +6,11 @@ import compression from "compression";
 import serveStatic from "serve-static";
 import { createServer as createViteServer } from "vite";
 import { fileURLToPath } from "url";
-import { getApi } from "./src/server/routes/api";
+import folders from "./src/server/folder/controller";
 import images from "./src/server/images/controller";
+import users from "./src/server/user/controller";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +47,10 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   mongodb.once('open', () => {
     console.log('\x1b[32mConnected to db\x1b[0m');
   });
+
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
+
   // Create Vite server in middleware mode and configure the app type as
   // 'custom', disabling Vite's own HTML serving logic so parent server
   // can take control
@@ -81,11 +87,19 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   const buildModule = isProd ? productionBuildPath : devBuildPath;
   const { render } = await vite.ssrLoadModule(buildModule);
 
+
+  app.use('/api/folder', (req, res, next) => {
+    req.apiPath = '/api/folder';
+    folders(req, res, next);
+  });
   app.use('/api/image', (req, res, next) => {
     req.apiPath = '/api/image';
     images(req, res, next);
   });
-  app.get("/api", getApi);
+  app.use('/api/user', (req, res, next) => {
+    req.apiPath = '/api/user';
+    users(req, res, next);
+  });
 
   app.use("*", async (req: Request, res: Response, next: NextFunction) => {
     const url = req.originalUrl;

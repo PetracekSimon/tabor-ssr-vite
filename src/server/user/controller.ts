@@ -1,5 +1,6 @@
 import express from "express";
-import { compare, genSalt, hash } from "bcryptjs";
+//@ts-ignore
+import { default as bcrypt } from 'bcryptjs'
 import jwt from "jsonwebtoken";
 
 import Types from "./types";
@@ -13,7 +14,7 @@ const router = express.Router();
 const _mongo = new Mongo();
 
 router.post('/login', verify, async (req, res) => {
-    //HDS 1 (body validation)
+    //HDS 1 (body validation)    
     let validate = Types.login.validate(req.body);
 
     if (validate.error?.details) {
@@ -30,7 +31,7 @@ router.post('/login', verify, async (req, res) => {
     }
 
     //HDS 3 (password compare);
-    const validPassword = await compare(req.body.password, user.password);
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) {
         //A3
         return Error.Login.WrongCredentials(res, req.body.email);
@@ -65,15 +66,15 @@ router.patch('/updatePassword', verify, async (req, res) => {
     }
 
     //HDS 3 (porovnání hesla);
-    const validPassword = await compare(req.body.oldPassword, user.password);
+    const validPassword = await bcrypt.compare(req.body.oldPassword, user.password);
     if (!validPassword) {
         //A2
         return Error.UpdatePassword.WrongCredentials(res);
     }
 
     //HDS 4 (hash new password)
-    const salt = await genSalt(13);
-    const hashPassword = await hash(req.body.newPassword, salt);
+    const salt = await bcrypt.genSalt(13);
+    const hashPassword = await bcrypt.hash(req.body.newPassword, salt);
 
     //HDS 5 (update user password)
     let dtoOut: any;
@@ -102,8 +103,8 @@ router.post('/register', verify, async (req, res) => {
         return Error.Register.UserAlreadyExists(res);
     }
     //HDS 3 (hash password)
-    const salt = await genSalt(13);
-    const hashPassword = await hash(req.body.password, salt);
+    const salt = await bcrypt.genSalt(13);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     //HDS 4 (create user)
     let dtoOut;
@@ -167,8 +168,8 @@ router.patch('/', verify, requestHelper, async (req, res) => {
         role: null,
     };
     if (req.data.password) {
-        const salt = await genSalt(13);
-        dataIn.password = await hash(req.data.password, salt);
+        const salt = await bcrypt.genSalt(13);
+        dataIn.password = await bcrypt.hash(req.data.password, salt);
     }
 
     //HDS 3 (get user)
@@ -179,8 +180,8 @@ router.patch('/', verify, requestHelper, async (req, res) => {
     }
 
     //HDS 4 (prepare dataIn)
-    req.data.email ? (dataIn.email = req.data.email) : null;
-    req.data.role ? (dataIn.role = req.data.role) : null;
+    req.data.email ? (dataIn.email = req.data.email) : "";
+    req.data.role ? (dataIn.role = req.data.role) : "";
 
     //HDS 5 (update user)
     let dtoOut: any;

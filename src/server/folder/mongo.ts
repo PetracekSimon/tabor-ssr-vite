@@ -2,7 +2,7 @@ import { mongoHelper } from "../helpers/mongo-helper";
 import FolderModel from "./model";
 
 class FolderMongo {
-  async list(filter = {}, pageInfo) {
+  async list(filter = {}, pageInfo: any) {
     pageInfo = mongoHelper(pageInfo);
 
     let page = {
@@ -15,17 +15,17 @@ class FolderMongo {
       pageInfo: { ...pageInfo, total },
     };
   }
-  async get(id) {
+  async get(id: string) {
     return await FolderModel.findById(id);
   }
-  async getByCode(code) {
+  async getByCode(code: string) {
     return await FolderModel.findOne({ code });
   }
-  async create(body) {
+  async create(body: object) {
     const folder = new FolderModel(body);
     return await folder.save();
   }
-  async deleteByCode(code) {
+  async deleteByCode(code: string) {
     return await FolderModel.findOneAndDelete({ code });
   }
 }

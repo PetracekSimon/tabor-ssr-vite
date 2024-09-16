@@ -84,5 +84,10 @@ export default [
         method: 'patch',
         roles: ['SuperAdmin', 'Admin'],
     },
+    {
+        path: '/api/image/updateDescription',
+        method: 'patch',
+        roles: ['SuperAdmin', 'Admin'],
+    },
     //! image: end
 ];

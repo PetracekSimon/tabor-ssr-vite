@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Api, ListResponse } from "../api";
+import { Api, ListResponse, Image } from "../api";
 import { AxiosResponse } from "axios";
 
 type ImageGalleryProps = {
@@ -8,7 +8,7 @@ type ImageGalleryProps = {
 
 const ImageGallery = (props: ImageGalleryProps) => {
 
-    const [images, setImages] = useState<Array<any>>([]);
+    const [images, setImages] = useState<Array<Image>>([]);
 
     
     useEffect(() => {
@@ -29,6 +29,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
         {images.map((image) => (
             <div className="image-gallery__item" key={image._id}>
                 <img src={"/api/image/" + image._id} alt={image.filename} />
+                <span>{image.description}</span>
             </div>
         ))}
     </div>;

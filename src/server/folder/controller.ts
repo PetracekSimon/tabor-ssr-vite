@@ -62,13 +62,13 @@ router.delete('/', verify, requsetHelper, async (req, res) => {
     let folderImages = await _imageMongo.list({ folderCode: req.data.code }, req.data.pageInfo);
     if (folderImages.itemList.length) {
         //A2 (folder contains images)
-        return Errors.Delete.FolderIsntEmpty(res, folderImages.itemList.length)
+        return Errors.Delete.FolderIsntEmpty(res)
     }
 
     let subFolders = await _mongo.list({ parentFolderCode: req.data.code }, req.data.pageInfo);
     if (subFolders.itemList.length) {
         //A3 (folder contains subfolders)
-        return Errors.Delete.FolderIsntEmpty(res, folderImages.itemList.length)
+        return Errors.Delete.FolderIsntEmpty(res)
     }
 
 

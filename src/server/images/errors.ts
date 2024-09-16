@@ -110,7 +110,26 @@ const Error = {
         });
       },
     },
-  };
-  
-  export default Error;
-  
+    UpdateDescription: {
+        InvalidBody: (res: any, error: any) => {
+            return res.status(400).json({
+                errMessage: { cs: "Data na vstupu nejsou validní." },
+                error,
+            });
+        },
+        DatabaseFailed: (res: any, error: any) => {
+            return res.status(500).json({
+                errMessage: { cs: "Databáze přestala odpovídat." },
+                error,
+            });
+        },
+        ImageDoesNotExists: (res: any, id: any) => {
+            return res.status(404).json({
+                errMessage: { cs: "Obrázek neexistuje." },
+                id,
+            });
+        },
+    },
+};
+
+export default Error;

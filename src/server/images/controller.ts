@@ -220,4 +220,27 @@ router.patch('/changeFolder', verify, requsetHelper, async (req, res) => {
     return res.send(dataOut);
 });
 
+router.patch('/updateDescription', verify, requsetHelper, async (req, res) => {
+    let validate = ImageTypes.updateDescription.validate(req.data);
+    if (validate.error?.details) {
+        return Errors.UpdateDescription.InvalidBody(res, validate.error.details);
+    }
+
+    let image = await _mongo.get(req.data.id);
+    if (!image) {
+        return Errors.UpdateDescription.ImageDoesNotExists(res, req.data.id);
+    }
+
+    image.description = req.data.description;
+
+    let dataOut;
+    try {
+        dataOut = await _mongo.update(req.data.id, image);
+    } catch (error) {
+        return Errors.UpdateDescription.DatabaseFailed(res, error);
+    }
+
+    return res.send(dataOut);
+});
+
 export default router;

@@ -141,6 +141,12 @@ export type ListResponse = {
     };
 }
 
+export interface Image {
+    _id: string;
+    filename: string;
+    description: string;
+  }
+
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
 
     private apiUrl = "/api";
@@ -152,5 +158,61 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             type: ContentType.Json,
             query: data
         })
+    }
+
+    public uploadImages = (files: File[], folderCode: string, token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/image`,
+            method: "POST",
+            type: ContentType.FormData,
+            body: {
+                files,
+                folderCode
+            },
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+    public updateImageDescription = (description: string, id: string, token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/image/updateDescription`,
+            method: "PATCH",
+            type: ContentType.UrlEncoded,
+            body: { description, id },
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+    public getFolderList = (data: any, token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/folder/list`,
+            method: "GET",
+            type: ContentType.UrlEncoded,
+            query: data,
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+
+    public login = (email: string, password: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/user/login`,
+            method: "POST",
+            type: ContentType.UrlEncoded,
+            body: { email, password }
+        });
+    }
+    public checkToken = (token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/user/checkToken`,
+            method: "GET",
+            type: ContentType.UrlEncoded,
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
     }
 }

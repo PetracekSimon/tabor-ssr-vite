@@ -1,18 +1,26 @@
+import { Response } from 'express';
+
+interface ErrorResponse {
+  errMessage: { cs: string };
+  error?: unknown;
+  code?: string;
+}
+
 const Errors = {
   Create: {
-    InvalidBody: (res, error) => {
+    InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Data na vstupu nejsou validní." },
         error,
       });
     },
-    DatabaseFailed: (res, error) => {
+    DatabaseFailed: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Složka s tímto názvem již existuje (může existovat v jiném adresáři)." },
         error,
       });
     },
-    ParentFolderDoesNotExist: (res, error) => {
+    ParentFolderDoesNotExist: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Nadřazená složka neexistuje." },
         error,
@@ -20,32 +28,32 @@ const Errors = {
     },
   },
   Delete: {
-    InvalidBody: (res, error) => {
+    InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Data na vstupu nejsou validní." },
         error,
       });
     },
-    DatabaseFailed: (res, error) => {
+    DatabaseFailed: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Databáze přestala odpovídat." },
         error,
       });
     },
-    FolderIsntEmpty: (res, imageCount) =>{
+    FolderIsntEmpty: (res: Response): Response<ErrorResponse> => {
       return res.status(400).json({
-        errMessage: { cs: `Složka není prázdná, složku lze smazat pouze když je prázdná.`}
-      })
+        errMessage: { cs: `Složka není prázdná, složku lze smazat pouze když je prázdná.` }
+      });
     }
   },
   List: {
-    InvalidBody: (res, error) => {
+    InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Data na vstupu nejsou validní." },
         error,
       });
     },
-    DatabaseFailed: (res, error) => {
+    DatabaseFailed: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Databáze přestala odpovídat." },
         error,
@@ -53,19 +61,19 @@ const Errors = {
     },
   },
   Get: {
-    InvalidBody: (res, error) => {
+    InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Data na vstupu nejsou validní." },
         error,
       });
     },
-    DatabaseFailed: (res, error) => {
+    DatabaseFailed: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
         errMessage: { cs: "Databáze přestala odpovídat." },
         error,
       });
     },
-    FolderDoesNotExists: (res, code) => {
+    FolderDoesNotExists: (res: Response, code: string): Response<ErrorResponse> => {
       return res.status(404).json({
         errMessage: { cs: "Složka neexistuje." },
         code,

@@ -2,8 +2,8 @@ interface LooseObject { [k: string]: any }
 
 declare namespace Express {
     export interface Request {
-        user?: LooseObject
-        data: LooseObject
+        user: any
+        data: any
         apiPath: string
     }
 }
