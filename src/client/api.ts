@@ -37,6 +37,13 @@ export enum ContentType {
     Text = "text/plain",
 }
 
+enum HttpMethods {
+    GET = "GET",
+    POST = "POST",
+    PATCH = "PATCH",
+    DELETE = "DELETE",
+}
+
 export class HttpClient<SecurityDataType = unknown> {
     public instance: AxiosInstance;
     private securityData: SecurityDataType | null = null;
@@ -160,7 +167,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     public imageList = (data: any) => {
         return this.request<any>({
             path: `${this.apiUrl}/image/list`,
-            method: "GET",
+            method: HttpMethods.GET,
             type: ContentType.Json,
             query: data
         })
@@ -180,11 +187,24 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             }
         });
     }
+
+    public deleteImage = (id: string, token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/image/`,
+            method: HttpMethods.DELETE,
+            type: ContentType.Json,
+            body: { id },
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+
     public updateImageDescription = (description: string, id: string, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/image/updateDescription`,
-            method: "PATCH",
-            type: ContentType.UrlEncoded,
+            method: HttpMethods.PATCH,
+            type: ContentType.Json,
             body: { description, id },
             headers: {
                 "auth-token": `${token}`
@@ -194,7 +214,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     public getFolderList = (data: any, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/folder/list`,
-            method: "GET",
+            method: HttpMethods.GET,
             type: ContentType.UrlEncoded,
             query: data,
             headers: {
@@ -212,7 +232,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     public createFolder = (name: string, parentFolderCode: string, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/folder`,
-            method: "POST",
+            method: HttpMethods.POST,
             type: ContentType.Json,
             body: {
                 name,
@@ -227,7 +247,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     public login = (email: string, password: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/user/login`,
-            method: "POST",
+            method: HttpMethods.POST,
             type: ContentType.UrlEncoded,
             body: { email, password }
         });
@@ -235,7 +255,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     public checkToken = (token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/user/checkToken`,
-            method: "GET",
+            method: HttpMethods.GET,
             type: ContentType.UrlEncoded,
             headers: {
                 "auth-token": `${token}`

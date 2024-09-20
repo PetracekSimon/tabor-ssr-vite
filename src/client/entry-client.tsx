@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect, useState } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import "./index.css";
@@ -17,42 +17,68 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 const container = document.getElementById("app");
 
-const FullApp = () => (
-  <StrictMode>
+const FullApp = () => {
 
-    <BrowserRouter basename="/">
-      <Routes>
-        <Route element={<PublicLayout><Outlet /></PublicLayout>}>
-          <Route path="/" element={<Home />} />
-          <Route path="/o-taboru" element={<About />} />
-          <Route path="/galerie" element={<Gallery />} />
-          <Route path="/galerie/:folder" element={<Gallery />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route element={<AdminLayout><Outlet /></AdminLayout>}>
-          <Route path="/admin/home" element={<AdminHome />} />
-          <Route path="/admin/galerie" element={<AdminGallery />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
-        </Route>
-      </Routes>
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
+  useEffect(() => {
+    // Funkce, která zkontroluje, jestli <html> element obsahuje třídu "dark"
+    const checkTheme = () => {
+      if (document.documentElement.classList.contains('dark')) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    };
 
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light" />
+    // Při prvním renderu zkontrolujeme aktuální theme
+    checkTheme();
+    // Optionálně můžeš přidat listener pro změny třídy "dark" v <html> elementu (například při změně pomocí tlačítka).
+    // Příklad: naslouchání změně tématu
+    const observer = new MutationObserver(() => checkTheme());
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    </BrowserRouter>
+    // Cleanup funkce, která se provede při unmountu a odstraní observer
+    return () => observer.disconnect();
+  }, []);
 
-  </StrictMode>
-);
+
+  return (
+    <StrictMode>
+
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route element={<PublicLayout><Outlet /></PublicLayout>}>
+            <Route path="/" element={<Home />} />
+            <Route path="/o-taboru" element={<About />} />
+            <Route path="/galerie" element={<Gallery />} />
+            <Route path="/galerie/:folder" element={<Gallery />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route element={<AdminLayout><Outlet /></AdminLayout>}>
+            <Route path="/admin/home" element={<AdminHome />} />
+            <Route path="/admin/galerie" element={<AdminGallery />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
+          </Route>
+        </Routes>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={theme} />
+
+      </BrowserRouter>
+
+    </StrictMode>
+  )
+};
 
 if (import.meta.hot || !container?.innerText) {
   const root = createRoot(container!);

@@ -42,7 +42,7 @@ const AdminImageList = ({ folderCode, onDelete, onUpdate, setHandledImage, setIm
   };
 
   const handleDelete = (image: Image) => {
-    console.log('Smazat obrázek:', image);
+    setHandledImage(image)
     onDelete(true);
   };
 
@@ -57,13 +57,13 @@ const AdminImageList = ({ folderCode, onDelete, onUpdate, setHandledImage, setIm
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
       {images.map((image) => (
-        <div key={image._id} className="relative border rounded-lg p-4 group">
+        <div key={image._id} className="relative border rounded-lg pb-2 group overflow-hidden">
           <img
             src={`/api/image/${image._id}`}
             alt={image.description || image.filename}
             className="w-full h-48 object-cover mb-2"
           />
-          <p className="text-sm text-gray-600">{image.description || 'Bez popisu'}</p>
+          <p className="text-sm text-gray-600 dark:text-white pl-2">{image.description || 'Bez popisu'}</p>
 
           {/* Ikony pro úpravu a smazání */}
           <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">

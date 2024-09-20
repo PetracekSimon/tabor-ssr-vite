@@ -57,13 +57,24 @@ const AdminGallery = () => {
 
   };
 
-  function handleDelete(): void {
-    throw new Error("Function not implemented.");
+  const handleDelete = async (imageToRemove: Image): Promise<void> => {
+    await api.deleteImage(imageToRemove._id, token);
+
+    setImages(images.filter(image => image._id !== imageToRemove._id));
   }
 
   const handleCreateFolder = async (newFolderName: string): Promise<void> => {
     const createdFolder = await api.createFolder(newFolderName, selectedFolder, token);
     setFolders([...folders, createdFolder.data])
+  }
+
+  const handleUpdateImage = async (description: string): Promise<void> =>{
+    if (!handledImage) {
+      throw new Error("Není definován handledImage");
+    }
+
+    const updatedImage = await api.updateImageDescription(description, handledImage._id, token);
+    setImages(images.map(image => image._id === updatedImage.data._id ? updatedImage.data : image));
   }
 
   const handleSelectedFolder = (isRoot: boolean, isBackFolder: boolean, slicedIndex: number, folder?: Folder): void => {
@@ -126,6 +137,7 @@ const AdminGallery = () => {
       >
         <DeleteImageModalContent
           onConfirm={handleDelete}
+          image={handledImage}
           onCancel={() => setDeleteModal(false)}
         />
       </Modal>
@@ -137,6 +149,7 @@ const AdminGallery = () => {
       >
         <UpdateImageModalContent
           onCancel={() => setUpdateModal(false)}
+          onConfirm={handleUpdateImage}
           image={handledImage!}
         />
       </Modal>

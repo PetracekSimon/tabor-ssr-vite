@@ -40,7 +40,7 @@ const AdminMenu = () => {
                     <h1 className="text-2xl font-bold text-center text-slate-600 dark:text-white">Letní stanový tábor Kammená</h1>
                 </div>
 
-                <div className="flex items-center justify-between py-4 px-6 border-b border-butter-cup-200">
+                <div className="flex items-center justify-between py-4 px-6 border-b border-slate-600 dark:border-white">
                     <Link to="/admin/settings" className="text-lg text-slate-600 dark:text-white">
                         {loggedUser ? loggedUser.email : 'Uživatel'}
                     </Link>
