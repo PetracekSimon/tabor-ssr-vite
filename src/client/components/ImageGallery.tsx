@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Api, ListResponse, Image } from "../api";
 import { AxiosResponse } from "axios";
 
@@ -19,8 +19,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
             }
         };
 
-        api.imageList(filter).then((res: AxiosResponse<ListResponse, any>) => {
-            console.log(res.data);
+        api.imageList(filter).then((res: AxiosResponse<ListResponse<Image>, any>) => {
             setImages(res.data.itemList);
         });
     }, [props.folder]);

@@ -1,8 +1,9 @@
-import React from "react";
+import { PropsWithChildren } from "react";
+
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 
-const PublicLayout = ({ children }: { children: any }) => {
+const PublicLayout = ({children}: PropsWithChildren) => {
     return (
         <>
             <Navbar />

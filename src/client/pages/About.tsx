@@ -1,6 +1,6 @@
-import React from "react";
 import Hero from "../components/Hero";
 import ImageGallery from "../components/ImageGallery";
+import PageTitle from "../components/PageTitle";
 
 /**
  * O táboře - v navigaci je jako "O táboře" - url "/o-taboru"
@@ -8,10 +8,13 @@ import ImageGallery from "../components/ImageGallery";
  */
 const About = () => {
   return (
-    <div className="flex bg-white-100 font-sans items-center flex-col h-screen">
-      <Hero title="O táboře" subtitle="Stanový tábor Kamenná" background="/assets/dummy.jpg" />
-      <ImageGallery folder="root" />
-    </div>
+    <>
+      <PageTitle title={"O táboře"} />
+      <div className="flex bg-white-100 font-sans items-center flex-col">
+        <Hero title="O táboře" subtitle="Stanový tábor Kamenná" background="/assets/dummy.jpg" />
+        <ImageGallery folder="root" />
+      </div>
+    </>
   );
 };
 

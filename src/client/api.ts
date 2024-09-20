@@ -132,12 +132,12 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 
-export type ListResponse = {
-    itemList: any[];
+export type ListResponse<T> = {
+    itemList: T[];
     pageInfo: {
-        total: number;
-        pageIndex: number;
-        itemsAmount: number;
+        total?: number;
+        pageIndex?: number;
+        itemsAmount?: number;
     };
 }
 
@@ -145,7 +145,13 @@ export interface Image {
     _id: string;
     filename: string;
     description: string;
-  }
+}
+
+export interface Folder {
+    _id: string;
+    name: string;
+    code: string;
+}
 
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
 
@@ -191,6 +197,27 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             method: "GET",
             type: ContentType.UrlEncoded,
             query: data,
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+    /**
+     * Funkce pro vytvoření nové složky
+     * @param name Název vytvářené složky 
+     * @param parentFolderCode Nadřezená složka
+     * @param token 
+     * @returns 
+     */
+    public createFolder = (name: string, parentFolderCode: string, token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/folder`,
+            method: "POST",
+            type: ContentType.Json,
+            body: {
+                name,
+                parentFolderCode
+            },
             headers: {
                 "auth-token": `${token}`
             }

@@ -58,21 +58,22 @@ router.post('/', verify, requsetHelper, upload.any(), async (req, res) => {
         return Errors.Create.InvalidBody(res, validate.error.details);
     }
     //HDS 2 (image)
-    let dataOut;
+    let dataOut = [];
     //HDS 2.1 (upload image)
 
     if (Array.isArray(req.files)) {
         for (const file of req.files) {
             try {
                 const compressedImagePath = await compressAndSaveImage(file);
-                let reqData = {
+                const reqData = {
                     path: compressedImagePath,
                     size: (await fs.promises.stat(compressedImagePath)).size,
                     destination: './public/uploads',
                     filename: path.basename(compressedImagePath),
                     folderCode: req.body.folderCode,
                 };
-                dataOut = await _mongo.create(reqData);
+                const createdItem = await _mongo.create(reqData);
+                dataOut.push(createdItem);
             } catch (error) {
                 //A3
                 return Errors.Create.DatabaseFailed(res, error);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from "react-toastify";
 import { Api, Image } from "../../api"
 import { useAppStore } from '../../ZustandContext';
@@ -8,7 +8,7 @@ interface UpdateImageModalContentProps {
   image: Image;
 }
 
-const UpdateImageModalContent: React.FC<UpdateImageModalContentProps> = ({ onCancel, image }) => {
+const UpdateImageModalContent = ({ onCancel, image }: UpdateImageModalContentProps) => {
 
   const [description, setDescription] = useState<string>(image.description);
   const token = useAppStore(state => state.token);

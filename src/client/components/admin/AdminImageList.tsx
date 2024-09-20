@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useAppStore } from '../../ZustandContext';
 import { Api, Image } from '../../api';
 
@@ -7,15 +7,18 @@ interface ImageListProps {
   onDelete: Dispatch<SetStateAction<boolean>>;
   onUpdate: Dispatch<SetStateAction<boolean>>;
   setHandledImage: Dispatch<SetStateAction<Image | undefined>>;
+  images: Image[],
+  setImages: Dispatch<SetStateAction<Image[]>>;
 }
 
-const AdminImageList: React.FC<ImageListProps> = ({ folderCode, onDelete, onUpdate, setHandledImage }) => {
-  const { token, loading, error, setLoading, setError } = useAppStore();
-  const [images, setImages] = React.useState<Image[]>([]);
-  
-  const api = new Api();
+const AdminImageList = ({ folderCode, onDelete, onUpdate, setHandledImage, setImages, images }: ImageListProps) => {
+  const { loading, error, setLoading, setError } = useAppStore();
 
+
+  const api = new Api();
   useEffect(() => {
+    setImages([]);
+
     const fetchImages = async () => {
       setLoading(true);
       setError(null);
@@ -31,10 +34,9 @@ const AdminImageList: React.FC<ImageListProps> = ({ folderCode, onDelete, onUpda
     };
 
     fetchImages();
-  }, [folderCode, token, setLoading, setError]);
+  }, [folderCode]);
 
   const onEdit = (image: Image) => {
-    console.log('Upravit obrázek:', image);
     setHandledImage(image)
     onUpdate(true);
   };
@@ -62,7 +64,7 @@ const AdminImageList: React.FC<ImageListProps> = ({ folderCode, onDelete, onUpda
             className="w-full h-48 object-cover mb-2"
           />
           <p className="text-sm text-gray-600">{image.description || 'Bez popisu'}</p>
-          
+
           {/* Ikony pro úpravu a smazání */}
           <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <button

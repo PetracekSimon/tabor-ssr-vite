@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 interface CountdownProps {
     targetDate: Date;
 }
 
-const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
+const Countdown = ({ targetDate }: CountdownProps) => {
 
     function calculateTimeLeft() {
         const difference = +targetDate - +new Date();

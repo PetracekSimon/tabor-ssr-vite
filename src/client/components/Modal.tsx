@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,12 +7,11 @@ interface ModalProps {
   width?: string;
 }
 
-const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, title, children, width = '500px' }) => {
+const Modal = ({ isOpen, onClose, title, children, width = '500px' }: PropsWithChildren<ModalProps>) => {
 
   useEffect(() => {
     const body = document.querySelector("body");
     if (isOpen) {
-      console.log("Is OPEN");
       body?.setAttribute("style", "overflow: hidden");
       return;
     }

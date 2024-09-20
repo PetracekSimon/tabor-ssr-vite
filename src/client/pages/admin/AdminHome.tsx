@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Api } from "../../api";
 import { useAppStore } from "../../ZustandContext";
 import { useNavigate } from "react-router-dom";
