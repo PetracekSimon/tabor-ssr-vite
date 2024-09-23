@@ -12,7 +12,8 @@
   "scripts": {
     "dev:server": "tsx server.ts",
     "dev:client": "yarn build:client && vite --config vite.config.ts dev",
-    "build": "rimraf dist && tsc -p tsconfig.json && yarn build:client && yarn build:server && yarn copy-files",
+    "build:functions": "tsc --outDir netlify/functions",
+    "build": "rimraf dist && tsc -p tsconfig.json && yarn build:client && yarn build:functions && yarn copy-files",
     "build:client": "vite build --outDir dist/client --ssrManifest",
     "build:server": "vite build --ssr src/client/entry-server.tsx --outDir dist/server",
     "test": "vitest",
@@ -46,6 +47,7 @@
     "react-router-dom": "^6.18.0",
     "react-toastify": "^10.0.5",
     "serve-static": "^1.15.0",
+    "serverless-http": "^3.2.0",
     "sharp": "^0.33.5",
     "tsx": "^3.14.0",
     "zustand": "^4.5.5"

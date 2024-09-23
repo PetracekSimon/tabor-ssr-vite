@@ -6065,6 +6065,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"serverless-http@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "serverless-http@npm:3.2.0"
+  checksum: 05f383dbb9ef9e861c0837a7c891fed935dc2af140d1f43deab1921e5fac3a55224ef53dfb026d3d81f29320568e6fc00112c9f31446f961aea3502aa48e2469
+  languageName: node
+  linkType: hard
+
 "set-function-length@npm:^1.2.1":
   version: 1.2.2
   resolution: "set-function-length@npm:1.2.2"
@@ -7091,6 +7098,7 @@ __metadata:
     react-toastify: "npm:^10.0.5"
     rimraf: "npm:^5.0.5"
     serve-static: "npm:^1.15.0"
+    serverless-http: "npm:^3.2.0"
     sharp: "npm:^0.33.5"
     tailwindcss: "npm:3.3.5"
     tsx: "npm:^3.14.0"
