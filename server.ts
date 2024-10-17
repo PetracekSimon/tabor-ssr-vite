@@ -39,7 +39,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
   mongoose.set('strictQuery', false);
 
-  mongoose.connect(process.env.DATABASE_URL_CLOUD as string);
+  mongoose.connect(process.env.DATABASE_URL_CLOUD || "mongodb+srv://simpetracek:BonRLEVplgl0XpqN@main.n3btm.mongodb.net/tabor-web?retryWrites=true&w=majority&appName=main");
   const mongodb = mongoose.connection;
   mongodb.on('error', (e) => {
     console.error(e);
