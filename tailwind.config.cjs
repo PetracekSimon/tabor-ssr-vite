@@ -319,7 +319,7 @@ module.exports = {
       light: "#f4f3ef",
       secondary: "#fff",
       "butter-cup": "#f0a413",
-      transparent: "transparent"
+      transparent: "transparent",
     },
     fontFamily: {
       sans: ["Comfortaa", "sans-serif"],
@@ -343,5 +343,5 @@ module.exports = {
   },
   variants: {},
   plugins: [],
-  darkMode: "class"
+  darkMode: "class",
 };

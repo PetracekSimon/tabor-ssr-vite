@@ -3,11 +3,11 @@ import express from "express";
 import { default as bcrypt } from 'bcryptjs'
 import jwt from "jsonwebtoken";
 
-import Types from "./types";
-import Error from "./errors";
-import Mongo from "./mongo";
-import verify from "../utiles/auth";
-import requestHelper from "../utiles/request-helper";
+import Types from "./types.js";
+import Error from "./errors.js";
+import Mongo from "./mongo.js";
+import verify from "../utiles/auth.js";
+import requestHelper from "../utiles/request-helper.js";
 
 const router = express.Router();
 

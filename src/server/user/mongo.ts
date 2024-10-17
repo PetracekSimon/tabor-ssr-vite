@@ -1,5 +1,5 @@
-import {mongoHelper} from "../helpers/mongo-helper";
-import UsersModel from "./model";
+import {mongoHelper} from "../helpers/mongo-helper.js";
+import UsersModel from "./model.js";
 
 export default class UserMongo {
   async list(filter = {}, pageInfo: any) {

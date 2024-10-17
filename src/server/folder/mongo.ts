@@ -1,5 +1,5 @@
-import { mongoHelper } from "../helpers/mongo-helper";
-import FolderModel from "./model";
+import { mongoHelper } from "../helpers/mongo-helper.js";
+import FolderModel from "./model.js";
 
 class FolderMongo {
   async list(filter = {}, pageInfo: any) {

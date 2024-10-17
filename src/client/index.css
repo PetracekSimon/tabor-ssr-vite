@@ -87,3 +87,8 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+.section-anchor {
+  padding-top: 112px;
+  margin-top: -72px;
+}

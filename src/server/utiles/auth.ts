@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import routesRoleList from "./routes-role-list";
-import UserMongo from "../user/mongo";
+import routesRoleList from "./routes-role-list.js";
+import UserMongo from "../user/mongo.js";
 import { NextFunction, Request, Response } from "express";
 
 const _userMongo = new UserMongo();

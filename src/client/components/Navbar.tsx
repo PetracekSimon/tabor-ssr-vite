@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./navbar.css";
 
 export const Navbar = () => {
@@ -10,42 +10,42 @@ export const Navbar = () => {
         </div>
         <ul className="flex justify-between items-center gap-4">
             <li className="navbar-main__item text-xl font-bold">
-                <Link to="/">Aktuálně</Link>
+                <NavLink to="/">Aktuálně</NavLink>
             </li>
             <li className="navbar-main__item text-xl font-bold">
-                <Link to="/o-taboru">O táboře</Link>
+                <NavLink to="/o-tabore">O táboře</NavLink>
             </li>
             <li className="navbar-main__item text-xl font-bold">
-                <Link to="/prubeh-tabora">Průběh tábora</Link>
+                <NavLink to="/prubeh-tabora">Průběh tábora</NavLink>
             </li>
             <li className="navbar-main__item text-xl font-bold">
-                <Link to="/chci-jet">Chci jet</Link>
+                <NavLink to="/chci-jet">Chci jet</NavLink>
             </li>
             <li className="navbar-main__item group relative dropdown">
-                <Link to="/galerie" className="text-xl font-bold">Galerie</Link>
+                <NavLink to="/galerie" className="text-xl font-bold">Galerie</NavLink>
                 <div className="group-hover:block dropdown-menu absolute hidden h-auto right-0">
 
                     <ul className="top-0 w-35 bg-light pt-4 text-right">
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2025">2025</Link>
+                            <NavLink className="px-4" to="/galerie/2025">2025</NavLink>
                         </li>
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2024">2024</Link>
+                            <NavLink className="px-4" to="/galerie/2024">2024</NavLink>
                         </li>
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2023">2023</Link>
+                            <NavLink className="px-4" to="/galerie/2023">2023</NavLink>
                         </li>
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2022">2022</Link>
+                            <NavLink className="px-4" to="/galerie/2022">2022</NavLink>
                         </li>
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2021">2021</Link>
+                            <NavLink className="px-4" to="/galerie/2021">2021</NavLink>
                         </li>
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2020">2020</Link>
+                            <NavLink className="px-4" to="/galerie/2020">2020</NavLink>
                         </li>
                         <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <Link className="px-4" to="/galerie/2019">2019</Link>
+                            <NavLink className="px-4" to="/galerie/2019">2019</NavLink>
                         </li>
                     </ul>
 

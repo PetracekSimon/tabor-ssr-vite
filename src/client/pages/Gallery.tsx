@@ -2,6 +2,7 @@ import PageTitle from "../components/PageTitle";
 import Hero from "../components/Hero";
 import { useParams } from "react-router-dom";
 import ImageGallery from "../components/ImageGallery";
+import config from "../../config";
 
 /**
  * Galerie - v navigaci je jako "Galerie" - url "/galerie"
@@ -15,7 +16,7 @@ const Gallery = () => {
         <>
         <PageTitle title={"Galerie"} />
         <div className="flex bg-white-100 font-sans items-center flex-col">
-            <Hero title="Galerie" subtitle="Stanový tábor Kamenná" background="/assets/dummy.jpg" />
+            <Hero title="Galerie" subtitle={config.heroSubtitle} background="/assets/dummy.jpg" />
             <ImageGallery folder={folder ? folder : "root"} />
         </div>
         </>

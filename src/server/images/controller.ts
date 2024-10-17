@@ -1,17 +1,17 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import Errors from './errors';
+import Errors from './errors.js';
 import multer from 'multer';
 import fs from 'fs';
 import sharp from 'sharp';
 import path from 'path';
-import ImageTypes from './types';
-import ImageMongo from './mongo';
-import FolderMongo from '../folder/mongo';
+import ImageTypes from './types.js';
+import ImageMongo from './mongo.js';
+import FolderMongo from '../folder/mongo.js';
 
-import { slugify } from '../helpers/utils';
-import verify from '../utiles/auth';
-import requsetHelper from '../utiles/request-helper';
+import { slugify } from '../helpers/utils.js';
+import verify from '../utiles/auth.js';
+import requsetHelper from '../utiles/request-helper.js';
 
 dotenv.config();
 

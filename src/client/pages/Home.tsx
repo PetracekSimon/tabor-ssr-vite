@@ -7,7 +7,7 @@ import PageTitle from "../components/PageTitle";
  * Domovská stránka - v navigaci je jako "Aktuálně" - url "/"
  * @returns 
  */
-const Main = () => {
+const Home = () => {
   return (
     <>
      <PageTitle title="" />
@@ -37,4 +37,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Home;

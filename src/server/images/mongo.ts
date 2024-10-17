@@ -1,5 +1,5 @@
-import { mongoHelper } from '../helpers/mongo-helper';
-import ImageModel from './model';
+import { mongoHelper } from '../helpers/mongo-helper.js';
+import ImageModel from './model.js';
 
 class ImageMongo {
     async list(filter = {}, pageInfo: any) {

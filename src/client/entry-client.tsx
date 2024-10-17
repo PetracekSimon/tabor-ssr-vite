@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import CourseCamp from "./pages/CourseCamp";
+import IWantToGo from "./pages/IWantToGo";
 import Gallery from "./pages/Gallery";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminGallery from "./pages/admin/AdminGallery";
@@ -49,7 +51,9 @@ const FullApp = () => {
         <Routes>
           <Route element={<PublicLayout><Outlet /></PublicLayout>}>
             <Route path="/" element={<Home />} />
-            <Route path="/o-taboru" element={<About />} />
+            <Route path="/o-tabore" element={<About />} />
+            <Route path="/prubeh-tabora" element={<CourseCamp />} />
+            <Route path="/chci-jet" element={<IWantToGo />} />
             <Route path="/galerie" element={<Gallery />} />
             <Route path="/galerie/:folder" element={<Gallery />} />
             <Route path="*" element={<NotFound />} />

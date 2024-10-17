@@ -1,14 +1,14 @@
 import express from 'express';
-import Errors from './errors';
+import Errors from './errors.js';
 
-import FolderTypes from './types';
-import FolderMongo from './mongo';
+import FolderTypes from './types.js';
+import FolderMongo from './mongo.js';
 
-import ImageMongo from '../images/mongo';
+import ImageMongo from '../images/mongo.js';
 
-import { slugify } from '../helpers/utils';
-import verify from '../utiles/auth';
-import requsetHelper from '../utiles/request-helper';
+import { slugify } from '../helpers/utils.js';
+import verify from '../utiles/auth.js';
+import requsetHelper from '../utiles/request-helper.js';
 
 const _mongo = new FolderMongo();
 const _imageMongo = new ImageMongo();
