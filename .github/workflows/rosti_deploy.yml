@@ -31,6 +31,9 @@ jobs:
       - name: Dependencies
         run: |
           npm install
+      - name: Install Sharp for Linux-x64
+        run: |
+          npm install --cpu=x64 --os=linux sharp
       - name: Build
         run: |
           npm run build
