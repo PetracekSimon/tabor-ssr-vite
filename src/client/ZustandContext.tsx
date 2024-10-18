@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface LoggedUser {
@@ -18,7 +18,6 @@ interface AppState {
   setError: (error: string | null) => void;
   logout: () => void;
 }
-
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
@@ -34,7 +33,18 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'app-storage',
-      getStorage: () => sessionStorage,
+      storage: {
+        getItem: (name) => {
+          const item = sessionStorage.getItem(name);
+          return item ? JSON.parse(item) : null;
+        },
+        setItem: (name, value) => {
+          sessionStorage.setItem(name, JSON.stringify(value));
+        },
+        removeItem: (name) => {
+          sessionStorage.removeItem(name);
+        },
+      },
     }
   )
 );
