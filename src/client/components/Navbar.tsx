@@ -1,56 +1,51 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 
 export const Navbar = () => {
-    return <div className="navbar-main flex justify-between items-center p-4 bg-light-100 sticky top-0 z-50 backdrop-blur-md px-8"  >
-        <div className="navbar-main__item navbar-main__item--logo text-xl font-bold">
-            <a href="/">
-                <img src="/logo.png" alt="logo" className="w-20 h-10" />
-            </a>
-        </div>
-        <ul className="flex justify-between items-center gap-4">
-            <li className="navbar-main__item text-xl font-bold">
-                <NavLink to="/">Aktuálně</NavLink>
-            </li>
-            <li className="navbar-main__item text-xl font-bold">
-                <NavLink to="/o-tabore">O táboře</NavLink>
-            </li>
-            <li className="navbar-main__item text-xl font-bold">
-                <NavLink to="/prubeh-tabora">Průběh tábora</NavLink>
-            </li>
-            <li className="navbar-main__item text-xl font-bold">
-                <NavLink to="/chci-jet">Chci jet</NavLink>
-            </li>
-            <li className="navbar-main__item group relative dropdown">
-                <NavLink to="/galerie" className="text-xl font-bold">Galerie</NavLink>
-                <div className="group-hover:block dropdown-menu absolute hidden h-auto right-0">
+  const [isOpen, setIsOpen] = useState(false);
 
-                    <ul className="top-0 w-35 bg-light pt-4 text-right">
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2025">2025</NavLink>
-                        </li>
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2024">2024</NavLink>
-                        </li>
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2023">2023</NavLink>
-                        </li>
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2022">2022</NavLink>
-                        </li>
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2021">2021</NavLink>
-                        </li>
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2020">2020</NavLink>
-                        </li>
-                        <li className="py-1 navbar-main__item navbar-main__item--child">
-                            <NavLink className="px-4" to="/galerie/2019">2019</NavLink>
-                        </li>
-                    </ul>
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-                </div>
-            </li>
-        </ul>
+  return (
+    <div className="navbar-main flex justify-between items-center p-4 bg-light-100 sticky top-0 z-50 backdrop-blur-md px-8">
+      <div className="navbar-main__item navbar-main__item--logo text-xl font-bold">
+        <a href="/">
+          <img src="/logo.png" alt="logo" className="w-20 h-10" />
+        </a>
+      </div>
+      <div className="hamburger-menu" onClick={toggleMenu}>
+        <div className={`bar ${isOpen ? "open" : ""}`}></div>
+        <div className={`bar ${isOpen ? "open" : ""}`}></div>
+        <div className={`bar ${isOpen ? "open" : ""}`}></div>
+      </div>
+      <ul className={`menu flex-col ${isOpen ? "open" : "hidden"} md:flex-row md:flex gap-4`}>
+        <li className="navbar-main__item text-xl font-bold">
+          <NavLink onClick={toggleMenu} to="/">Aktuálně</NavLink>
+        </li>
+        <li className="navbar-main__item text-xl font-bold">
+          <NavLink onClick={toggleMenu} to="/o-tabore">O táboře</NavLink>
+        </li>
+        <li className="navbar-main__item text-xl font-bold">
+          <NavLink onClick={toggleMenu} to="/prubeh-tabora">Průběh tábora</NavLink>
+        </li>
+        <li className="navbar-main__item text-xl font-bold">
+          <NavLink onClick={toggleMenu} to="/chci-jet">Chci jet</NavLink>
+        </li>
+        <li className="navbar-main__item group relative dropdown">
+          <NavLink to="/galerie" className="text-xl font-bold">Galerie</NavLink>
+          <div className="group-hover:block dropdown-menu absolute hidden h-auto right-0">
+            <ul className="top-0 w-35 bg-light pt-4 text-right">
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2025</NavLink>
+              </li>
+              {/* ostatní položky */}
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
-}
+  );
+};

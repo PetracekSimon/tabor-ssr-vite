@@ -30,3 +30,77 @@
 .navbar-main__item--child:hover{
     background-color: white;
 }
+
+
+/* Styl pro hlavní navigaci */
+.navbar-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Hamburger menu */
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  
+  .hamburger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #000;
+    transition: all 0.3s ease;
+  }
+  
+  .hamburger-menu .open:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .hamburger-menu .open:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger-menu .open:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  /* Menu na menších obrazovkách */
+  .menu {
+    display: none;
+  }
+  
+  .menu.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 10;
+  }
+  
+  .menu li {
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  /* Na větších obrazovkách */
+  @media (min-width: 768px) {
+    .hamburger-menu {
+      display: none;
+    }
+    .menu {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hamburger-menu {
+      display: flex;
+    }
+  }
+  
