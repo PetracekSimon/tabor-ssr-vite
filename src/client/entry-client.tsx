@@ -14,6 +14,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminSettings from "./pages/admin/AdminSetting";
 import AdminHome from "./pages/admin/AdminHome";
 import NotFound from "./pages/404";
+import ScrollToTop from "./ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -48,6 +49,7 @@ const FullApp = () => {
     <StrictMode>
 
       <BrowserRouter basename="/">
+        <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout><Outlet /></PublicLayout>}>
             <Route path="/" element={<Home />} />
