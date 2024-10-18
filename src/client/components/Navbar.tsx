@@ -41,7 +41,24 @@ export const Navbar = () => {
               <li className="py-1 navbar-main__item navbar-main__item--child">
                 <NavLink className="px-4" to="/galerie/2025">2025</NavLink>
               </li>
-              {/* ostatní položky */}
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2024</NavLink>
+              </li>
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2023</NavLink>
+              </li>
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2022</NavLink>
+              </li>
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2021</NavLink>
+              </li>
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2020</NavLink>
+              </li>
+              <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink className="px-4" to="/galerie/2025">2019</NavLink>
+              </li>
             </ul>
           </div>
         </li>
