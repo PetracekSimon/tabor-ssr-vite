@@ -23,16 +23,16 @@ export const Navbar = () => {
       </div>
       <ul className={`menu flex-col ${isOpen ? "open" : "hidden"} md:flex-row md:flex gap-4`}>
         <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={toggleMenu} to="/">Aktuálně</NavLink>
+          <NavLink onClick={() => setIsOpen(false)} to="/">Aktuálně</NavLink>
         </li>
         <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={toggleMenu} to="/o-tabore">O táboře</NavLink>
+          <NavLink onClick={() => setIsOpen(false)} to="/o-tabore">O táboře</NavLink>
         </li>
         <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={toggleMenu} to="/prubeh-tabora">Průběh tábora</NavLink>
+          <NavLink onClick={() => setIsOpen(false)} to="/prubeh-tabora">Průběh tábora</NavLink>
         </li>
         <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={toggleMenu} to="/chci-jet">Chci jet</NavLink>
+          <NavLink onClick={() => setIsOpen(false)} to="/chci-jet">Chci jet</NavLink>
         </li>
         <li className="navbar-main__item group relative dropdown">
           <NavLink to="/galerie" className="text-xl font-bold">Galerie</NavLink>
