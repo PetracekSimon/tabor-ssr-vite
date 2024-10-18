@@ -9,7 +9,7 @@ import config from "../../config";
 const IWantToGo = () => {
     return (
         <>
-            <PageTitle title={"Chci jet"} />
+            <PageTitle title={" | Chci jet"} />
             <div>
                 <Hero title="Chci jet" subtitle={config.heroSubtitle} background="/assets/dummy.jpg" />
                 <section id="Vseobecne-informace" className="section-anchor">

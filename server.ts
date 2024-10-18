@@ -20,10 +20,11 @@ const resolve = (p: string) => path.resolve(__dirname, p);
 
 const getStyleSheets = async () => {
   try {
-    const assetpath = resolve("public");
+    const assetpath = resolve("public/assets");
     const files = await fs.readdir(assetpath);
     const cssAssets = files.filter(l => l.endsWith(".css"));
     const allContent = [];
+
     for (const asset of cssAssets) {
       const content = await fs.readFile(path.join(assetpath, asset), "utf-8");
       allContent.push(`<style type="text/css">${content}</style>`);
@@ -33,6 +34,46 @@ const getStyleSheets = async () => {
     return "";
   }
 };
+
+const getMetaTags = (url: string) => {
+
+  //TODO: další meta tagy
+  /*
+  <meta name="keywords" content="letni, tabor, stan, stanovy, deti, tri, tydny, dlouhy">
+  <meta property="og:title" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:url" content="">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="">
+  <meta property="og:image" content="">
+  atd... 
+  */
+
+  let title = "Letní stanový tábor";
+  let description = "Užijte si 19 dní plných dobrodružství na letním stanovém táboře Kamenná! Děti se mohou těšit na hry, sportovní aktivity a objevování přírody, které jim zanechají nezapomenutelné zážitky.";
+  switch (url) {
+    case "/":
+      title = "Letní stanový tábor ";
+      break;
+    case "/o-tabore":
+      title = "Letní stanový tábor | O táboře";
+      break;
+    case "/prubeh-tabora":
+      title = "Letní stanový tábor | Průběh tábora";
+      break;
+    case "/chci-jet":
+      title = "Letní stanový tábor | Chci jet";
+      break;
+    case "/galerie":
+      title = "Letní stanový tábor | Galerie";
+      break;
+    default:
+      title = "Letní stanový tábor";
+      break;
+  }
+
+  return { title, description }
+}
 
 async function createServer(isProd = process.env.NODE_ENV === "production") {
   const app = express();
@@ -118,9 +159,15 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       //    e.g. ReactDOMServer.renderToString()
       const appHtml = await render(url);
       const cssAssets = await stylesheets;
+      const { title, description } = getMetaTags(url);
+
 
       // 5. Inject the app-rendered HTML into the template.
-      const html = template.replace(`<!--app-html-->`, appHtml).replace(`<!--head-->`, cssAssets);
+      const html = template
+        .replace(`<!--app-html-->`, appHtml)
+        .replace(`<!--head-->`, cssAssets)
+        .replace(`<!--meta-->`, `<title>${title}</title><meta name="description" content="${description}"/>`)
+        .replace(/<link rel="stylesheet" href="\/assets\/index-(.*?)\.css">/, "");
 
       // 6. Send the rendered HTML back.
       res.status(200).set({ "Content-Type": "text/html" }).end(html);

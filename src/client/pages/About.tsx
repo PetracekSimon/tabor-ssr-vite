@@ -3,13 +3,13 @@ import Hero from "../components/Hero";
 import PageTitle from "../components/PageTitle";
 
 /**
- * O táboře - v navigaci je jako "O táboře" - url "/o-taboru"
+ * O táboře - v navigaci je jako "O táboře" - url "/o-taborr"
  * @returns 
  */
 const About = () => {
   return (
     <>
-      <PageTitle title={"O táboře"} />
+      <PageTitle title={" | O táboře"} />
       <div>
         <Hero title="O táboře" subtitle="Stanový tábor Kamenná 2025" background="/assets/dummy.jpg" />
 

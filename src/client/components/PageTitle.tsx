@@ -9,7 +9,7 @@ const PageTitle = ({ title }: PageTitleProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = "Letní stanový tábor | " + title;
+    document.title = "Letní stanový tábor" + title;
   }, [location, title]);
 
   return null;

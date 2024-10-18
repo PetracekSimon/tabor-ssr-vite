@@ -10,7 +10,7 @@ import config from "../../config";
 const CourseCamp = () => {
     return (
         <>
-            <PageTitle title={"Průběh tábora"} />
+            <PageTitle title={" | Průběh tábora"} />
             <div>
                 <Hero title="Průběh tábora" subtitle={config.heroSubtitle} background="/assets/dummy.jpg" />
 
