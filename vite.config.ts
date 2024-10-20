@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 import type { UserConfig } from "vitest/config";
-import { transformSource } from "tsx";
 
 const test = {
   globals: true,
