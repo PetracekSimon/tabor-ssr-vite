@@ -53,6 +53,11 @@ export default [
         roles: ['Public'],
     },
     {
+        path: '/api/folder/getImagesForGalleryPage',
+        method: 'get',
+        roles: ['Public'],
+    },
+    {
         path: '/api/folder/',
         method: 'get',
         roles: ['Public'],

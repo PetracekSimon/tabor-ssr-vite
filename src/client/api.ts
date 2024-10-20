@@ -211,15 +211,20 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             }
         });
     }
-    public getFolderList = (data: any, token: string) => {
+    public getFolderList = (data: any) => {
         return this.request<any>({
             path: `${this.apiUrl}/folder/list`,
             method: HttpMethods.GET,
             type: ContentType.UrlEncoded,
             query: data,
-            headers: {
-                "auth-token": `${token}`
-            }
+        });
+    }
+    public getImagesForGalleryPage = (data: any) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/folder/getImagesForGalleryPage`,
+            method: HttpMethods.GET,
+            type: ContentType.UrlEncoded,
+            query: data,
         });
     }
     /**

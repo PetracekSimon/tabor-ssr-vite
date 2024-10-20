@@ -80,6 +80,26 @@ const Errors = {
       });
     },
   },
+  GetImagesForGalleryPage: {
+    InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
+      return res.status(400).json({
+        errMessage: { cs: "Data na vstupu nejsou validní." },
+        error,
+      });
+    },
+    DatabaseFailed: (res: Response, error: unknown): Response<ErrorResponse> => {
+      return res.status(400).json({
+        errMessage: { cs: "Databáze přestala odpovídat." },
+        error,
+      });
+    },
+    FolderDoesNotExists: (res: Response, code: string): Response<ErrorResponse> => {
+      return res.status(404).json({
+        errMessage: { cs: "Složka neexistuje." },
+        code,
+      });
+    },
+  },
 };
 
 export default Errors;

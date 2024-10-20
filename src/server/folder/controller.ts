@@ -127,4 +127,32 @@ router.get('/', async (req, res) => {
     res.send(dataOut);
 });
 
+router.get('/getImagesForGalleryPage', requsetHelper, async (req, res) => {
+    //HDS 1 (body validation)
+    let validate = FolderTypes.getImagesForGalleryPage.validate(req.data);
+
+    if (validate.error?.details) {
+        //A1
+        return Errors.GetImagesForGalleryPage.InvalidBody(res, validate.error.details);
+    }
+
+    //HDS 2 (find folder)
+    const dtoOut = [];
+    const subFolders = await _mongo.list({ parentFolderCode: req.data.filter.code }, req.data.pageInfo);
+
+    for (const key in subFolders.itemList) {
+        if (Object.prototype.hasOwnProperty.call(subFolders.itemList, key)) {
+            const folder = subFolders.itemList[key];
+
+            const images = await _imageMongo.list({ folderCode: folder.code }, undefined);
+            dtoOut.push({
+                folderName: folder.name,
+                images: images.itemList
+            })
+        }
+    }
+
+    return res.send(dtoOut);
+})
+
 export default router;

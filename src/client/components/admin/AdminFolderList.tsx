@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { useAppStore } from "../../ZustandContext";
+import { Dispatch, SetStateAction, useEffect } from "react"
 import { Api, Folder } from "../../api";
 
 
@@ -37,14 +36,12 @@ const HomeIcon = () => (
 
 
 const AdminFolderList = (props: AdminFolderListProps) => {
-    const { token } = useAppStore();
-
     const api = new Api();
 
     useEffect(() => {
         const fetchFolders = async () => {
             try {
-                const response = await api.getFolderList({ filter: { parentFolderCode: props.selecteFolder } }, token);
+                const response = await api.getFolderList({ filter: { parentFolderCode: props.selecteFolder } });
                 props.setFolders(response.data.itemList);
             } catch (error) {
                 console.error("Chyba při načítání složek:", error);

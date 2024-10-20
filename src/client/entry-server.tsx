@@ -39,6 +39,6 @@ export function render(url: string) {
           </Route>
         </Routes>
       </StaticRouter>
-    </StrictMode>,
+    </StrictMode>
   );
 }
