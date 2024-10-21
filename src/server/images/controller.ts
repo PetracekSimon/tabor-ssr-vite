@@ -32,7 +32,7 @@ const fileFilter = (_req: any, file: any, cb: any) => {
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024 * 1024 * 5,
+        fileSize: 1024 * 1024 * 30, // 30 MB najednou 
     },
     fileFilter: fileFilter,
 });
@@ -64,13 +64,18 @@ router.post('/', verify, requsetHelper, upload.any(), async (req, res) => {
     if (Array.isArray(req.files)) {
         for (const file of req.files) {
             try {
+                
                 const compressedImagePath = await compressAndSaveImage(file);
+                const imageMetadata = await sharp(compressedImagePath).metadata();
+
                 const reqData = {
                     path: compressedImagePath,
                     size: (await fs.promises.stat(compressedImagePath)).size,
                     destination: './public/uploads',
                     filename: path.basename(compressedImagePath),
                     folderCode: req.body.folderCode,
+                    width: imageMetadata.width,
+                    height: imageMetadata.height
                 };
                 const createdItem = await _mongo.create(reqData);
                 dataOut.push(createdItem);

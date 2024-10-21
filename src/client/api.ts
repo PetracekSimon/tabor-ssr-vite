@@ -152,6 +152,8 @@ export interface Image {
     _id: string;
     filename: string;
     description: string;
+    width: string,
+    height: string
 }
 
 export interface Folder {

@@ -15,6 +15,9 @@ const _imageMongo = new ImageMongo();
 
 const router = express.Router();
 
+interface LooseObject { [k: string]: any }
+
+
 router.post('/', verify, requsetHelper, async (req, res) => {
     //HDS 1
     let validate = FolderTypes.create.validate(req.data);
@@ -136,21 +139,33 @@ router.get('/getImagesForGalleryPage', requsetHelper, async (req, res) => {
         return Errors.GetImagesForGalleryPage.InvalidBody(res, validate.error.details);
     }
 
-    //HDS 2 (find folder)
-    const dtoOut = [];
+    //HDS 2 (find subfolders + transforms)
+    const dtoOut: any = [];
     const subFolders = await _mongo.list({ parentFolderCode: req.data.filter.code }, req.data.pageInfo);
 
-    for (const key in subFolders.itemList) {
-        if (Object.prototype.hasOwnProperty.call(subFolders.itemList, key)) {
-            const folder = subFolders.itemList[key];
+    const subFoldersCodes = subFolders.itemList.map(folder => folder.code)
+    const subFoldersData: LooseObject = {};
+    subFolders.itemList.forEach(folder => {
+        subFoldersData[folder.code] = folder.name;
+    })
 
-            const images = await _imageMongo.list({ folderCode: folder.code }, undefined);
-            dtoOut.push({
-                folderName: folder.name,
-                images: images.itemList
-            })
-        }
-    }
+    //HDS 3 (find images IN subFolderCodes[])
+    const imagesWithFolderInfo = await _imageMongo.getImagesWithFolderInfo(subFoldersCodes);
+
+
+    //HDS 4 (mapping structure)
+    subFoldersCodes.forEach(folderCode => {
+        const folderedImages = imagesWithFolderInfo.filter(image => {
+            return image.folderInfo.code === folderCode
+        });
+
+        dtoOut.push({
+            folderName: subFoldersData[folderCode],
+            folderCode: folderCode,
+            images: folderedImages
+        })
+    });
+
 
     return res.send(dtoOut);
 })

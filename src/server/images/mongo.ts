@@ -27,6 +27,39 @@ class ImageMongo {
     async update(id: any, newObject: any) {
         return await ImageModel.findByIdAndUpdate(id, newObject, { new: true });
     }
+    async getImagesWithFolderInfo(subFolders: string[]) {
+        return await ImageModel.aggregate([
+            {
+              $match: {
+                folderCode: { $in: subFolders }
+              }
+            },
+            {
+              $lookup: {
+                from: "folders",              // Název kolekce složek
+                localField: "folderCode",     // Pole v kolekci obrázků
+                foreignField: "code",         // Pole v kolekci složek
+                as: "folderInfo"              // Název výsledného pole
+              }
+            },
+            {
+              $unwind: "$folderInfo"          // Rozbalení pole, aby byla data zjednodušená
+            },
+            {
+              $project: {
+                path: 1,
+                size: 1,
+                width: 1,
+                height: 1,
+                destination: 1,
+                filename: 1,
+                description: 1,
+                "folderInfo.name": 1,        // Vrácení pouze názvu složky
+                "folderInfo.code": 1
+              }
+            }
+          ])
+    }
 }
 
 export default ImageMongo;

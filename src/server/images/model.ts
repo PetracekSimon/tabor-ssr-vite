@@ -8,6 +8,12 @@ const imageSchema = new mongoose.Schema({
     size: {
         type: String,
     },
+    width: {
+        type: String
+    },
+    height: {
+        type: String
+    },
     destination: {
         type: String,
         required: true,
