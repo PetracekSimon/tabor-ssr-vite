@@ -128,6 +128,14 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   const buildModule = isProd ? productionBuildPath : devBuildPath;
   const { render } = await vite.ssrLoadModule(buildModule);
 
+  app.get("/robots.txt", (req,res) =>{
+    const filePath = path.join(__dirname, 'robots.txt');
+    res.sendFile(filePath)
+  });
+  app.get("/sitemap.xml", (req,res) =>{
+    const filePath = path.join(__dirname, 'sitemap.xml');
+    res.sendFile(filePath)
+  })
 
   app.use('/api/folder', (req, res, next) => {
     req.apiPath = '/api/folder';

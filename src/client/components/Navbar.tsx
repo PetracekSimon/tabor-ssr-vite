@@ -11,9 +11,9 @@ export const Navbar = () => {
 
   return (
     <div className="navbar-main flex justify-between items-center p-4 bg-light-100 sticky top-0 z-50 backdrop-blur-md px-8">
-      <div className="navbar-main__item navbar-main__item--logo text-xl font-bold">
+      <div className="navbar-main__item navbar-main__item--logo text-3xl font-bold">
         <a href="/">
-          <img src="/logo.png" alt="logo" className="w-20 h-10" />
+          <span>LST</span>
         </a>
       </div>
       <div className="hamburger-menu" onClick={toggleMenu}>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import Lightbox from "yet-another-react-lightbox";
-import { Photo, RowsPhotoAlbum } from "react-photo-album";
+import { Photo, RenderImageProps, RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";
 
 import { Api, Image } from "../api";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+import ImageWrapper from "./ImageWrapper";
+import Lightbox from "./Lightbox";
 
 type ImageGalleryProps = {
     folder: string;
@@ -65,18 +66,23 @@ const ImageGallery = (props: ImageGalleryProps) => {
 
     const mapImageToPhoto = (images: Image[]): Photo[] => {
 
+        const breakpoints = [1920];
+
         //@ts-expect-error
         const photos: Photo[] = images.map(image => {
             return {
                 src: "/api/image/" + image._id,
-                href: "/api/image/" + image._id,
                 width: image.width,
                 height: image.height,
                 alt: image._id,
                 key: image._id,
-                srcSet: {},
                 label: image.description,
-                title: image.description
+                title: image.description,
+                srcSet: breakpoints.map((breakpoint) => ({
+                    src: "/api/image/" + image._id,
+                    width: breakpoint,
+                    height: Math.round((Number(image.height) / Number(image.width)) * breakpoint),
+                })),
             }
         });
 
@@ -86,28 +92,28 @@ const ImageGallery = (props: ImageGalleryProps) => {
     return <div className="container mx-auto">
         {isLoading && <Loading />}
 
-        {imageStructure.map((item) => (
-            <div key={item.folderName} className="mt-5">
-                {createFolderTitle(item.folderName, item.folderCode)}
-                <hr className="border-t border-gray-300 my-4" />
-                {/* {props.folder !== "root" && (
-                    <div className="image-gallery mb-10">
-                        {createImages(item.images)}
+        <Lightbox>
+            {imageStructure.map((item, i) => {
+                const slides = mapImageToPhoto(item.images);
+
+                return (
+                    <div key={item.folderCode} className="mt-5">
+                        {createFolderTitle(item.folderName, item.folderCode)}
+
+                        <hr className="border-t border-gray-300 my-4" />
+
+                        <RowsPhotoAlbum
+                            photos={slides}
+                            render={{
+                                image: (props: RenderImageProps) => <ImageWrapper title={props.title} src={props.src} />
+                            }}
+                            targetRowHeight={300}
+                            onClick={({ index: current }) => setIndex(current)}
+                        />
                     </div>
-                )} */}
-                <RowsPhotoAlbum
-                    photos={mapImageToPhoto(item.images)}
-                    targetRowHeight={200}
-                    onClick={({ index: current }) => setIndex(current)}
-                />
-                <Lightbox
-                    index={index}
-                    slides={mapImageToPhoto(item.images)}
-                    open={index >= 0}
-                    close={() => setIndex(-1)}
-                />
-            </div>
-        ))}
+                )
+            })}
+        </Lightbox>
     </div>;
 };
 
