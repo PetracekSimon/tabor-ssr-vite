@@ -97,7 +97,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
                 const slides = mapImageToPhoto(item.images);
 
                 return (
-                    <div key={item.folderCode} className="mt-5">
+                    <div key={item.folderCode} className="!mt-10">
                         {createFolderTitle(item.folderName, item.folderCode)}
 
                         <hr className="border-t border-gray-300 my-4" />
