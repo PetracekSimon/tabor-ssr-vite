@@ -77,12 +77,14 @@ const CourseCamp = () => {
                             </p>
 
                             <p className="mb-3">
-                                <span className="font-bold text-red-500">Dostatečně teplý spacák:</span>
+                                <span className="font-bold text-red-500">Dostatečně teplý spacák: </span>
+                                <br />
                                 Ačkoliv je náš tábor pořádán v letním období, je situován v oblasti Vysočiny, kde bývají i v létě chladné noci spíše pravidlem než výjimkou.
                                 Teploty v noci často klesají na 10 °C, někdy i na 5 °C. Proto vybavte děti dostatečně teplým spacákem.
                             </p>
                             <p className="mb-3">
-                                <span className="font-bold text-red-500">Holinky a pláštěnka:</span>
+                                <span className="font-bold text-red-500">Holinky a pláštěnka: </span>
+                                <br />
                                 Vzhledem k tomu, že náš tábor je stanový, máme jen omezené (byť za normálních okolností dostatečné) kapacity,
                                 kde lze sušit promáčené boty a oblečení v případě vícedenního deštivého počasí. Sebelepší goretexové boty či dokonale
                                 naimpregnované pohorky ale nenahradí holiny při delším brouzdání mokrou trávou či vlhkým lesem. Stejně tak i
