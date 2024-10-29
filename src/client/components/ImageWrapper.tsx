@@ -1,7 +1,6 @@
 import { RenderImageProps } from "react-photo-album/*";
 import "./image-wrapper.css"
 
-
 interface ImageWrapperProps extends RenderImageProps { }
 
 const ImageWrapper = (props: ImageWrapperProps) => {
