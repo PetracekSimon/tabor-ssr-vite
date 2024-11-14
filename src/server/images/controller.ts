@@ -41,7 +41,9 @@ const upload = multer({
 const compressAndSaveImage = async (file: any): Promise<string> => {
     const filename = Date.now() + '-' + slugify(file.originalname);
     
-    const outputPath = process.env.NODE_ENV === "production" ? "/srv/uploads" : './public/uploads/' + filename;
+    const outputPath = process.env.NODE_ENV === "production" 
+    ? `/srv/uploads/${filename}` 
+    : `./public/uploads/${filename}`;
 
     await sharp(file.buffer)
         .resize(1000) // Změňte rozměry podle potřeby
