@@ -160,6 +160,12 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
     res.send(dataOut);
 });
 
+const _handleImagePath = (image: any) =>{
+    if (process.env.NODE_ENV === "production") {
+        return image.destination + '/' + image.filename;
+    } 
+    return process.cwd() + image.destination.replace('./', '/') + '/' + image.filename;
+}
 router.get('/:id', verify, async (req, res) => {
     let validate = ImageTypes.get.validate(req.params);
     if (validate.error?.details) {
@@ -171,9 +177,10 @@ router.get('/:id', verify, async (req, res) => {
     if (!image) {
         return Errors.Get.ImageDoesNotExists(res, req.params.id);
     }
-    res.sendFile(process.cwd() + image.destination.replace('./', '/') + '/' + image.filename);
+
+    res.sendFile(_handleImagePath(image));
 });
-//TODO: přehodit to do složky nad projektem 
+
 router.get('/', async (req, res) => {
     //HDS 1 (body validation)
     let reqData = Object.keys(req.body).length === 0 ? req.query : req.body;
