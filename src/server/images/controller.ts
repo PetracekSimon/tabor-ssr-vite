@@ -40,7 +40,8 @@ const upload = multer({
 // Funkce pro kompresi a uložení obrázku
 const compressAndSaveImage = async (file: any): Promise<string> => {
     const filename = Date.now() + '-' + slugify(file.originalname);
-    const outputPath = './public/uploads/' + filename;
+    
+    const outputPath = process.env.NODE_ENV === "production" ? "/srv/uploads" : './public/uploads/' + filename;
 
     await sharp(file.buffer)
         .resize(1000) // Změňte rozměry podle potřeby
@@ -71,7 +72,7 @@ router.post('/', verify, requsetHelper, upload.any(), async (req, res) => {
                 const reqData = {
                     path: compressedImagePath,
                     size: (await fs.promises.stat(compressedImagePath)).size,
-                    destination: './public/uploads',
+                    destination: process.env.NODE_ENV === "production" ? "/srv/uploads" : './public/uploads/',
                     filename: path.basename(compressedImagePath),
                     folderCode: req.body.folderCode,
                     width: imageMetadata.width,
