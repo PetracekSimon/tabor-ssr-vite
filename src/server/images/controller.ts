@@ -156,6 +156,7 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
     //HDS 3 (return response)
     res.send(dataOut);
 });
+
 router.get('/:id', verify, async (req, res) => {
     let validate = ImageTypes.get.validate(req.params);
     if (validate.error?.details) {
@@ -169,6 +170,7 @@ router.get('/:id', verify, async (req, res) => {
     }
     res.sendFile(process.cwd() + image.destination.replace('./', '/') + '/' + image.filename);
 });
+//TODO: přehodit to do složky nad projektem 
 router.get('/', async (req, res) => {
     //HDS 1 (body validation)
     let reqData = Object.keys(req.body).length === 0 ? req.query : req.body;

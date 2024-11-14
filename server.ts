@@ -86,6 +86,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
     console.error(e);
   });
   mongodb.once('open', () => {
+    console.log(__dirname);
     console.log('\x1b[32mConnected to db\x1b[0m');
   });
 

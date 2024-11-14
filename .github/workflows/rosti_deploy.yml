@@ -7,6 +7,7 @@ on: [push, pull_request]
 jobs:
     deploy:
       runs-on: ubuntu-latest
+      environment: rosti
       env:
         HOST: ssh.rosti.cz
         USER: app
@@ -23,10 +24,12 @@ jobs:
       - name: Setup hostkey
         run: |
           echo "ssh.rosti.cz ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYNGgc4GMEUzgVscdowrM93RmrRLlQ/dblhpCKnYiE7/sLaO2m5/i8vgmOS8VzogT4CbP6MHmghKVuEA6rRb1OXvl8suBhrCe3kjD4BjcJB6+RpLMteMGz5EOFKJouTyf0qBQqltD9DBsga/IdhX7EyfyTsgzDuMadwCStS/XGwm17x1U77zdf3Lop70pu4mXS+ryNTW2t6m+oEHLYoDZ6en5TnBGACT8G6Xet4hy9vLly88lmKvzK93m81zqQmDeIyJNhdpy9h/qi9J1sZ8jeRAww8E/LMOMvaqzlL2J0AFb3O80scFTPx/LLrBNbEJ1KfzbM4sQxrsH0gG+/mBnP" > ./known_hosts
-      - name: env
+      - name: Create .env file
         run: |
-          cat << EOF > .env
-          ${{ secrets.ENV }}
+          cat <<EOF > .env
+          DATABASE_URL_CLOUD=${{ secrets.DATABASE_URL_CLOUD }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          PROJECT_NAME=${{ secrets.PROJECT_NAME }}
           EOF
       - name: Dependencies
         run: |
