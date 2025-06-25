@@ -4,6 +4,7 @@ const folderTypes = {
   create: Joi.object({
     name: Joi.string().required(),
     parentFolderCode: Joi.string().required(),
+    order: Joi.number().required()
   }),
   delete: Joi.object({
     code: Joi.string().required(),

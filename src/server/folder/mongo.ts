@@ -2,19 +2,25 @@ import { mongoHelper } from "../helpers/mongo-helper.js";
 import FolderModel from "./model.js";
 
 class FolderMongo {
-  async list(filter = {}, pageInfo: any) {
-    pageInfo = mongoHelper(pageInfo);
+async list(filter = {}, pageInfo: any) {
+  pageInfo = mongoHelper(pageInfo);
 
-    let page = {
-      skip: pageInfo.pageIndex * pageInfo.itemsAmount,
-      limit: pageInfo.itemsAmount,
-    };
-    let total = await FolderModel.countDocuments(filter);
-    return {
-      itemList: await FolderModel.find(filter, "", page),
-      pageInfo: { ...pageInfo, total },
-    };
-  }
+  const page = {
+    skip: pageInfo.pageIndex * pageInfo.itemsAmount,
+    limit: pageInfo.itemsAmount,
+  };
+
+  const total = await FolderModel.countDocuments(filter);
+
+  const itemList = await FolderModel.find(filter, "", page)
+    .sort({ order: 1 }); // řazení podle "order" vzestupně
+
+  return {
+    itemList,
+    pageInfo: { ...pageInfo, total },
+  };
+}
+
   async get(id: string) {
     return await FolderModel.findById(id);
   }

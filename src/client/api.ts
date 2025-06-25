@@ -236,13 +236,14 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
      * @param token 
      * @returns 
      */
-    public createFolder = (name: string, parentFolderCode: string, token: string) => {
+    public createFolder = (name: string, order: number, parentFolderCode: string, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/folder`,
             method: HttpMethods.POST,
             type: ContentType.Json,
             body: {
                 name,
+                order,
                 parentFolderCode
             },
             headers: {

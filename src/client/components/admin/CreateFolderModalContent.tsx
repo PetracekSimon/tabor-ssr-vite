@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface DeleteImageModalContentProps {
-    onConfirm: (newFolder: string) => Promise<void>;
+    onConfirm: (newFolder: string, folderOrder: number) => Promise<void>;
     onCancel: () => void;
 }
 
@@ -11,13 +11,14 @@ interface DeleteImageModalContentProps {
 const DeleteImageModalContent = ({ onConfirm, onCancel }: DeleteImageModalContentProps) => {
 
     const [folderName, setFolderName] = useState<string>("");
+    const [folderOrder, setFolderOrder] = useState<number>(0);
 
     const handleCreateFolder = () => {
         if (!folderName) {
             return;
         }
 
-        toast.promise(onConfirm(folderName), {
+        toast.promise(onConfirm(folderName, folderOrder), {
             success: `Složka ${folderName} byla úspěšně vytvořena.`,
             error: "Složku se nepodařilo vytvoři.",
             pending: "Vytváření složky " + folderName
@@ -39,6 +40,21 @@ const DeleteImageModalContent = ({ onConfirm, onCancel }: DeleteImageModalConten
                     placeholder="Zadejte název složky"
                     value={folderName}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setFolderName(e.target.value)}
+                    autoComplete='off'
+                />
+            </div>
+
+            <div className="mb-4 p-4">
+                <label className="block text-slate-800 dark:text-white dark text-sm font-bold mb-2" htmlFor="folderName">
+                    Pořadí
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-800 leading-tight focus:outline-none focus:shadow-outline dark:bg-slate-900 dark:text-white dark:border-slate-600"
+                    id="folderOrder"
+                    type="number"
+                    placeholder="Zadejte pořadí složky"
+                    value={folderOrder}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setFolderOrder(Number(e.target.value))}
                     autoComplete='off'
                 />
             </div>

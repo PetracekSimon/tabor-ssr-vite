@@ -26,6 +26,14 @@ const folderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-});
+
+  /**
+   * Pořadí
+   */
+  order: {
+    type: Number,
+    require: true
+  }
+}, { timestamps: true });
 
 export default mongoose.model("Folder", folderSchema);

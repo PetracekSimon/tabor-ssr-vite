@@ -46,7 +46,7 @@ const compressAndSaveImage = async (file: any): Promise<string> => {
     : `./public/uploads/${filename}`;
 
     await sharp(file.buffer)
-        .resize(1000) // Změňte rozměry podle potřeby
+        .resize(1920) // Změňte rozměry podle potřeby
         .jpeg({ quality: 80 }) // Nastavte kvalitu podle potřeby
         .toFile(outputPath);
 

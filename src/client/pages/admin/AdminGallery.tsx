@@ -63,12 +63,12 @@ const AdminGallery = () => {
     setImages(images.filter(image => image._id !== imageToRemove._id));
   }
 
-  const handleCreateFolder = async (newFolderName: string): Promise<void> => {
-    const createdFolder = await api.createFolder(newFolderName, selectedFolder, token);
+  const handleCreateFolder = async (newFolderName: string, newFolderOrder: number): Promise<void> => {
+    const createdFolder = await api.createFolder(newFolderName, newFolderOrder, selectedFolder, token);
     setFolders([...folders, createdFolder.data])
   }
 
-  const handleUpdateImage = async (description: string): Promise<void> =>{
+  const handleUpdateImage = async (description: string): Promise<void> => {
     if (!handledImage) {
       throw new Error("Není definován handledImage");
     }
