@@ -11,7 +11,7 @@ const About = () => {
     <>
       <PageTitle title={" | O táboře"} />
       <div>
-        <Hero title="O táboře" subtitle="Stanový tábor Kamenná 2025" background="/assets/dummy.jpg" />
+        <Hero title="O táboře" subtitle="Stanový tábor Kamenná 2025" background="/assets/hero.jpg" />
 
         <section id="MetaInfo" className="section-anchor">
           <div className="container mx-auto">

@@ -16,7 +16,7 @@ const Gallery = () => {
         <>
         <PageTitle title={" | Galerie"} />
         <div className="flex bg-white-100 font-sans items-center flex-col">
-            <Hero title="Galerie" subtitle={config.heroSubtitle} background="/assets/dummy.jpg" />
+            <Hero title="Galerie" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
             <ImageGallery folder={folder ? folder : "root"} />
         </div>
         </>

@@ -12,7 +12,7 @@ const Home = () => {
     <>
      <PageTitle title="" />
       <div className="flex bg-white-100 font-sans items-center flex-col">
-        <Hero title="Stanový tábor Kamenná" subtitle="2025" background="/assets/dummy.jpg" />
+        <Hero title="Stanový tábor Kamenná" subtitle="2025" background="/assets/hero.jpg" />
         <Container>
           <div className="py-12">
             Milí mušketýři,

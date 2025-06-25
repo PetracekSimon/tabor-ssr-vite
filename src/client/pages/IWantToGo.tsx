@@ -11,7 +11,7 @@ const IWantToGo = () => {
         <>
             <PageTitle title={" | Chci jet"} />
             <div>
-                <Hero title="Chci jet" subtitle={config.heroSubtitle} background="/assets/dummy.jpg" />
+                <Hero title="Chci jet" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
                 <section id="Vseobecne-informace" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Všeobecné informace</h2>

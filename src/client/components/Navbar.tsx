@@ -12,9 +12,9 @@ export const Navbar = () => {
   return (
     <div className="navbar-main flex justify-between items-center p-4 bg-light-100 sticky top-0 z-50 backdrop-blur-md px-8">
       <div className="navbar-main__item navbar-main__item--logo text-3xl font-bold">
-        <a href="/">
-          <span>LST</span>
-        </a>
+        <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/">
+              LST
+        </NavLink>
       </div>
       <div className="hamburger-menu" onClick={toggleMenu}>
         <div className={`bar ${isOpen ? "open" : ""}`}></div>
@@ -22,20 +22,29 @@ export const Navbar = () => {
         <div className={`bar ${isOpen ? "open" : ""}`}></div>
       </div>
       <ul className={`menu flex-col ${isOpen ? "open" : "hidden"} md:flex-row md:flex gap-4`}>
-        <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={() => setIsOpen(false)} to="/">Aktuálně</NavLink>
+        <li className="navbar-main__item text-xl ">
+          <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/">
+            Aktuálně
+          </NavLink>
         </li>
-        <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={() => setIsOpen(false)} to="/o-tabore">O táboře</NavLink>
+        <li className="navbar-main__item text-xl ">
+          <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/o-tabore">
+            O táboře
+          </NavLink>
         </li>
-        <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={() => setIsOpen(false)} to="/prubeh-tabora">Průběh tábora</NavLink>
+        <li className="navbar-main__item text-xl ">
+          <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/prubeh-tabora">
+            Průběh tábora
+          </NavLink>
         </li>
-        <li className="navbar-main__item text-xl font-bold">
-          <NavLink onClick={() => setIsOpen(false)} to="/chci-jet">Chci jet</NavLink>
+        <li className="navbar-main__item text-xl ">
+          <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/chci-jet">
+            Chci jet
+          </NavLink>
         </li>
+        {/* 
         <li className="navbar-main__item group relative dropdown">
-          <NavLink to="/galerie" className="text-xl font-bold">Galerie</NavLink>
+          <NavLink to="/galerie" className="text-xl ">Galerie</NavLink>
           <div className="group-hover:block dropdown-menu absolute hidden h-auto right-0">
             <ul className="top-0 w-35 bg-light pt-4 text-right">
               <li className="py-1 navbar-main__item navbar-main__item--child">
@@ -61,6 +70,12 @@ export const Navbar = () => {
               </li>
             </ul>
           </div>
+        </li> 
+        */}
+        <li className="navbar-main__item text-xl ">
+          <NavLink className={({ isActive }) => isActive ? "active" : ""} to="/galerie/2025">
+            Galerie
+          </NavLink>
         </li>
       </ul>
     </div>

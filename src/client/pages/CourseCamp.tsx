@@ -12,7 +12,7 @@ const CourseCamp = () => {
         <>
             <PageTitle title={" | Průběh tábora"} />
             <div>
-                <Hero title="Průběh tábora" subtitle={config.heroSubtitle} background="/assets/dummy.jpg" />
+                <Hero title="Průběh tábora" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
 
                 <section id="Stravovani" className="section-anchor">
                     <div className="container mx-auto">
