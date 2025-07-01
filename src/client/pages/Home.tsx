@@ -27,10 +27,12 @@ const Home = () => {
             Vaše faraonova družina
           </div>
 
+          {/*
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center mt-8 text-center md:text-left">
             <h2 className="text-2xl font-bold">Do tábora zbývá už jen!</h2>
             <h1 className="text-4xl font-bold text-center"><Countdown targetDate={new Date("2025-06-30T09:00:00")} /></h1>
           </div>
+          */}
 
           <ImageGallery folder="2025" />
 
