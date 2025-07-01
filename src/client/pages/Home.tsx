@@ -21,7 +21,7 @@ const Home = () => {
             <br />
             Slunce nad táborem Kamenná už svítí naplno a naši mladí dobrodruzi se vydali na cestu do dávného Egypta! Všechno je v plném proudu - stany stojí, výpravy vyrážejí a v písku už se objevují první stopy tajemných hieroglyfů.
             <br />
-            Děti se proměnily v badatele, kteří zkoumají pyramidy, odhalují skryté chodby a řeší záhady starověkých svitků. Už jsme se potkali se Mumií, rozluštili pár zapeklitých šifer a začíná být jasné, že faraon bude potřebovat opravdu schopné pomocníky!
+            Děti se proměnily v badatele, kteří zkoumají pyramidy, odhalují skryté chodby a řeší záhady starověkých svitků. Už jsme se potkali s Mumií, rozluštili pár zapeklitých šifer a začíná být jasné, že faraon bude potřebovat opravdu schopné pomocníky!
             <br />
             <br />
             Vaše faraonova družina
