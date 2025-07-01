@@ -98,7 +98,7 @@ const Lightbox = (props: PropsWithChildren) => {
                             alt={`Obrázek ${currentImage + 1}`}
                         />
                         {/* TODO: */}
-                        {images[currentImage].label && (<span>{images[currentImage].label}</span>)}
+                        {images[currentImage].label && (<span className='text-white'>{images[currentImage].label}</span>)}
                         <button className="lightbox-prev" onClick={handlePrev}>❮</button>
                         <button className="lightbox-next" onClick={handleNext}>❯</button>
                     </div>
