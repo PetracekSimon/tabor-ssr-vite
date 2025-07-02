@@ -13,7 +13,7 @@ async list(filter = {}, pageInfo: any) {
   const total = await FolderModel.countDocuments(filter);
 
   const itemList = await FolderModel.find(filter, "", page)
-    .sort({ order: 1 }); // řazení podle "order" vzestupně
+    .sort({ order: -1 }); // řazení podle "order" sestupně
 
   return {
     itemList,
