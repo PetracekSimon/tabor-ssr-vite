@@ -160,6 +160,7 @@ export interface Folder {
     _id: string;
     name: string;
     code: string;
+    order: number;
 }
 
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
@@ -202,6 +203,18 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
         });
     }
 
+    public updateFolder = (code: string, name: string, order: number, token: string) => {
+
+        return this.request<any>({
+            path: `${this.apiUrl}/folder/`,
+            method: HttpMethods.PATCH,
+            type: ContentType.Json,
+            body: { code, name, order },
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
     public updateImageDescription = (description: string, id: string, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/image/updateDescription`,

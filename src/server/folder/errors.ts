@@ -46,6 +46,20 @@ const Errors = {
       });
     }
   },
+  Update: {
+    InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
+      return res.status(400).json({
+        errMessage: { cs: "Data na vstupu nejsou validní." },
+        error,
+      });
+    },
+    DatabaseFailed: (res: Response, error: unknown): Response<ErrorResponse> => {
+      return res.status(400).json({
+        errMessage: { cs: "Databáze přestala odpovídat." },
+        error,
+      });
+    }
+  },
   List: {
     InvalidBody: (res: Response, error: unknown): Response<ErrorResponse> => {
       return res.status(400).json({
