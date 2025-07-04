@@ -44,6 +44,11 @@ export default [
     },
     {
         path: '/api/folder/',
+        method: 'patch',
+        roles: ['SuperAdmin', 'Admin'],
+    },
+    {
+        path: '/api/folder/',
         method: 'delete',
         roles: ['SuperAdmin', 'Admin'],
     },

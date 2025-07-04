@@ -1,5 +1,9 @@
-import { Dispatch, SetStateAction, useEffect } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Api, Folder } from "../../api";
+import Modal from "../Modal";
+import UpdateFolderModalContent from "./UpdateFolderModalContent";
+import { useAppStore } from "../../ZustandContext";
+
 
 
 interface AdminFolderListProps {
@@ -38,6 +42,18 @@ const HomeIcon = () => (
 const AdminFolderList = (props: AdminFolderListProps) => {
     const api = new Api();
 
+    const [showFolderUpdateModal, setShowFolderUpdateModal] = useState(false);
+    const [handledFolder, setHandledFolder] = useState<Folder>();
+    const { token } = useAppStore();
+
+  const handleUpdateFolder = async (code: string, name: string, order: number): Promise<void> => {
+    if (!handledFolder) {
+      throw new Error("Není definován handledImage");
+    }
+
+    await api.updateFolder(code, name, order, token);
+  }
+
     useEffect(() => {
         const fetchFolders = async () => {
             try {
@@ -50,6 +66,12 @@ const AdminFolderList = (props: AdminFolderListProps) => {
 
         fetchFolders();
     }, [props.selecteFolder]);
+
+    const openUpdateFolderModal = (folder: Folder) => {
+        setShowFolderUpdateModal(true);
+        setHandledFolder(folder);
+
+    }
 
     return (
         <>
@@ -76,17 +98,42 @@ const AdminFolderList = (props: AdminFolderListProps) => {
             </nav>
             <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {props.folders.map((folder) => (
-                    <li key={folder._id} className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer" onClick={() => props.handleFolder(false, false, 0, { name: folder.name, code: folder.code, _id: folder._id })}>
-                        <FolderIcon />
-                        <span className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate w-full text-center">{folder.name}</span>
+                    <li key={folder._id} className="relative" >
+                        <button
+                            onClick={() => openUpdateFolderModal(folder)}
+                            className="p-1 bg-white rounded-full shadow-md hover:bg-gray-100 absolute top-2 right-2"
+                            title="Upravit"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </button>
+                        <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer" onClick={() => props.handleFolder(false, false, 0, { name: folder.name, code: folder.code, _id: folder._id, order: folder.order })}>
+                            <FolderIcon />
+                            <span className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate w-full text-center">{folder.name}</span>
+                        </div>
                     </li>
                 ))}
                 <li className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer" onClick={() => props.setCreateFolderModal(true)}>
                     <FolderAddIcon />
                     <span className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate w-full text-center">Nová složka</span>
                 </li>
-            </ul>
+            </ul >
 
+
+            <Modal
+                isOpen={showFolderUpdateModal}
+                onClose={() => setShowFolderUpdateModal(false)}
+                title="Upravit název složky"
+            >
+                <UpdateFolderModalContent 
+                    folderOrder={handledFolder?.order}
+                    folderName={handledFolder?.name}
+                    folderCode={handledFolder?.code}
+                    onConfirm={handleUpdateFolder}
+                    onCancel={() => setShowFolderUpdateModal(false)}
+                />
+            </Modal>
         </>
     )
 }

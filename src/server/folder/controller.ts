@@ -52,6 +52,28 @@ router.post('/', verify, requsetHelper, async (req, res) => {
     return res.send(dataOut);
 });
 
+router.patch('/', verify, requsetHelper, async (req, res) => {
+    //HDS 1 (body validation)
+    const validate = FolderTypes.update.validate(req.data);
+
+    if (validate.error?.details) {
+        //A1
+        return Errors.Update.InvalidBody(res, validate.error.details);
+    }
+
+    //HDS 2 (update folder object)
+    let dtoOut;
+    try {
+        dtoOut = await _mongo.updateByCode(req.data.code, { name: req.data.name, order: req.data.order });
+    } catch (error) {
+        //A2
+        return Errors.Update.DatabaseFailed(res, error);
+    }
+
+    //HDS 3 (return response)
+    return res.send(dtoOut);
+})
+
 router.delete('/', verify, requsetHelper, async (req, res) => {
     //HDS 1 (body validation)
     let validate = FolderTypes.delete.validate(req.data);

@@ -27,7 +27,7 @@ const folderTypes = {
   update: Joi.object({
     code: Joi.string().required(),
     name: Joi.string().required(),
-    parentFolderCode: Joi.string().required(),
+    order: Joi.number().required()
   }), 
 };
 
