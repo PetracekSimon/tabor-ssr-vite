@@ -16,15 +16,11 @@ const Home = () => {
         <Hero title="Stanový tábor Kamenná" subtitle="2025" background="/assets/hero.jpg" />
         <Container>
           <div className="py-12">
-            Expedice do Egypta začala!
+            Máváme Káhiře, všichni malý egyptologové jsou již na cestě domů.
+            <br /> 
+            Expedice byla zdařilá, špinavý jsou až za ušima připravte koupelny a pračky. 
             <br />
-            <br />
-            Slunce nad táborem Kamenná už svítí naplno a naši mladí dobrodruzi se vydali na cestu do dávného Egypta! Všechno je v plném proudu - stany stojí, výpravy vyrážejí a v písku už se objevují první stopy tajemných hieroglyfů.
-            <br />
-            Děti se proměnily v badatele, kteří zkoumají pyramidy, odhalují skryté chodby a řeší záhady starověkých svitků. Už jsme se potkali s Mumií, rozluštili pár zapeklitých šifer a začíná být jasné, že faraon bude potřebovat opravdu schopné pomocníky!
-            <br />
-            <br />
-            Vaše faraonova družina
+            Nejdřve zastavujeme v Radotíně a poté v Radlicích.
           </div>
 
           {/*
