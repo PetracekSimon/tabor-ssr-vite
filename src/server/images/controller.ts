@@ -3,6 +3,7 @@ import express from 'express';
 import Errors from './errors.js';
 import multer from 'multer';
 import fs from 'fs';
+import fsPromise from 'fs/promises';
 import sharp from 'sharp';
 import path from 'path';
 import ImageTypes from './types.js';
@@ -22,7 +23,8 @@ const _mongoFolder = new FolderMongo();
 const storage = multer.memoryStorage(); // Změna na memoryStorage
 
 const fileFilter = (_req: any, file: any, cb: any) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+    
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -40,15 +42,23 @@ const upload = multer({
 // Funkce pro kompresi a uložení obrázku
 const compressAndSaveImage = async (file: any): Promise<string> => {
     const filename = Date.now() + '-' + slugify(file.originalname);
-    
-    const outputPath = process.env.NODE_ENV === "production" 
-    ? `/srv/uploads/${filename}` 
-    : `./public/uploads/${filename}`;
+    const extension = path.extname(file.originalname).toLowerCase();
 
-    await sharp(file.buffer)
-        .resize(1920) // Změňte rozměry podle potřeby
-        .jpeg({ quality: 80 }) // Nastavte kvalitu podle potřeby
-        .toFile(outputPath);
+    const outputPath = process.env.NODE_ENV === "production"
+        ? `/srv/uploads/${filename}`
+        : `./public/uploads/${filename}`;
+
+        
+    if (file.mimetype === 'image/gif' || extension === '.gif') {
+        // Ulož GIF bez komprese
+        await fsPromise.writeFile(outputPath, file.buffer);
+    } else {
+
+        await sharp(file.buffer)
+            .resize(1920) // Změňte rozměry podle potřeby
+            .jpeg({ quality: 80 }) // Nastavte kvalitu podle potřeby
+            .toFile(outputPath);
+    }
 
     return outputPath;
 };
@@ -67,7 +77,7 @@ router.post('/', verify, requsetHelper, upload.any(), async (req, res) => {
     if (Array.isArray(req.files)) {
         for (const file of req.files) {
             try {
-                
+
                 const compressedImagePath = await compressAndSaveImage(file);
                 const imageMetadata = await sharp(compressedImagePath).metadata();
 
@@ -160,10 +170,10 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
     res.send(dataOut);
 });
 
-const _handleImagePath = (image: any) =>{
+const _handleImagePath = (image: any) => {
     if (process.env.NODE_ENV === "production") {
         return image.destination + '/' + image.filename;
-    } 
+    }
     return process.cwd() + image.destination.replace('./', '/') + '/' + image.filename;
 }
 router.get('/:id', verify, async (req, res) => {
