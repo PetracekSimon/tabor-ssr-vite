@@ -139,6 +139,10 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
     const filePath = path.join(__dirname, 'sitemap.xml');
     res.sendFile(filePath)
   })
+  app.get("/googled8047f4609639b77.html", (req,res) =>{
+    const filePath = path.join(__dirname, 'googled8047f4609639b77.html');
+    res.sendFile(filePath)
+  })
 
   app.use('/api/folder', (req, res, next) => {
     req.apiPath = '/api/folder';
