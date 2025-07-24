@@ -21,7 +21,7 @@
 
 .lightbox-content img {
     max-width: 90%;
-    max-height: 90%;
+    max-height: 100vh;
 }
 
 .lightbox-prev,
