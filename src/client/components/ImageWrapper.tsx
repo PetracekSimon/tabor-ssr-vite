@@ -5,7 +5,7 @@ interface ImageWrapperProps extends RenderImageProps { }
 
 const ImageWrapper = (props: ImageWrapperProps) => {
     return <div className="custom-image-wrapper">
-        <img src={props.src} alt={props.title} title={props.title} className="lightbox-image" />
+        <img loading="lazy" src={props.src} alt={props.title} title={props.title} className="lightbox-image" />
         <div className="text-xs text-left image-title">
             {props.title}
         </div>
