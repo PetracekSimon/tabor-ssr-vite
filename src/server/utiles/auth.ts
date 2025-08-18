@@ -54,5 +54,12 @@ export default async function (req: Request, res: Response, next: NextFunction) 
       });
     }
   }
+
+  // Pokud token existuje, tak ho pouze uložíme do req.user
+  if (token && !req.user) {
+    const verified: any = jwt.verify(token, process.env.JWT_SECRET as string);
+    req.user = await getUser(verified.id as string);
+  }
+
   next();
 }

@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 import AdminFolderList from "../../components/admin/AdminFolderList";
 import CreateFolderModalContent from "../../components/admin/CreateFolderModalContent";
 
+const ROOT_FOLDER: Folder = {code: "root", name: "Galerie", _id: "root", order: 0, isVisible: true};
 
 const AdminGallery = () => {
   const api = new Api();
@@ -21,7 +22,7 @@ const AdminGallery = () => {
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [createFolderModal, setCreateFolderModal] = useState<boolean>(false);
 
-  const [selectedFolder, setSelectedFolder] = useState<string>("root");
+  const [selectedFolder, setSelectedFolder] = useState<Folder>(ROOT_FOLDER);
   const [handledImage, setHandledImage] = useState<Image>();
   const [images, setImages] = useState<Image[]>([]);
   const [folders, setFolders] = useState<Folder[]>([]);
@@ -52,7 +53,7 @@ const AdminGallery = () => {
 
 
   const handleUpload = async (files: File[]): Promise<void> => {
-    const uploadedImages = await api.uploadImages(files, selectedFolder, token);
+    const uploadedImages = await api.uploadImages(files, selectedFolder.code, token);
     setImages([...images, ...uploadedImages.data]);
 
   };
@@ -64,7 +65,7 @@ const AdminGallery = () => {
   }
 
   const handleCreateFolder = async (newFolderName: string, newFolderOrder: number): Promise<void> => {
-    const createdFolder = await api.createFolder(newFolderName, newFolderOrder, selectedFolder, token);
+    const createdFolder = await api.createFolder(newFolderName, newFolderOrder, selectedFolder.code, token);
     setFolders([...folders, createdFolder.data])
   }
 
@@ -79,7 +80,7 @@ const AdminGallery = () => {
 
   const handleSelectedFolder = (isRoot: boolean, isBackFolder: boolean, slicedIndex: number, folder?: Folder): void => {
     if (isRoot) {
-      setSelectedFolder("root");
+      setSelectedFolder(ROOT_FOLDER);
       setCurrentPath([]);
       return
     }
@@ -91,15 +92,19 @@ const AdminGallery = () => {
 
     // Vracím se o složku víš (cd ..)
     if (isBackFolder) {
-      setSelectedFolder(folder.code);
+      setSelectedFolder(folder);
       setCurrentPath(currentPath.slice(0, slicedIndex));
       return;
     }
 
     // Vstupuju do složky (cd folder.code)
-    setSelectedFolder(folder.code);
+    setSelectedFolder(folder);
     setCurrentPath([...currentPath, folder])
 
+  }
+
+  const handleChangeFolderVisibility = () =>{
+    setSelectedFolder({...selectedFolder, isVisible: !selectedFolder.isVisible });
   }
 
   return (
@@ -115,15 +120,16 @@ const AdminGallery = () => {
           folders={folders}
           setFolders={setFolders}
           handleFolder={handleSelectedFolder}
-          selecteFolder={selectedFolder}
+          selectedFolder={selectedFolder}
           currentPath={currentPath}
           setCreateFolderModal={setCreateFolderModal}
+          setVisibilityCallback={handleChangeFolderVisibility}
         />
 
         <AdminImageList
           images={images}
           setImages={setImages}
-          folderCode={selectedFolder}
+          folderCode={selectedFolder.code}
           onDelete={setDeleteModal}
           onUpdate={setUpdateModal}
           setHandledImage={setHandledImage}

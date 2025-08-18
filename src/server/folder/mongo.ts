@@ -1,19 +1,25 @@
 import { mongoHelper } from "../helpers/mongo-helper.js";
 import FolderModel from "./model.js";
 
+type Role = "SuperAdmin" | "Admin" | "User" | "Public";
 class FolderMongo {
-  async list(filter = {}, pageInfo: any) {
+  async list(filter: Record<string, any> = {}, pageInfo: any, role: Role | undefined) {
     pageInfo = mongoHelper(pageInfo);
+
+    const showAll = role === "SuperAdmin" || role === "Admin";
+    if (!showAll) {
+      filter.isVisible = true; // only show visible folders for non-admin users
+    }
 
     const page = {
       skip: pageInfo.pageIndex * pageInfo.itemsAmount,
       limit: pageInfo.itemsAmount,
     };
 
+    
     const total = await FolderModel.countDocuments(filter);
-
-  const itemList = await FolderModel.find(filter, "", page)
-    .sort({ order: -1 }); // řazení podle "order" sestupně
+    const itemList = await FolderModel.find(filter, "", page)
+      .sort({ order: -1 }); // řazení podle "order" sestupně
 
     return {
       itemList,

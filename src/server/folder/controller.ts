@@ -73,6 +73,27 @@ router.patch('/', verify, requsetHelper, async (req, res) => {
     //HDS 3 (return response)
     return res.send(dtoOut);
 })
+router.patch('/setVisibility', verify, requsetHelper, async (req, res) => {
+    //HDS 1 (body validation)
+    const validate = FolderTypes.setVisibility.validate(req.data);
+
+    if (validate.error?.details) {
+        //A1
+        return Errors.SetVisibility.InvalidBody(res, validate.error.details);
+    }
+
+    //HDS 2 (update folder object)
+    let dtoOut;
+    try {
+        dtoOut = await _mongo.updateByCode(req.data.code, { isVisible: req.data.isVisible });
+    } catch (error) {
+        //A2
+        return Errors.SetVisibility.DatabaseFailed(res, error);
+    }
+
+    //HDS 3 (return response)
+    return res.send(dtoOut);
+})
 
 router.delete('/', verify, requsetHelper, async (req, res) => {
     //HDS 1 (body validation)
@@ -90,7 +111,7 @@ router.delete('/', verify, requsetHelper, async (req, res) => {
         return Errors.Delete.FolderIsntEmpty(res)
     }
 
-    let subFolders = await _mongo.list({ parentFolderCode: req.data.code }, req.data.pageInfo);
+    let subFolders = await _mongo.list({ parentFolderCode: req.data.code }, req.data.pageInfo, undefined);
     if (subFolders.itemList.length) {
         //A3 (folder contains subfolders)
         return Errors.Delete.FolderIsntEmpty(res)
@@ -120,7 +141,7 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
     //HDS 2 (find all discounts)
     let dataOut;
     try {
-        dataOut = await _mongo.list(req.data.filter, req.data.pageInfo);
+        dataOut = await _mongo.list(req.data.filter, req.data.pageInfo, req.user ? req.user.role : undefined);
     } catch (error) {
         console.log(error);
 
@@ -152,7 +173,8 @@ router.get('/', async (req, res) => {
     res.send(dataOut);
 });
 
-router.get('/getImagesForGalleryPage', requsetHelper, async (req, res) => {
+router.get('/getImagesForGalleryPage', verify, requsetHelper, async (req, res) => {
+
     //HDS 1 (body validation)
     let validate = FolderTypes.getImagesForGalleryPage.validate(req.data);
 
@@ -163,15 +185,17 @@ router.get('/getImagesForGalleryPage', requsetHelper, async (req, res) => {
 
     //HDS 2 (find subfolders + transforms)
     const dtoOut: any = [];
-    const subFolders = await _mongo.list({ parentFolderCode: req.data.filter.code }, req.data.pageInfo);
+    const subFolders = await _mongo.list({ parentFolderCode: req.data.filter.code }, req.data.pageInfo, req.user ? req.user.role : undefined);
 
     const subFoldersCodes = subFolders.itemList.map(folder => folder.code)
     const subFoldersData: LooseObject = {};
     subFolders.itemList.forEach(folder => {
-        subFoldersData[folder.code] = folder.name;
+        subFoldersData[folder.code] = { name: folder.name, isVisible: folder.isVisible };
+
     })
 
     //HDS 3 (find images IN subFolderCodes[])
+    //TODO: make lazy loading
     const imagesWithFolderInfo = await _imageMongo.getImagesWithFolderInfo(subFoldersCodes);
 
 
@@ -182,8 +206,9 @@ router.get('/getImagesForGalleryPage', requsetHelper, async (req, res) => {
         });
 
         dtoOut.push({
-            folderName: subFoldersData[folderCode],
+            folderName: subFoldersData[folderCode].name,
             folderCode: folderCode,
+            folderIsVisible: subFoldersData[folderCode].isVisible,
             images: folderedImages
         })
     });

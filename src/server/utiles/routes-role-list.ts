@@ -36,7 +36,7 @@ export default [
         roles: ['SuperAdmin'],
     },
     //! user: end
-    //! image: start
+    //! folder: start
     {
         path: '/api/folder/',
         method: 'post',
@@ -44,6 +44,11 @@ export default [
     },
     {
         path: '/api/folder/',
+        method: 'patch',
+        roles: ['SuperAdmin', 'Admin'],
+    },
+    {
+        path: '/api/folder/setVisibility',
         method: 'patch',
         roles: ['SuperAdmin', 'Admin'],
     },
@@ -67,7 +72,7 @@ export default [
         method: 'get',
         roles: ['Public'],
     },
-    //! image: end
+    //! folder: end
     //! image: start
     {
         path: '/api/image/',
@@ -81,6 +86,11 @@ export default [
     },
     {
         path: '/api/image/list',
+        method: 'get',
+        roles: ['Public'],
+    },
+    {
+        path: '/api/image/thumbnail/:id',
         method: 'get',
         roles: ['Public'],
     },

@@ -29,6 +29,9 @@ const imageSchema = new mongoose.Schema({
         type: String,
         maxlength: 500,
     },
+    thumbnailPath: {
+        type: String,
+    },
 });
 
 export default mongoose.model('Image', imageSchema);

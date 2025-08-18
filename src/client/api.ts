@@ -150,6 +150,7 @@ export type ListResponse<T> = {
 
 export interface Image {
     _id: string;
+    thumbnailPath?: string;
     filename: string;
     description: string;
     width: string,
@@ -161,6 +162,7 @@ export interface Folder {
     name: string;
     code: string;
     order: number;
+    isVisible: boolean;
 }
 
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
@@ -203,6 +205,18 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
         });
     }
 
+    public setFolderVisibility = (code: string, isVisible: boolean, token: string) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/folder/setVisibility`,
+            method: HttpMethods.PATCH,
+            type: ContentType.Json,
+            body: { code, isVisible },
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+
     public updateFolder = (code: string, name: string, order: number, token: string) => {
 
         return this.request<any>({
@@ -226,20 +240,26 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             }
         });
     }
-    public getFolderList = (data: any) => {
+    public getFolderList = (data: any, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/folder/list`,
             method: HttpMethods.GET,
             type: ContentType.UrlEncoded,
             query: data,
+            headers: {
+                "auth-token": `${token}`
+            }
         });
     }
-    public getImagesForGalleryPage = (data: any) => {
+    public getImagesForGalleryPage = (data: any, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/folder/getImagesForGalleryPage`,
             method: HttpMethods.GET,
             type: ContentType.UrlEncoded,
             query: data,
+            headers: {
+                "auth-token": `${token}`
+            }
         });
     }
     /**

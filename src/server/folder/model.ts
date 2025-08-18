@@ -20,6 +20,14 @@ const folderSchema = new mongoose.Schema({
   },
 
   /**
+   * Příznak zda je složka viditělná
+   */
+  isVisible: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
    * Kód nadřazené složky
    */
   parentFolderCode: {

@@ -7,6 +7,7 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import ImageWrapper from "./ImageWrapper";
 import Lightbox from "./Lightbox";
+import { useAppStore } from "../ZustandContext";
 
 type ImageGalleryProps = {
     folder: string;
@@ -15,6 +16,7 @@ type ImageGalleryProps = {
 interface ImageGalleryStructure {
     folderCode: string,
     folderName: string,
+    folderIsVisible: boolean,
     images: Image[]
 }
 
@@ -26,6 +28,8 @@ const ImageGallery = (props: ImageGalleryProps) => {
 
     const [imageStructure, setImageStucture] = useState<Array<ImageGalleryStructure>>([]);
 
+    const { token } = useAppStore();
+
     useEffect(() => {
         setImageStucture([]);
         setIsLoading(true);
@@ -33,7 +37,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
         const fetchFolders = async () => {
             let _imageStructure: Array<ImageGalleryStructure> = [];
             try {
-                const test = await api.getImagesForGalleryPage({ filter: { code: props.folder } });
+                const test = await api.getImagesForGalleryPage({ filter: { code: props.folder } }, token);
                 _imageStructure = test.data;
             } catch (error) {
                 console.error("Chyba při načítání složek:", error);
@@ -47,21 +51,11 @@ const ImageGallery = (props: ImageGalleryProps) => {
     }, [props.folder]);
 
 
-    const createImages = (images: Image[]) => {
-        const imagesHTML = images.map(image =>
-            <div className="image-gallery__item" key={image._id}>
-                <img src={"/api/image/" + image._id} alt={image.filename} />
-                <span>{image.description}</span>
-            </div>
-        );
-
-        return imagesHTML;
-    }
-    const createFolderTitle = (folderName: string, folderCode: string) => {
+    const createFolderTitle = (folderName: string, folderCode: string, folderIsVisible: boolean) => {
         if (props.folder === "root") {
-            return <Link className="text-left text-2xl font-bold text-butter-cup" to={"/galerie/" + folderCode}>{folderName}</Link>
+            return <Link className={`text-left text-2xl font-bold ${folderIsVisible ? "text-butter-cup" : "text-gray-400"}`} to={"/galerie/" + folderCode}>{folderName}</Link>
         }
-        return <h2 className="text-left text-2xl font-bold text-butter-cup">{folderName}</h2>
+        return <h2 className={`text-left text-2xl font-bold ${folderIsVisible ? "text-butter-cup" : "text-gray-400"}`}>{folderName}</h2>
     }
 
     const mapImageToPhoto = (images: Image[]): Photo[] => {
@@ -71,7 +65,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
         //@ts-expect-error
         const photos: Photo[] = images.map(image => {
             return {
-                src: "/api/image/" + image._id,
+                src: image.thumbnailPath ? "/api/image/thumbnail/" + image._id : "/api/image/" + image._id,
                 width: image.width,
                 height: image.height,
                 alt: image._id,
@@ -79,7 +73,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
                 label: image.description,
                 title: image.description,
                 srcSet: breakpoints.map((breakpoint) => ({
-                    src: "/api/image/" + image._id,
+                    src: "/api/image/thumbnail/" + image._id,
                     width: breakpoint,
                     height: Math.round((Number(image.height) / Number(image.width)) * breakpoint),
                 })),
@@ -98,7 +92,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
 
                 return (
                     <div key={item.folderCode} className="!mt-10">
-                        {createFolderTitle(item.folderName, item.folderCode)}
+                        {createFolderTitle(item.folderName, item.folderCode, item.folderIsVisible)}
 
                         <hr className="border-t border-gray-300 my-4" />
 
@@ -107,6 +101,9 @@ const ImageGallery = (props: ImageGalleryProps) => {
                             render={{
                                 image: (props: RenderImageProps) => <ImageWrapper title={props.title} src={props.src} />
                             }}
+                            componentsProps={() => ({
+                                image: { loading: "lazy" },
+                            })}
                             targetRowHeight={300}
                             onClick={({ index: current }) => setIndex(current)}
                         />

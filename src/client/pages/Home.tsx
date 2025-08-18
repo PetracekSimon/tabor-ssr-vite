@@ -28,8 +28,6 @@ const Home = () => {
             <h1 className="text-4xl font-bold text-center"><Countdown targetDate={new Date("2026-06-30T09:00:00")} /></h1>
           </div>
 
-          {/* <ImageGallery folder="2025" /> */}
-
         </Container>
       </div>
     </>

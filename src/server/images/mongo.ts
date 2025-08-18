@@ -54,6 +54,7 @@ class ImageMongo {
                 destination: 1,
                 filename: 1,
                 description: 1,
+                thumbnailPath: 1,
                 "folderInfo.name": 1,        // Vrácení pouze názvu složky
                 "folderInfo.code": 1
               }

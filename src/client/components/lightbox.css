@@ -43,3 +43,15 @@
 .lightbox-next {
     right: 0;
 }
+
+.lightbox-close {
+    position: absolute;
+    color: black;
+    top: 10px;
+    right: calc(5% + 10px);
+    font-size: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    line-height: 1rem;
+    padding: .5rem;
+    border-radius: 50%;
+}

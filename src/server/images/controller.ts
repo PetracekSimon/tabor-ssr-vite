@@ -23,7 +23,7 @@ const _mongoFolder = new FolderMongo();
 const storage = multer.memoryStorage(); // Změna na memoryStorage
 
 const fileFilter = (_req: any, file: any, cb: any) => {
-    
+
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
         cb(null, true);
     } else {
@@ -48,7 +48,7 @@ const compressAndSaveImage = async (file: any): Promise<string> => {
         ? `/srv/uploads/${filename}`
         : `./public/uploads/${filename}`;
 
-        
+
     if (file.mimetype === 'image/gif' || extension === '.gif') {
         // Ulož GIF bez komprese
         await fsPromise.writeFile(outputPath, file.buffer);
@@ -59,6 +59,22 @@ const compressAndSaveImage = async (file: any): Promise<string> => {
             .jpeg({ quality: 80 }) // Nastavte kvalitu podle potřeby
             .toFile(outputPath);
     }
+
+    return outputPath;
+};
+// Funkce pro kompresi a  - THUMBNAIL
+const createImageThumbnail = async (file: any, originalFileName: string): Promise<string> => {
+    const filename = `thumbnail-${originalFileName}`
+
+    const outputPath = process.env.NODE_ENV === "production"
+        ? `/srv/uploads/${filename}`
+        : `./public/uploads/${filename}`;
+
+
+    await sharp(file.buffer)
+        .resize({ height: 340 }) // Změňte rozměry podle potřeby
+        .jpeg({ quality: 60 }) // Nastavte kvalitu podle potřeby
+        .toFile(outputPath);
 
     return outputPath;
 };
@@ -79,6 +95,7 @@ router.post('/', verify, requsetHelper, upload.any(), async (req, res) => {
             try {
 
                 const compressedImagePath = await compressAndSaveImage(file);
+                const imageThumbnailPath = await createImageThumbnail(file, path.basename(compressedImagePath));
                 const imageMetadata = await sharp(compressedImagePath).metadata();
 
                 const reqData = {
@@ -88,7 +105,8 @@ router.post('/', verify, requsetHelper, upload.any(), async (req, res) => {
                     filename: path.basename(compressedImagePath),
                     folderCode: req.body.folderCode,
                     width: imageMetadata.width,
-                    height: imageMetadata.height
+                    height: imageMetadata.height,
+                    thumbnailPath: imageThumbnailPath
                 };
                 const createdItem = await _mongo.create(reqData);
                 dataOut.push(createdItem);
@@ -133,7 +151,7 @@ router.delete('/', verify, requsetHelper, async (req, res) => {
     }
 
     //HDS 4 (delete image from disk)
-    let imagePath = `${image.destination}/${image.filename}`;
+    const imagePath = `${image.destination}/${image.filename}`;
     if (fs.existsSync(imagePath)) {
         fs.unlink(imagePath, (err) => {
             if (err) {
@@ -143,6 +161,20 @@ router.delete('/', verify, requsetHelper, async (req, res) => {
         });
     } else {
         //A6
+        return Errors.Delete.ImagePathDoesNotExists(res);
+    }
+
+    //HDS 5 (delete thumbnail from disk)
+    const thumbnailPath = `${image.destination}/thumbnail-${image.filename}`;
+    if (fs.existsSync(thumbnailPath)) {
+        fs.unlink(thumbnailPath, (err) => {
+            if (err) {
+                //A7
+                return Errors.Delete.DeleteImageFailedByFs(res, err);
+            }
+        });
+    } else {
+        //A8
         return Errors.Delete.ImagePathDoesNotExists(res);
     }
 
@@ -176,6 +208,12 @@ const _handleImagePath = (image: any) => {
     }
     return process.cwd() + image.destination.replace('./', '/') + '/' + image.filename;
 }
+const _handleImageThumbnailPath = (image: any) => {
+    if (process.env.NODE_ENV === "production") {
+        return image.destination + '/thumbnail-' + image.filename;
+    }
+    return process.cwd() + image.destination.replace('./', '/') + '/thumbnail-' + image.filename;
+}
 router.get('/:id', verify, async (req, res) => {
     let validate = ImageTypes.get.validate(req.params);
     if (validate.error?.details) {
@@ -189,6 +227,21 @@ router.get('/:id', verify, async (req, res) => {
     }
 
     res.sendFile(_handleImagePath(image));
+});
+
+router.get('/thumbnail/:id', verify, async (req, res) => {
+    let validate = ImageTypes.get.validate(req.params);
+    if (validate.error?.details) {
+        //A1
+        return Errors.Get.InvalidBody(res, validate.error.details);
+    }
+    let image = await _mongo.get(req.params.id);
+
+    if (!image) {
+        return Errors.Get.ImageDoesNotExists(res, req.params.id);
+    }
+
+    res.sendFile(_handleImageThumbnailPath(image));
 });
 
 router.get('/', async (req, res) => {

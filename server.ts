@@ -126,23 +126,21 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   const baseTemplate = await fs.readFile(isProd ? resolve("client/index.html") : resolve("index.html"), "utf-8");
   const productionBuildPath = path.join(__dirname, "./server/entry-server.js");
   const devBuildPath = path.join(__dirname, "./src/client/entry-server.tsx");
-  console.log("isProd:", isProd);
-  
   const buildModule = isProd ? productionBuildPath : devBuildPath;
   const { render } = await vite.ssrLoadModule(buildModule);
 
-  app.get("/robots.txt", (req,res) =>{
+  app.get("/robots.txt", (req, res) => {
     const filePath = path.join(__dirname, 'robots.txt');
     res.sendFile(filePath)
   });
-  app.get("/sitemap.xml", (req,res) =>{
+  app.get("/sitemap.xml", (req, res) => {
     const filePath = path.join(__dirname, 'sitemap.xml');
     res.sendFile(filePath)
-  })
-  app.get("/googled8047f4609639b77.html", (req,res) =>{
+  });
+  app.get("/googled8047f4609639b77.html", (req, res) => {
     const filePath = path.join(__dirname, 'googled8047f4609639b77.html');
     res.sendFile(filePath)
-  })
+  });
 
   app.use('/api/folder', (req, res, next) => {
     req.apiPath = '/api/folder';

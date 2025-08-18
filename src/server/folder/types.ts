@@ -29,6 +29,10 @@ const folderTypes = {
     name: Joi.string().required(),
     order: Joi.number().required()
   }), 
+  setVisibility: Joi.object({
+    code: Joi.string().required(),
+    isVisible: Joi.boolean().required()
+  }), 
 };
 
 export default folderTypes;
