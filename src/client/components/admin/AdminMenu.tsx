@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppStore } from "../../ZustandContext";
 
 const AdminMenu = () => {
-    const { loggedUser, logout } = useAppStore();
+    const { loggedUser, logout, setTheme, theme } = useAppStore();
     const [isMenuOpen, setIsMenuOpen] = useState(true);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,6 +32,14 @@ const AdminMenu = () => {
         navigate('/admin');
     };
 
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    }, [theme])
+
     return (
         <div className="absolute md:relative">
             <nav className={`w-[300px] h-screen relative top-0 left-0 shadow-md flex flex-col transition-all duration-300 z-50 bg-white dark:bg-slate-900 border-r dark:border-white border-slate-600
@@ -47,7 +56,7 @@ const AdminMenu = () => {
 
 
                     <button
-                        onClick={() => document.documentElement.classList.toggle('dark')}
+                        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
                         className="text-slate-600 dark:text-white hover:text-yellow-500 transition-colors mx-4"
                         title="Přepnout dark mode"
                     >

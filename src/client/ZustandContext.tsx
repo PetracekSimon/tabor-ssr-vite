@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+export type UserRole = 'SuperAdmin' | 'Admin' | 'User';
 interface LoggedUser {
   email: string;
-  role: string;
+  role: UserRole;
   verified: boolean;
 }
 
@@ -12,6 +13,8 @@ interface AppState {
   loggedUser: LoggedUser | null;
   loading: boolean;
   error: string | null;
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
   setToken: (token: string) => void;
   setLoggedUser: (user: LoggedUser | null) => void;
   setLoading: (loading: boolean) => void;
@@ -25,11 +28,14 @@ export const useAppStore = create<AppState>()(
       loggedUser: null,
       loading: false,
       error: null,
+      theme: "dark",
+      // Funkce pro nastavení tokenu
       setToken: (token: string) => set({ token }),
       setLoggedUser: (user: LoggedUser | null) => set({ loggedUser: user }),
       setLoading: (loading: boolean) => set({ loading }),
       setError: (error: string | null) => set({ error }),
       logout: () => set({ token: '', loggedUser: null }),
+      setTheme: (theme: 'light' | 'dark') => set({ theme }),
     }),
     {
       name: 'app-storage',

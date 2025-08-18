@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
+import { UserRole } from "./ZustandContext";
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -44,6 +45,12 @@ enum HttpMethods {
     DELETE = "DELETE",
 }
 
+export interface ApiError {
+    errMessage: {
+        cs: string;
+        en?: string
+    }
+}
 export class HttpClient<SecurityDataType = unknown> {
     public instance: AxiosInstance;
     private securityData: SecurityDataType | null = null;
@@ -168,6 +175,49 @@ export interface Folder {
 export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
 
     private apiUrl = "/api";
+
+    public userList(token: string) {
+        return this.request<ListResponse<any>>({
+            path: `${this.apiUrl}/user/list`,
+            method: HttpMethods.GET,
+            type: ContentType.Json,
+            headers: {
+                "auth-token": `${token}`
+            }
+        })
+    }
+
+    public createUser(email: string, password: string, role: UserRole, token: string) {
+        return this.request<ListResponse<any>>({
+            path: `${this.apiUrl}/user/register`,
+            method: HttpMethods.POST,
+            type: ContentType.Json,
+            body: {
+                email,
+                password,
+                role
+            },
+            headers: {
+                "auth-token": `${token}`
+            }
+        })
+    }
+
+    public updatePassword(oldPassword: string, newPassword: string, newPasswordConfirm: string, token: string) {
+        return this.request<ListResponse<any>>({
+            path: `${this.apiUrl}/user/updatePassword`,
+            method: HttpMethods.PATCH,
+            type: ContentType.Json,
+            body: {
+                oldPassword,
+                newPassword,
+                newPasswordConfirm
+            },
+            headers: {
+                "auth-token": `${token}`
+            }
+        })
+    }
 
     public imageList = (data: any) => {
         return this.request<any>({
