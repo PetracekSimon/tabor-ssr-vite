@@ -5,6 +5,9 @@ import { Api } from "../../api";
 import AdminChangePasswordForm from "../../components/admin/AdminChangePasswordForm";
 import AdminCreateUserForm from "../../components/admin/AdminCreateUserForm";
 import AdminUsersTable from "../../components/admin/AdminUsersTable";
+import Modal from "../../components/Modal";
+import DeleteUserModalContent from "../../components/admin/DeleteUserModalContent";
+import UpdateUserModalContent from "../../components/admin/UpdateUserModalContent";
 
 export type User = {
 	_id: string;
@@ -17,6 +20,9 @@ const AdminSettings = () => {
 	const navigate = useNavigate();
 
 	const [users, setUsers] = useState<User[]>([]);
+	const [deleteModal, setDeleteModal] = useState(false);
+	const [updateModal, setUpdateModal] = useState(false);
+	const [handledUser, setHandledUser] = useState<User | null>(null);
 
 	const api = new Api();
 
@@ -63,11 +69,24 @@ const AdminSettings = () => {
 
 
 
-	function handleUpdateUser(): void {
-		throw new Error("Function not implemented.");
+	function handleUpdateUser(userEmail: string, userRole: string, userPassword: string): Promise<any> {
+		return api.updateUser(handledUser?._id || "", userEmail, userRole, userPassword, token).then(() => {
+			handleLoadUsers();
+		});
 	}
-	function handleDeleteUser(): void {
-		throw new Error("Function not implemented.");
+	function handleDeleteUser(): Promise<any> {
+		return api.deleteUser(handledUser?._id || "", token).then(() => {
+			handleLoadUsers();
+		});
+	}
+
+	const openDeleteModal = (user: User) => {
+		setHandledUser(user);
+		setDeleteModal(true);
+	}
+	const openUpdateModal = (user: User) => {
+		setHandledUser(user);
+		setUpdateModal(true);
 	}
 
 	return (
@@ -76,8 +95,31 @@ const AdminSettings = () => {
 			<AdminChangePasswordForm />
 			{loggedUser?.role === "SuperAdmin" && <AdminCreateUserForm createUserCallback={handleLoadUsers} />}
 			{loggedUser?.role === "SuperAdmin" &&
-				<AdminUsersTable onDelete={handleDeleteUser} onEdit={handleUpdateUser} users={users} />
+				<AdminUsersTable onDelete={openDeleteModal} onEdit={openUpdateModal} users={users} />
 			}
+
+			<Modal
+				isOpen={deleteModal}
+				onClose={() => setDeleteModal(false)}
+				title="Smazat uživatele"
+			>
+				<DeleteUserModalContent
+					onConfirm={handleDeleteUser}
+					user={handledUser}
+					onCancel={() => setDeleteModal(false)}
+				/>
+			</Modal>
+			<Modal
+				isOpen={updateModal}
+				onClose={() => setUpdateModal(false)}
+				title="Upravit uživatele"
+			>
+				<UpdateUserModalContent
+					onConfirm={handleUpdateUser}
+					user={handledUser!}
+					onCancel={() => setUpdateModal(false)}
+				/>
+			</Modal>
 		</div>
 	);
 };

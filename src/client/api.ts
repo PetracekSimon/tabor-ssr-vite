@@ -219,6 +219,43 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
         })
     }
 
+    public deleteUser(id: string, token: string) {
+        return this.request<ListResponse<any>>({
+            path: `${this.apiUrl}/user/`,
+            method: HttpMethods.DELETE,
+            type: ContentType.Json,
+            body: {
+                id
+            },
+            headers: {
+                "auth-token": `${token}`
+            }
+        })
+    }
+
+    public updateUser(id: string, email: string, role: string, password: string, token: string) {
+        const body: { [key: string]: string } = {id: id};
+        if (password.length > 0) {
+            body['password'] = password;
+        }
+        if (email.length > 0) {
+            body['email'] = email;
+        }
+        if (role.length > 0) {
+            body['role'] = role;
+        }
+        
+        return this.request<ListResponse<any>>({
+            path: `${this.apiUrl}/user/`,
+            method: HttpMethods.PATCH,
+            type: ContentType.Json,
+            body,
+            headers: {
+                "auth-token": `${token}`
+            }
+        })
+    }
+
     public imageList = (data: any) => {
         return this.request<any>({
             path: `${this.apiUrl}/image/list`,

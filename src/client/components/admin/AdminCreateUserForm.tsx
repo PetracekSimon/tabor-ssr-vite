@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 import { toast } from "react-toastify";
-import { Api } from "../../api";
+import { Api, ApiError } from "../../api";
 import { useAppStore, UserRole } from "../../ZustandContext";
 
 interface AdminCreateUserFormProps {
@@ -16,11 +16,7 @@ const AdminCreateUserForm = (props: AdminCreateUserFormProps) => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
-        console.log(form);
-
         const formData = new FormData(form);
-        console.log(formData);
-
         const email = formData.get('fake-newUserEmailInput') as string;
         const role = formData.get('newUserRoleSelect') as UserRole;
         const password = formData.get('fake-newUserPasswordInput') as string;
@@ -30,7 +26,14 @@ const AdminCreateUserForm = (props: AdminCreateUserFormProps) => {
             {
                 pending: 'Vytvářím uživatele...',
                 success: 'Uživatel vytvořen 🎉',
-                error: 'Něco se pokazilo 😢',
+                error: {
+                    render(response) {
+                        const axiosError = response as { data: { response: { data: ApiError } } };
+                        const error = axiosError.data.response.data;
+
+                        return error?.errMessage?.cs || 'Něco se pokazilo 😢';
+                    }
+                }
             }
         ).then(() => {
             form.reset();

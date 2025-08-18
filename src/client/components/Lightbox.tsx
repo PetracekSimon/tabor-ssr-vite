@@ -35,9 +35,7 @@ const Lightbox = (props: PropsWithChildren) => {
 
     //TODO: udělat asynchronní fetch 
 
-    useEffect(() => {
-        console.log(images);
-        
+    useEffect(() => {        
         if (images.length) {
             images.forEach((img, index) => {
                 const imgEl = document.querySelector(`img[src="${img.src}"]`) as HTMLImageElement;

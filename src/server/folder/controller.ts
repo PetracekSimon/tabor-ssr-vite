@@ -143,8 +143,6 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
     try {
         dataOut = await _mongo.list(req.data.filter, req.data.pageInfo, req.user ? req.user.role : undefined);
     } catch (error) {
-        console.log(error);
-
         //A2
         return Errors.List.DatabaseFailed(res, error);
     }

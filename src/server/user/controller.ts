@@ -23,7 +23,6 @@ router.post('/login', verify, async (req, res) => {
     }
 
     //HDS 2 (check if email exists)
-    console.log('login');
     let user = await _mongo.getByEmail(req.body.email);
     if (!user) {
         //A2
@@ -162,11 +161,7 @@ router.patch('/', verify, requestHelper, async (req, res) => {
     }
 
     //HDS 2 (hash password)
-    let dataIn: any = {
-        password: null,
-        email: null,
-        role: null,
-    };
+    let dataIn: any = {};
     if (req.data.password) {
         const salt = await bcrypt.genSalt(13);
         dataIn.password = await bcrypt.hash(req.data.password, salt);
@@ -184,7 +179,7 @@ router.patch('/', verify, requestHelper, async (req, res) => {
     req.data.role ? (dataIn.role = req.data.role) : "";
 
     //HDS 5 (update user)
-    let dtoOut: any;
+    let dtoOut: any;    
     try {
         dtoOut = await _mongo.update(req.data.id, dataIn);
     } catch (error) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from "../../pages/admin/AdminSetting";
+import { useAppStore } from "../../ZustandContext";
 
 
 
@@ -10,6 +11,12 @@ interface UsersTableProps {
 }
 
 const UsersTable: React.FC<UsersTableProps> = ({ users, onEdit, onDelete }) => {
+
+    const isMe = (user: User) => {
+        const loggedUser = useAppStore.getState().loggedUser;
+        return loggedUser && user.email === loggedUser.email;
+    }
+
     return (
         <div className="overflow-x-auto">
             <table className="w-full table-auto border border-slate-300 dark:border-slate-700 rounded-2xl overflow-hidden">
@@ -39,7 +46,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, onEdit, onDelete }) => {
                                 {user.role}
                             </td>
                             <td className="px-4 py-3">
-                                <div className="flex items-center gap-2">
+                                {isMe(user) ? "" : <div className="flex items-center gap-2">
                                     <button
                                         type="button"
                                         onClick={() => onEdit(user)}
@@ -88,7 +95,8 @@ const UsersTable: React.FC<UsersTableProps> = ({ users, onEdit, onDelete }) => {
                                         </svg>
                                         <span className="hidden sm:inline">Smazat</span>
                                     </button>
-                                </div>
+                                </div>}
+
                             </td>
                         </tr>
                     ))}
