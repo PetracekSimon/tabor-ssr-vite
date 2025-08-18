@@ -20,15 +20,15 @@ const AdminChangePasswordForm = () => {
     const newPwAgain = formData.get('newPasswordConfirmInput') as string;
 
     await toast.promise(
-      api.updatePassword (oldPw, newPw, newPwAgain, token),
+      api.updatePassword(oldPw, newPw, newPwAgain, token),
       {
         pending: 'Měním heslo...',
         success: 'Heslo bylo úspěšně změněno 🎉',
         error: {
           render(response) {
-            const error = response.data.response.data as ApiError;
-            console.log(error);
-            
+            const axiosError = response as { data: { response: { data: ApiError } } };
+            const error = axiosError.data.response.data;
+
             return error?.errMessage?.cs || 'Něco se pokazilo 😢';
           }
         }
