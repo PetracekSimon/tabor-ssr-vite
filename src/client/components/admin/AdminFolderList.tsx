@@ -89,7 +89,7 @@ const AdminFolderList = (props: AdminFolderListProps) => {
             {
                 pending: "Ukládání",
                 error: "Něco se pokazilo",
-                success: "Uloženo"
+                success: "Viditelnost byla změněna"
             }
         ).then(() => {
             props.setVisibilityCallback()
