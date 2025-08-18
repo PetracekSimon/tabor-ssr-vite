@@ -17,7 +17,7 @@ const AdminLayout = ({ children }: PropsWithChildren) => {
                     </picture>
                 </div>
             </div>
-            <div className="admin-main px-4 relative z-10 w-full dark:bg-slate-900 bg-primary">
+            <div className="admin-main px-4 relative z-10 w-full dark:bg-slate-900 duration-100 bg-primary">
                 {children}
             </div>
         </div>

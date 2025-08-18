@@ -42,7 +42,7 @@ const AdminMenu = () => {
 
     return (
         <div className="absolute md:relative">
-            <nav className={`w-[300px] h-screen relative top-0 left-0 shadow-md flex flex-col transition-all duration-300 z-50 bg-white dark:bg-slate-900 border-r dark:border-white border-slate-600
+            <nav className={`w-[300px] h-screen relative top-0 left-0 shadow-md flex flex-col transition-all duration-100 z-50 bg-white dark:bg-slate-900 border-r dark:border-white border-slate-600
                             ${isMenuOpen ? 'translate-x-0' : '-translate-x-[300px]'}
                             sticky md:translate-x-0`}>
                 <div className="h-[150px] flex items-center justify-center border-b border-slate-600 dark:border-white">
