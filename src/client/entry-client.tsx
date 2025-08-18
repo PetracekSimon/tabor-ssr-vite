@@ -15,33 +15,18 @@ import AdminSettings from "./pages/admin/AdminSetting";
 import AdminHome from "./pages/admin/AdminHome";
 import NotFound from "./pages/404";
 import ScrollToTop from "./ScrollToTop";
-import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
+import ClientToastContainer from "./components/ClientToastContainer";
+import { initializeAuth } from "./ZustandContext";
 
 const container = document.getElementById("app");
+interface FullAppProps {
+  initialData?: any;
+}
+const FullApp = (initialData: FullAppProps) => {
 
-const FullApp = () => {
-
-  const [theme, setTheme] = useState<'dark' | 'light'>('light');
   useEffect(() => {
-    // Funkce, která zkontroluje, jestli <html> element obsahuje třídu "dark"
-    const checkTheme = () => {
-      if (document.documentElement.classList.contains('dark')) {
-        setTheme('dark');
-      } else {
-        setTheme('light');
-      }
-    };
-
-    // Při prvním renderu zkontrolujeme aktuální theme
-    checkTheme();
-    // Optionálně můžeš přidat listener pro změny třídy "dark" v <html> elementu (například při změně pomocí tlačítka).
-    // Příklad: naslouchání změně tématu
-    const observer = new MutationObserver(() => checkTheme());
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    // Cleanup funkce, která se provede při unmountu a odstraní observer
-    return () => observer.disconnect();
+    initializeAuth();
   }, []);
 
 
@@ -52,7 +37,7 @@ const FullApp = () => {
         <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout><Outlet /></PublicLayout>}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home initialData={initialData} />} />
             <Route path="/o-tabore" element={<About />} />
             <Route path="/prubeh-tabora" element={<CourseCamp />} />
             <Route path="/chci-jet" element={<IWantToGo />} />
@@ -68,18 +53,7 @@ const FullApp = () => {
           </Route>
         </Routes>
 
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme={theme} />
-
+        <ClientToastContainer />
       </BrowserRouter>
 
     </StrictMode>
@@ -90,5 +64,5 @@ if (import.meta.hot || !container?.innerText) {
   const root = createRoot(container!);
   root.render(<FullApp />);
 } else {
-  hydrateRoot(container!, <FullApp />);
+  hydrateRoot(container!, <FullApp initialData={(window as any).__INITIAL_DATA__} />);
 }

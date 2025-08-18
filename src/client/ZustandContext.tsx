@@ -10,6 +10,8 @@ interface LoggedUser {
 
 interface AppState {
   token: string;
+  tokenInicialized: boolean;
+  setTokenInicialized: (initialized: boolean) => void;
   loggedUser: LoggedUser | null;
   loading: boolean;
   error: string | null;
@@ -25,12 +27,14 @@ export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       token: '',
+      tokenInicialized: false,
       loggedUser: null,
       loading: false,
       error: null,
       theme: "dark",
       // Funkce pro nastavení tokenu
       setToken: (token: string) => set({ token }),
+      setTokenInicialized: (initialized: boolean) => set({ tokenInicialized: initialized }),
       setLoggedUser: (user: LoggedUser | null) => set({ loggedUser: user }),
       setLoading: (loading: boolean) => set({ loading }),
       setError: (error: string | null) => set({ error }),
@@ -58,7 +62,9 @@ export const useAppStore = create<AppState>()(
 // Funkce pro načtení tokenu při inicializaci aplikace
 export const initializeAuth = () => {
   const storedState = JSON.parse(sessionStorage.getItem('app-storage') || '{}');
-  if (storedState.state && storedState.state.token) {
+  if (storedState.state && storedState.state.token) {    
     useAppStore.getState().setToken(storedState.state.token);
   }
+  
+  useAppStore.getState().setTokenInicialized(true);
 };

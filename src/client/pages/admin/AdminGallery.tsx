@@ -29,29 +29,6 @@ const AdminGallery = () => {
   const [currentPath, setCurrentPath] = useState<Folder[]>([]);
 
 
-  // Check token
-  useEffect(() => {
-    if (!token) {
-      navigate('/admin');
-      return;
-    }
-
-    api.checkToken(token)
-      .then((res) => {
-        setLoggedUser({
-          email: res.data.email,
-          role: res.data.role,
-          verified: res.data.verified
-        });
-      })
-      .catch((err) => {
-        console.error("Chyba při ověření tokenu:", err);
-        navigate('/admin');
-      });
-  }, [token, navigate, setLoggedUser]);
-
-
-
   const handleUpload = async (files: File[]): Promise<void> => {
     const uploadedImages = await api.uploadImages(files, selectedFolder.code, token);
     setImages([...images, ...uploadedImages.data]);

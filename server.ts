@@ -39,13 +39,7 @@ const getMetaTags = (url: string) => {
 
   //TODO: další meta tagy
   /*
-  <meta name="keywords" content="letni, tabor, stan, stanovy, deti, tri, tydny, dlouhy">
-  <meta property="og:title" content="">
-  <meta property="og:site_name" content="">
-  <meta property="og:url" content="">
-  <meta property="og:description" content="">
-  <meta property="og:type" content="">
-  <meta property="og:image" content="">
+  <meta name="keywords" content="letni, tabor, stan, stanovy, deti, tri, tydny, dlouhy, 2026, dobrodruzstvi, hry, sport, praha, radotin, radlice, kamena, skautsky, skautsky tabor, skautsky stanovy tabor, skautsky letni tabor, skautsky letni stanovy tabor">
   atd... 
   */
 
@@ -127,6 +121,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   const productionBuildPath = path.join(__dirname, "./server/entry-server.js");
   const devBuildPath = path.join(__dirname, "./src/client/entry-server.tsx");
   const buildModule = isProd ? productionBuildPath : devBuildPath;
+  
   const { render } = await vite.ssrLoadModule(buildModule);
 
   app.get("/robots.txt", (req, res) => {
@@ -158,6 +153,10 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   app.use("*", async (req: Request, res: Response, next: NextFunction) => {
     const url = req.originalUrl;
 
+    const initialData = {
+      homePage: "Test message from BE - injected-content",
+    }
+
     try {
       // 2. Apply Vite HTML transforms. This injects the Vite HMR client, and
       //    also applies HTML transforms from Vite plugins, e.g. global preambles
@@ -170,7 +169,11 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       // 4. render the app HTML. This assumes entry-server.js's exported `render`
       //    function calls appropriate framework SSR APIs,
       //    e.g. ReactDOMServer.renderToString()
-      const appHtml = await render(url);
+      
+      //TODO: tady by šel udělat ten load dat DB, který by se daly editovat přes admina
+      const initialDataScript = `<script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)};</script>`;
+      
+      const appHtml = await render(url, "TEST string z BE - render");
       const cssAssets = await stylesheets;
       const { title, description } = getMetaTags(url);
 
@@ -179,6 +182,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       const html = template
         .replace(`<!--app-html-->`, appHtml)
         .replace(`<!--head-->`, cssAssets)
+        .replace(`<!--injected-content-->`, initialDataScript)
         .replace(`<!--meta-->`, `<title>${title}</title><meta name="description" content="${description}"/>`)
         .replace(/<link rel="stylesheet" href="\/assets\/index-(.*?)\.css">/, "");
 

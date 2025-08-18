@@ -14,10 +14,9 @@ import AdminHome from "./pages/admin/AdminHome";
 import NotFound from "./pages/404";
 import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import "./index.css";
-import 'react-toastify/dist/ReactToastify.min.css';
 
 export function render(url: string) {
+  
   return ReactDOMServer.renderToString(
     <StrictMode>
       <StaticRouter location={url}>

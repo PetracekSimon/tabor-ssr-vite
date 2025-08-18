@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAppStore, UserRole } from "../../ZustandContext";
 import { Api } from "../../api";
 import AdminChangePasswordForm from "../../components/admin/AdminChangePasswordForm";
@@ -16,8 +15,7 @@ export type User = {
 };
 
 const AdminSettings = () => {
-	const { token, setLoggedUser, loggedUser } = useAppStore();
-	const navigate = useNavigate();
+	const { token, loggedUser } = useAppStore();
 
 	const [users, setUsers] = useState<User[]>([]);
 	const [deleteModal, setDeleteModal] = useState(false);
@@ -45,27 +43,8 @@ const AdminSettings = () => {
 
 	// Check token
 	useEffect(() => {
-		if (!token) {
-			navigate('/admin');
-			return;
-		}
-
-		api.checkToken(token)
-			.then((res) => {
-				setLoggedUser({
-					email: res.data.email,
-					role: res.data.role,
-					verified: res.data.verified
-				});
-			})
-			.catch((err) => {
-				console.error("Chyba při ověření tokenu:", err);
-				navigate('/admin');
-			});
-
 		handleLoadUsers();
-
-	}, [token, navigate, setLoggedUser]);
+	}, [loggedUser]);
 
 
 

@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -8,9 +9,15 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     server: { port: 3000 },
+
     build: {
       minify: true,
-      sourcemap: true
+      sourcemap: true,
+    },
+    resolve: {
+      alias: {
+        "@client": fileURLToPath(new URL("./src/client", import.meta.url)),
+      },
     },
   }
 });
