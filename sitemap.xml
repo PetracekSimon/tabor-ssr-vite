@@ -3,32 +3,72 @@
     <!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
     <url>
         <loc>https://stanovytabor.cz/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
         <loc>https://stanovytabor.cz/o-tabore</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
+        <loc>https://stanovytabor.cz/o-tabore/etapova-hra</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/o-tabore/historie</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.70</priority>
+    </url>
+    <url>
         <loc>https://stanovytabor.cz/prubeh-tabora</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/prubeh-tabora/co-nebrat</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/prubeh-tabora/hygiena-a-zdravi</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://stanovytabor.cz/chci-jet</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/chci-jet/vseobecne-informace</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/chci-jet/seznam-veci</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/chci-jet/prihlaska</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://stanovytabor.cz/chci-jet/storno-podminky</loc>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://stanovytabor.cz/galerie</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://stanovytabor.cz/galerie/2025</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
+        <lastmod>2025-08-19T10:07:44+00:00</lastmod>
         <priority>0.80</priority>
     </url>
 </urlset>
