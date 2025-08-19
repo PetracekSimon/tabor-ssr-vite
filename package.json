@@ -24,7 +24,7 @@
     "start": "cross-env NODE_ENV=production node ./dist/server",
     "serve:local": "vite serve",
     "clean": "rimraf dist/",
-    "copy-files": "copyfiles \"public/**/*\" dist && copyfiles -u 2 \"dist/client/**/*\" dist && copyfiles -u 2 \"dist/client/assets/**/*\" dist/public && copyfiles \"robots.txt\" dist && copyfiles \"sitemap.xml\" dist && copyfiles \"googled8047f4609639b77.html\" dist",
+    "copy-files": "copyfiles \"public/**/*\" dist && copyfiles -u 2 \"dist/client/**/*\" dist && copyfiles -u 2 \"dist/client/assets/**/*\" dist/public && copyfiles \"robots.txt\" dist && copyfiles \"sitemap.xml\" dist && copyfiles \"fake-script.js\" dist && copyfiles \"googled8047f4609639b77.html\" dist",
     "format": "prettier --write src types"
   },
   "dependencies": {

@@ -86,6 +86,11 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+  
+  app.get("/@vite/client", (req, res) => {
+    const filePath = path.join(__dirname, 'fake-script.js');
+    res.sendFile(filePath)
+  });
 
   // Create Vite server in middleware mode and configure the app type as
   // 'custom', disabling Vite's own HTML serving logic so parent server
@@ -121,7 +126,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   const productionBuildPath = path.join(__dirname, "./server/entry-server.js");
   const devBuildPath = path.join(__dirname, "./src/client/entry-server.tsx");
   const buildModule = isProd ? productionBuildPath : devBuildPath;
-  
+
   const { render } = await vite.ssrLoadModule(buildModule);
 
   app.get("/robots.txt", (req, res) => {
@@ -169,10 +174,10 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       // 4. render the app HTML. This assumes entry-server.js's exported `render`
       //    function calls appropriate framework SSR APIs,
       //    e.g. ReactDOMServer.renderToString()
-      
+
       //TODO: tady by šel udělat ten load dat DB, který by se daly editovat přes admina
       const initialDataScript = `<script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)};</script>`;
-      
+
       const appHtml = await render(url, "TEST string z BE - render");
       const cssAssets = await stylesheets;
       const { title, description } = getMetaTags(url);
