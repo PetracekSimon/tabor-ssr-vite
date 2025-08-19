@@ -2,63 +2,33 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
     <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/</loc>
+        <loc>https://stanovytabor.cz/</loc>
         <lastmod>2024-10-18T15:19:00+00:00</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/o-tabore</loc>
+        <loc>https://stanovytabor.cz/o-tabore</loc>
         <lastmod>2024-10-18T15:19:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/prubeh-tabora</loc>
+        <loc>https://stanovytabor.cz/prubeh-tabora</loc>
         <lastmod>2024-10-18T15:19:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/chci-jet</loc>
+        <loc>https://stanovytabor.cz/chci-jet</loc>
         <lastmod>2024-10-18T15:19:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie</loc>
+        <loc>https://stanovytabor.cz/galerie</loc>
         <lastmod>2024-10-18T15:19:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2025</loc>
+        <loc>https://stanovytabor.cz/galerie/2025</loc>
         <lastmod>2024-10-18T15:19:00+00:00</lastmod>
         <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2019/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2020/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2021/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2022/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2023/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://stanovytabor-7746.rostiapp.cz/galerie/2024/</loc>
-        <lastmod>2024-10-18T15:19:00+00:00</lastmod>
-        <priority>0.64</priority>
     </url>
 </urlset>
