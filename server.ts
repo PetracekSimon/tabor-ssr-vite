@@ -86,10 +86,17 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  
-  app.get("/@vite/client", (req, res) => {
+
+  app.get("/@vite/client", (req, res, next) => {
     const filePath = path.join(__dirname, 'fake-script.js');
-    res.sendFile(filePath)
+    console.log(isProd);
+    if (isProd) {
+      res.sendFile(filePath);
+      return;
+    } else {
+      next();
+      return;
+    }
   });
 
   // Create Vite server in middleware mode and configure the app type as
