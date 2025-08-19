@@ -23,7 +23,7 @@ const Gallery = () => {
 
     return (
         <>
-            <PageTitle title={" | Galerie"} />
+            <PageTitle />
             <div className="flex bg-white-100 font-sans items-center flex-col">
                 <Hero title="Galerie" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
                 {folder && oldYears.includes(folder) ? (

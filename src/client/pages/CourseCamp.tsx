@@ -31,7 +31,7 @@ const CourseCamp = () => {
     }, []);
     return (
         <>
-            <PageTitle title={" | Průběh tábora"} />
+            <PageTitle />
             <div>
                 <Hero title="Průběh tábora" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
 

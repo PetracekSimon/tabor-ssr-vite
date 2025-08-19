@@ -35,7 +35,7 @@ const IWantToGo = () => {
     }, []);
     return (
         <>
-            <PageTitle title={" | Chci jet"} />
+            <PageTitle />
             <div>
                 <Hero title="Chci jet" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
                 <section id="vseobecne-informace" className="section-anchor">

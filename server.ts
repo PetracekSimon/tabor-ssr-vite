@@ -11,6 +11,7 @@ import images from "./src/server/images/controller.js";
 import users from "./src/server/user/controller.js";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import { getMetaTags } from "./src/utils.js";
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -35,39 +36,7 @@ const getStyleSheets = async () => {
   }
 };
 
-const getMetaTags = (url: string) => {
 
-  //TODO: další meta tagy
-  /*
-  <meta name="keywords" content="letni, tabor, stan, stanovy, deti, tri, tydny, dlouhy, 2026, dobrodruzstvi, hry, sport, praha, radotin, radlice, kamena, skautsky, skautsky tabor, skautsky stanovy tabor, skautsky letni tabor, skautsky letni stanovy tabor">
-  atd... 
-  */
-
-  let title = "Letní stanový tábor";
-  let description = "Užijte si 19 dní plných dobrodružství na letním stanovém táboře Kamenná! Děti se mohou těšit na hry, sportovní aktivity a objevování přírody, které jim zanechají nezapomenutelné zážitky.";
-  switch (url) {
-    case "/":
-      title = "Letní stanový tábor ";
-      break;
-    case "/o-tabore":
-      title = "Letní stanový tábor | O táboře";
-      break;
-    case "/prubeh-tabora":
-      title = "Letní stanový tábor | Průběh tábora";
-      break;
-    case "/chci-jet":
-      title = "Letní stanový tábor | Chci jet";
-      break;
-    case "/galerie":
-      title = "Letní stanový tábor | Galerie";
-      break;
-    default:
-      title = "Letní stanový tábor";
-      break;
-  }
-
-  return { title, description }
-}
 
 async function createServer(isProd = process.env.NODE_ENV === "production") {
   const app = express();
@@ -102,6 +71,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   const GONE_URLS = [
     "/author/pav/",
     "/fotodenik-2022/",
+    "/ngg_tag/5-7-2016/",
     "/ngg_tag/10-7-2016/",
     "/ngg_tag/20-7-2010/",
     "/ngg_tag/20-7-2015/",
@@ -109,7 +79,11 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
     "/ngg_tag/8-7-2015/",
     "/ngg_tag/9-7-2010/",
     "/1891-2/",
+    "/fotodenik-2024/",
+    "/fotodenik-2023/",
+    "/fotodenik-2022/",
     "/fotodenik-2021/",
+    "/fotodenik-2020/",
     "/ngg_tag/13-7-2012/",
     "/ngg_tag/14-7-2010/",
     "/ngg_tag/18-7-2011/",
@@ -118,7 +92,9 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
     "/ngg_tag/19-7-2012/",
     "/ngg_tag/20-7-2011/",
     "/ngg_tag/3-7-2012/",
-    "/ngg_tag/9-7-2015/"
+    "/ngg_tag/9-7-2015/",
+    "comments/feed/",
+    "/chci-jet/prihlaska/feed/",
   ];
   GONE_URLS.forEach(url => {
     app.get(url, (req, res) => {
@@ -228,7 +204,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
       const appHtml = await render(url, "TEST string z BE - render");
       const cssAssets = await stylesheets;
-      const { title, description } = getMetaTags(url);
+      const { title, description, linkCanonical } = getMetaTags(url);
 
 
       // 5. Inject the app-rendered HTML into the template.
@@ -236,7 +212,8 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
         .replace(`<!--app-html-->`, appHtml)
         .replace(`<!--head-->`, cssAssets)
         .replace(`<!--injected-content-->`, initialDataScript)
-        .replace(`<!--meta-->`, `<title>${title}</title><meta name="description" content="${description}"/>`)
+        .replace(`<!--link-canonical-->`, linkCanonical)
+        .replace(`<!--meta-->`, `<title>${title}</title><meta name="description" content="${description}"/><meta name="og:description" content="${description}"/>`)
         .replace(/<link rel="stylesheet" href="\/assets\/index-(.*?)\.css">/, "");
 
       // 6. Send the rendered HTML back.

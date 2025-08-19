@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import Container from "../components/Container";
 import PageTitle from "../components/PageTitle";
-import { useEffect,  } from "react";
+import { useEffect, } from "react";
 
 interface HomeProps {
   initialData?: any;
@@ -14,10 +14,10 @@ interface HomeProps {
 const Home = (props: HomeProps) => {
   useEffect(() => {
     console.log(props);
-  },[]);
+  }, []);
   return (
     <>
-      <PageTitle title="" />
+      <PageTitle />
       <div className="flex bg-white-100 font-sans items-center flex-col">
         <Hero title="Stanový tábor Kamenná" subtitle="2025" background="/assets/hero.jpg" />
         <Container>

@@ -29,7 +29,7 @@ const About = () => {
     }, []);
   return (
     <>
-      <PageTitle title={" | O táboře"} />
+      <PageTitle />
       <div>
         <Hero title="O táboře" subtitle="Stanový tábor Kamenná 2025" background="/assets/hero.jpg" />
 
