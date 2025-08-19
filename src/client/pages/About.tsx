@@ -1,19 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Hero from "../components/Hero";
 import PageTitle from "../components/PageTitle";
+import { useEffect } from "react";
 
 /**
  * O táboře - v navigaci je jako "O táboře" - url "/o-taborr"
  * @returns 
  */
 const About = () => {
+    const knownPaths = [
+        "/o-tabore/etapova-hra",
+        "/o-tabore/etapova-hra/",
+        "/o-tabore/historie",
+        "/o-tabore/historie/",
+    ]
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        const path = knownPaths.find((path) => path === pathname);
+        if (!path) {
+            return;
+        }
+
+        let sectionId = path.replace("/o-tabore/", "").replace("/", "");
+        const section = document.getElementById(sectionId);
+        section?.scrollIntoView({ behavior: 'smooth' });
+
+    }, []);
   return (
     <>
       <PageTitle title={" | O táboře"} />
       <div>
         <Hero title="O táboře" subtitle="Stanový tábor Kamenná 2025" background="/assets/hero.jpg" />
 
-        <section id="MetaInfo" className="section-anchor">
+        <section id="meta-info" className="section-anchor">
           <div className="container mx-auto">
 
             <h2 className="text-left text-2xl font-bold text-butter-cup">Úvod</h2>
@@ -44,7 +64,7 @@ const About = () => {
             </div>
           </div>
         </section>
-        <section id="Celotaborova-hra" className="section-anchor">
+        <section id="etapova-hra" className="section-anchor">
           <div className="container mx-auto">
 
             <h2 className="text-left text-2xl font-bold text-butter-cup">Celotáborová hra a program</h2>
@@ -81,7 +101,7 @@ const About = () => {
             </div>
           </div>
         </section>
-        <section id="Historie-vedouci" className="section-anchor">
+        <section id="historie" className="section-anchor">
           <div className="container mx-auto">
             <h2 className="text-left text-2xl font-bold text-butter-cup">Historie a vedoucí</h2>
             <hr className="border-t border-gray-300 my-4" />

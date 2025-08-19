@@ -89,7 +89,6 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
   app.get("/@vite/client", (req, res, next) => {
     const filePath = path.join(__dirname, 'fake-script.js');
-    console.log(isProd);
     if (isProd) {
       res.sendFile(filePath);
       return;
@@ -97,6 +96,48 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       next();
       return;
     }
+  });
+
+  // Staré WP struktury, které už neexistují
+  const GONE_URLS = [
+    "/author/pav/",
+    "/fotodenik-2022/",
+    "/ngg_tag/10-7-2016/",
+    "/ngg_tag/20-7-2010/",
+    "/ngg_tag/20-7-2015/",
+    "/ngg_tag/21-7-2015/",
+    "/ngg_tag/8-7-2015/",
+    "/ngg_tag/9-7-2010/",
+    "/1891-2/",
+    "/fotodenik-2021/",
+    "/ngg_tag/13-7-2012/",
+    "/ngg_tag/14-7-2010/",
+    "/ngg_tag/18-7-2011/",
+    "/ngg_tag/19-7-2010/",
+    "/ngg_tag/19-7-2011/",
+    "/ngg_tag/19-7-2012/",
+    "/ngg_tag/20-7-2011/",
+    "/ngg_tag/3-7-2012/",
+    "/ngg_tag/9-7-2015/"
+  ];
+  GONE_URLS.forEach(url => {
+    app.get(url, (req, res) => {
+      res.status(410).send('Tahle stránka už neexistuje.');
+    });
+  });
+
+  // Staré WP struktury, které redirectují na nové
+  app.get('/galerie/indiani-2019/', (req, res) => {
+    res.redirect(301, '/galerie/2019/');
+  });
+  app.get('/galerie/mayove-2022/', (req, res) => {
+    res.redirect(301, '/galerie/2022/');
+  });
+  app.get('/galerie/muz-se-zeleznou-2024/', (req, res) => {
+    res.redirect(301, '/galerie/2024/');
+  });
+  app.get('/galerie/vikingove-2023/', (req, res) => {
+    res.redirect(301, '/galerie/2023/');
   });
 
   // Create Vite server in middleware mode and configure the app type as

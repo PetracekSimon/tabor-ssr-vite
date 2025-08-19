@@ -2,19 +2,40 @@ import Hero from "../components/Hero";
 import PageTitle from "../components/PageTitle";
 import { HashLink } from 'react-router-hash-link';
 import config from "../../config";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 /**
  * Průběh tábora - v navigaci je jako "Průběh tábora" - url "/prubeh-tabora"
  * @returns 
  */
 const CourseCamp = () => {
+    const knownPaths = [
+        "/prubeh-tabora/co-nebrat",
+        "/prubeh-tabora/co-nebrat/",
+        "/prubeh-tabora/hygiena-a-zdravi",
+        "/prubeh-tabora/hygiena-a-zdravi/",
+    ]
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        const path = knownPaths.find((path) => path === pathname);
+        if (!path) {
+            return;
+        }
+
+        let sectionId = path.replace("/prubeh-tabora/", "").replace("/", "");
+        const section = document.getElementById(sectionId);
+        section?.scrollIntoView({ behavior: 'smooth' });
+
+    }, []);
     return (
         <>
             <PageTitle title={" | Průběh tábora"} />
             <div>
                 <Hero title="Průběh tábora" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
 
-                <section id="Stravovani" className="section-anchor">
+                <section id="stravovani" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Stravování</h2>
                         <hr className="border-t border-gray-300 my-4" />
@@ -30,7 +51,7 @@ const CourseCamp = () => {
                         </div>
                     </div>
                 </section>
-                <section id="Hygiena-a-zdravi" className="section-anchor">
+                <section id="hygiena-a-zdravi" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Hygiena a zdraví</h2>
                         <hr className="border-t border-gray-300 my-4" />
@@ -66,7 +87,7 @@ const CourseCamp = () => {
                         </div>
                     </div>
                 </section>
-                <section id="S-sebou" className="section-anchor">
+                <section id="s-sebou" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Co s sebou</h2>
                         <hr className="border-t border-gray-300 my-4" />
@@ -104,7 +125,7 @@ const CourseCamp = () => {
                         </div>
                     </div >
                 </section >
-                <section id="Co-nebra" className="section-anchor">
+                <section id="co-nebrat" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Co nebrat</h2>
                         <hr className="border-t border-gray-300 my-4" />

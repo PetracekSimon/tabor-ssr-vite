@@ -1,1 +1,1 @@
-console.log("/@vite/client override");
+// /@vite/client overrides the default behavior of the client-side routing

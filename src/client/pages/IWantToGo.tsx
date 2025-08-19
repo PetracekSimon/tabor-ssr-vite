@@ -1,18 +1,44 @@
 import Hero from "../components/Hero";
 import PageTitle from "../components/PageTitle";
 import config from "../../config";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 /**
  * Chci jet - v navigaci je jako "Chci jet" - url "/chci-jet"
  * @returns 
  */
 const IWantToGo = () => {
+    const knownPaths = [
+        "/chci-jet/vseobecne-informace",
+        "/chci-jet/vseobecne-informace/",
+        "/chci-jet/seznam-veci",
+        "/chci-jet/seznam-veci/",
+        "/chci-jet/prihlaska",
+        "/chci-jet/prihlaska/",
+        "/chci-jet/storno-podminky",
+        "/chci-jet/storno-podminky/",
+
+    ]
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        const path = knownPaths.find((path) => path === pathname);
+        if (!path) {
+            return;
+        }
+
+        let sectionId = path.replace("/chci-jet/", "").replace("/", "");
+        const section = document.getElementById(sectionId);
+        section?.scrollIntoView({ behavior: 'smooth' });
+
+    }, []);
     return (
         <>
             <PageTitle title={" | Chci jet"} />
             <div>
                 <Hero title="Chci jet" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
-                <section id="Vseobecne-informace" className="section-anchor">
+                <section id="vseobecne-informace" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Všeobecné informace</h2>
                         <hr className="border-t border-gray-300 my-4" />
@@ -91,7 +117,7 @@ const IWantToGo = () => {
                         </div>
                     </div>
                 </section>
-                <section id="Seznam-veci" className="section-anchor">
+                <section id="seznam-veci" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Seznam věcí</h2>
                         <hr className="border-t border-gray-300 my-4" />
@@ -233,7 +259,7 @@ const IWantToGo = () => {
                     </div>
                 </section>
 
-                <section id="Prihlaska" className="section-anchor">
+                <section id="prihlaska" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Přihláška</h2>
                         <hr className="border-t border-gray-300 my-4" />
@@ -281,7 +307,7 @@ const IWantToGo = () => {
                     </div>
                 </section>
 
-                <section id="Stormo-podminky" className="section-anchor">
+                <section id="storno-podminky" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Storno podmínky</h2>
                         <hr className="border-t border-gray-300 my-4" />

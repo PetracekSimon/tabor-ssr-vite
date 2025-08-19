@@ -16,17 +16,41 @@ import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
 
 export function render(url: string) {
-  
+
   return ReactDOMServer.renderToString(
     <StrictMode>
       <StaticRouter location={url}>
         <Routes>
           <Route element={<PublicLayout><Outlet /></PublicLayout>}>
             <Route path="/" element={<Home />} />
+
             <Route path="/o-tabore" element={<About />} />
+            <Route path="/o-tabore/" element={<About />} />
+            <Route path="/o-tabore/etapova-hra" element={<About />} />
+            <Route path="/o-tabore/etapova-hra/" element={<About />} />
+            <Route path="/o-tabore/historie" element={<About />} />
+            <Route path="/o-tabore/historie/" element={<About />} />
+
             <Route path="/prubeh-tabora" element={<CourseCamp />} />
+            <Route path="/prubeh-tabora/" element={<CourseCamp />} />
+            <Route path="/prubeh-tabora/co-nebrat" element={<CourseCamp />} />
+            <Route path="/prubeh-tabora/co-nebrat/" element={<CourseCamp />} />
+            <Route path="/prubeh-tabora/hygiena-a-zdravi" element={<CourseCamp />} />
+            <Route path="/prubeh-tabora/hygiena-a-zdravi/" element={<CourseCamp />} />
+
             <Route path="/chci-jet" element={<IWantToGo />} />
+            <Route path="/chci-jet/" element={<IWantToGo />} />
+            <Route path="/chci-jet/vseobecne-informace" element={<IWantToGo />} />
+            <Route path="/chci-jet/vseobecne-informace/" element={<IWantToGo />} />
+            <Route path="/chci-jet/seznam-veci" element={<IWantToGo />} />
+            <Route path="/chci-jet/seznam-veci/" element={<IWantToGo />} />
+            <Route path="/chci-jet/prihlaska/" element={<IWantToGo />} />
+            <Route path="/chci-jet/prihlaska" element={<IWantToGo />} />
+            <Route path="/chci-jet/storno-podminky" element={<IWantToGo />} />
+            <Route path="/chci-jet/storno-podminky/" element={<IWantToGo />} />
+
             <Route path="/galerie" element={<Gallery />} />
+            <Route path="/galerie/" element={<Gallery />} />
             <Route path="/galerie/:folder" element={<Gallery />} />
             <Route path="*" element={<NotFound />} />
           </Route>
