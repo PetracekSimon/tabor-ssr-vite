@@ -106,7 +106,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   app.get('/galerie/indiani-2019', (req, res) => {
     res.redirect(301, '/galerie/2019/');
   });
-  app.get('galerie/pirati-2020', (req, res) => {
+  app.get('/galerie/pirati-2020', (req, res) => {
     res.redirect(301, '/galerie/2020/');
   });
   app.get('/galerie/mayove-2022', (req, res) => {
