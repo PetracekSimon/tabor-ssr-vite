@@ -103,26 +103,26 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   });
 
   // Staré WP struktury, které redirectují na nové
-  app.get('/galerie/indiani-2019/', (req, res) => {
+  app.get('/galerie/indiani-2019', (req, res) => {
     res.redirect(301, '/galerie/2019/');
   });
-  app.get('galerie/pirati-2020/', (req, res) => {
+  app.get('galerie/pirati-2020', (req, res) => {
     res.redirect(301, '/galerie/2020/');
   });
-  app.get('/galerie/mayove-2022/', (req, res) => {
+  app.get('/galerie/mayove-2022', (req, res) => {
     res.redirect(301, '/galerie/2022/');
   });
-  app.get('/galerie/muz-se-zeleznou-2024/', (req, res) => {
+  app.get('/galerie/muz-se-zeleznou-2024', (req, res) => {
     res.redirect(301, '/galerie/2024/');
   });
-  app.get('/galerie/muz-se-zeleznou-maskou-2024/', (req, res) => {
+  app.get('/galerie/muz-se-zeleznou-maskou-2024', (req, res) => {
     res.redirect(301, '/galerie/2024/');
   });
-  app.get('/galerie/vikingove-2023/', (req, res) => {
+  app.get('/galerie/vikingove-2023', (req, res) => {
     res.redirect(301, '/galerie/2023/');
   });
   app.get('/historie/', (req, res) => {
-    res.redirect(301, '/o-tabore/historie/');
+    res.redirect(301, '/o-tabore/historie');
   });
 
   // Create Vite server in middleware mode and configure the app type as
