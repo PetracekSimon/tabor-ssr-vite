@@ -213,7 +213,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
       const appHtml = await render(url, "TEST string z BE - render");
       const cssAssets = await stylesheets;
-      const { title, description, linkCanonical } = getMetaTags(url);
+      const { title, description, linkCanonical, keywords, ogTitle, jsonLd } = getMetaTags(url);
 
 
       // 5. Inject the app-rendered HTML into the template.
@@ -222,7 +222,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
         .replace(`<!--head-->`, cssAssets)
         .replace(`<!--injected-content-->`, initialDataScript)
         .replace(`<!--link-canonical-->`, linkCanonical)
-        .replace(`<!--meta-->`, `<title>${title}</title><meta name="description" content="${description}"/><meta name="og:description" content="${description}"/>`)
+        .replace(`<!--meta-->`, `<title>${title}</title><meta name="description" content="${description}"/><meta name="og:description" content="${description}"/><meta name="keywords" content="${keywords}"/><meta property="og:title" content="${ogTitle}"/><script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`)
         .replace(/<link rel="stylesheet" href="\/assets\/index-(.*?)\.css">/, "");
 
       // 6. Send the rendered HTML back.

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /admin/
 
-Sitemap: https://stanovytabor.cz/sitemap.xml
+Sitemap: https://www.stanovytabor.cz/sitemap.xml
