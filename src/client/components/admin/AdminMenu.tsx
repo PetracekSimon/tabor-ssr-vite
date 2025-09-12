@@ -80,13 +80,17 @@ const AdminMenu = () => {
 
                 <ul className="flex-grow">
                     <li className="group">
-                        {/* //TODO: zjisti jak to udělat bez těch breakpointů - dark:hover */}
-                        <Link to="/admin/home" className="block py-4 px-6 text-lg text-slate-600 dark:text-white dark:sm:hover:bg-slate-900 hover:bg-white transition-backgrounds duration-300">
+                        <Link to="/admin/home" className="block py-4 px-6 text-lg text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-300">
                             Domů
                         </Link>
                     </li>
                     <li className="group">
-                        <Link to="/admin/galerie" className="block py-4 px-6 text-lg text-slate-600 dark:text-white dark:sm:hover:bg-slate-900 hover:bg-white hover:bg-white transition-backgrounds duration-300">
+                        <Link to="/admin/applications" className="block py-4 px-6 text-lg text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-300">
+                            Přihlášky
+                        </Link>
+                    </li>
+                    <li className="group">
+                        <Link to="/admin/galerie" className="block py-4 px-6 text-lg text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-300">
                             Galerie
                         </Link>
                     </li>

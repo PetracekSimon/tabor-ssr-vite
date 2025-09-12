@@ -390,4 +390,54 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             }
         });
     }
+
+    public createApplication = (data: any) => {
+        return this.request<any>({
+            path: `${this.apiUrl}/application`,
+            method: HttpMethods.POST,
+            type: ContentType.Json,
+            body: data
+        });
+    }
+
+    public getApplications = (data: any, token: string) => {
+        return this.request<ListResponse<Application>>({
+            path: `${this.apiUrl}/application/list`,
+            method: HttpMethods.GET,
+            type: ContentType.UrlEncoded,
+            query: data,
+            headers: {
+                "auth-token": `${token}`
+            }
+        });
+    }
+}
+
+
+export interface Application {
+    _id: string;
+    summerCampYear: number;
+    applicationNumber: string;
+    state: string;
+    childFirstName: string;
+    childLastName: string;
+    childBirthDate: string;
+    childAddress: string;
+    insuranceNumber: string;
+    tetanusDate: string;
+    schoolInfo: string;
+    siblingsCount: number;
+    firstTime: boolean;
+    hobbies: string;
+    motherName: string;
+    motherPhone: string;
+    fatherName: string;
+    fatherPhone: string;
+    parentEmail: string;
+    swimming: string;
+    healthProblems: string;
+    foodAllergy: string;
+    childDescription: string;
+    boardingPlace: string;
+    leavingPlace: string;
 }

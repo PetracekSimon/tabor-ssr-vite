@@ -110,4 +110,17 @@ export default [
         roles: ['SuperAdmin', 'Admin'],
     },
     //! image: end
-];
+    //! application: start
+    {
+        path: '/api/application/list',
+        method: 'get',
+        roles: ['SuperAdmin', 'Admin'],
+    },
+    {
+        path: '/api/application/updateState',
+        method: 'patch',
+        roles: ['SuperAdmin', 'Admin'],
+    },
+
+    //! application: end
+];  

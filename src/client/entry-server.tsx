@@ -14,6 +14,8 @@ import AdminHome from "./pages/admin/AdminHome";
 import NotFound from "./pages/404";
 import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
+import ApplicationPage from "./pages/Application";
+import AdminApplications from "./pages/admin/AdminApplications";
 
 export function render(url: string) {
 
@@ -52,12 +54,16 @@ export function render(url: string) {
             <Route path="/galerie" element={<Gallery />} />
             <Route path="/galerie/" element={<Gallery />} />
             <Route path="/galerie/:folder" element={<Gallery />} />
+
+            <Route path="/prihlaska" element={<ApplicationPage />} />
+
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/admin" element={<AdminLogin />} />
           <Route element={<AdminLayout><Outlet /></AdminLayout>}>
             <Route path="/admin/home" element={<AdminHome />} />
             <Route path="/admin/galerie" element={<AdminGallery />} />
+            <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
           </Route>
         </Routes>

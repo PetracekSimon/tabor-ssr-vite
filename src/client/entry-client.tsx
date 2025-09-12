@@ -18,6 +18,8 @@ import ScrollToTop from "./ScrollToTop";
 import 'react-toastify/dist/ReactToastify.min.css';
 import ClientToastContainer from "./components/ClientToastContainer";
 import { initializeAuth } from "./ZustandContext";
+import ApplicationPage from "./pages/Application";
+import AdminApplications from "./pages/admin/AdminApplications";
 
 const container = document.getElementById("app");
 interface FullAppProps {
@@ -66,12 +68,16 @@ const FullApp = (initialData: FullAppProps) => {
 
             <Route path="/galerie" element={<Gallery />} />
             <Route path="/galerie/:folder" element={<Gallery />} />
+
+            <Route path="/prihlaska" element={<ApplicationPage />} />
+
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/admin" element={<AdminLogin />} />
           <Route element={<AdminLayout><Outlet /></AdminLayout>}>
             <Route path="/admin/home" element={<AdminHome />} />
             <Route path="/admin/galerie" element={<AdminGallery />} />
+            <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
           </Route>
         </Routes>

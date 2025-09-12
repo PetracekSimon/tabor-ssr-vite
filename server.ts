@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import folders from "./src/server/folder/controller.js";
 import images from "./src/server/images/controller.js";
 import users from "./src/server/user/controller.js";
+import applications from "./src/server/application/controller.js";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import { getMetaTags } from "./src/utils.js";
@@ -186,6 +187,10 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   app.use('/api/user', (req, res, next) => {
     req.apiPath = '/api/user';
     users(req, res, next);
+  });
+  app.use('/api/application', (req, res, next) => {
+    req.apiPath = '/api/application';
+    applications(req, res, next);
   });
 
   app.use("*", async (req: Request, res: Response, next: NextFunction) => {
