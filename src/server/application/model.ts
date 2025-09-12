@@ -2,10 +2,13 @@ import mongoose from "mongoose";
 import config from "../../config";
 
 const applicationSchema = new mongoose.Schema({
-    // Application info
-    summerCampYear: { type: Number, required: true, default: config.campYearInfo.year },
-    applicationNumber: { type: String, required: true },
-    state: { type: String, required: true, default: "pending" },
+
+  //TODO: přidat příznaky zda máme fyzicky (mail etc...) přilohy k přihlášce (jako kartička pojištěnce atd..)
+
+  // Application info
+  summerCampYear: { type: Number, required: true, default: config.campYearInfo.year },
+  applicationNumber: { type: String, required: true },
+  state: { type: String, required: true, default: "pending" },
 
   // Child info
   childFirstName: { type: String, required: true },

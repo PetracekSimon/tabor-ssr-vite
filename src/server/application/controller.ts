@@ -43,7 +43,7 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
   if (validate.error?.details) {
     return Errors.List.InvalidBody(res, validate.error.details);
   }
-
+  
   //HDS 2 (list)
   let dtoOut;
   try {

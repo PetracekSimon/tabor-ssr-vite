@@ -1,10 +1,22 @@
-import { Application } from "@client/api";
+import { Api, Application } from "@client/api";
+import { useAppStore } from "@client/ZustandContext";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import Modal from "../Modal";
+import { ApplicationDetail } from "./ApplicationDetail";
 
 interface ApplicationCardProps {
   application: Application;
 }
 
-const ApplicationCard = ({ application }: ApplicationCardProps) => {
+const ApplicationCard = (props: ApplicationCardProps) => {
+
+  const api = new Api();
+  const { token } = useAppStore();
+
+  const [application, setApplication] = useState<Application>(props.application);
+  const [showApplicationModal, setShowApplicationModal] = useState<boolean>(false);
+
   const getStatusColor = (state: string) => {
     switch (state) {
       case "pending":
@@ -39,13 +51,26 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
     return new Date(dateString).toLocaleDateString("cs-CZ");
   };
 
-  function onStatusChange(_id: string, value: string): void {
-    throw new Error("Function not implemented.");
-  }
 
-    function onViewDetail(application: Application): void {
-        throw new Error("Function not implemented.");
+  const { register, handleSubmit, watch } = useForm({
+    defaultValues: {
+      state: props.application.state,
+    },
+  });
+
+  const onStatusChange = async (data: { state: string }) => {
+    const resp = await api.updateApplicationState({ id: application._id, state: data.state }, token);
+    setApplication(resp.data);
+
+  };
+
+  const stateValue = watch("state");
+
+  useEffect(() => {
+    if (stateValue && stateValue !== props.application.state) {
+      handleSubmit(onStatusChange)();
     }
+  }, [stateValue])
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md border border-gray-200 dark:border-slate-700 p-6 hover:shadow-lg transition-shadow">
@@ -149,7 +174,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
         {/* Action buttons */}
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700 flex justify-between">
           <button
-            onClick={() => onViewDetail(application)}
+            onClick={() => setShowApplicationModal(true)}
             className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-slate-600 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,18 +188,28 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
             </svg>
           </button>
 
-          <select
-            value={application.state}
-            onChange={e => onStatusChange(application._id, e.target.value)}
-            className="text-xs border border-gray-300 dark:border-slate-600 rounded px-2 py-1 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
-          >
-            <option value="pending">Čeká na vyřízení</option>
-            <option value="approved">Schváleno</option>
-            <option value="paid">Zaplaceno</option>
-            <option value="rejected">Zamítnuto</option>
-          </select>
+          <form onSubmit={handleSubmit(onStatusChange)}>
+            <select
+              {...register("state")}
+              className="text-xs border border-gray-300 dark:border-slate-600 rounded px-2 py-1 bg-white dark:bg-slate-700 text-slate-800 dark:text-white"
+            >
+              <option value="pending">Čeká na vyřízení</option>
+              <option value="approved">Schváleno</option>
+              <option value="paid">Zaplaceno</option>
+              <option value="rejected">Zamítnuto</option>
+            </select>
+          </form>
         </div>
       </div>
+
+      <Modal
+        isOpen={showApplicationModal}
+        onClose={() => setShowApplicationModal(false)}
+        title="Detail přihlášky"
+      >
+
+        <ApplicationDetail application={application} />
+      </Modal>
     </div>
   );
 };

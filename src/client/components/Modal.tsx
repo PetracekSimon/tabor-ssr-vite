@@ -7,7 +7,7 @@ interface ModalProps {
   width?: string;
 }
 
-const Modal = ({ isOpen, onClose, title, children, width = '500px' }: PropsWithChildren<ModalProps>) => {
+const Modal = ({ isOpen, onClose, title, children, width = '' }: PropsWithChildren<ModalProps>) => {
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -36,7 +36,7 @@ const Modal = ({ isOpen, onClose, title, children, width = '500px' }: PropsWithC
 
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-500 overflow-auto bg-black bg-opacity-50 flex items-center justify-center translate-x-[150px]">
+    <div className="fixed inset-0 overflow-auto bg-black bg-opacity-50 flex items-center justify-center sm:translate-x-[150px] z-[500]">
       <div className={`bg-white dark:bg-slate-700 rounded-lg shadow-xl mx-auto w-[${width}]`}>
         
         <div className="border-b px-4 py-2 flex items-center justify-between">

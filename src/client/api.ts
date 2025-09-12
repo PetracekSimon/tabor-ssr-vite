@@ -234,7 +234,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
     }
 
     public updateUser(id: string, email: string, role: string, password: string, token: string) {
-        const body: { [key: string]: string } = {id: id};
+        const body: { [key: string]: string } = { id: id };
         if (password.length > 0) {
             body['password'] = password;
         }
@@ -244,7 +244,7 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
         if (role.length > 0) {
             body['role'] = role;
         }
-        
+
         return this.request<ListResponse<any>>({
             path: `${this.apiUrl}/user/`,
             method: HttpMethods.PATCH,
@@ -397,6 +397,17 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             method: HttpMethods.POST,
             type: ContentType.Json,
             body: data
+        });
+    }
+    public updateApplicationState = (data: any, token: string) => {
+        return this.request<Application>({
+            path: `${this.apiUrl}/application/updateState`,
+            method: HttpMethods.PATCH,
+            type: ContentType.Json,
+            body: data,
+            headers: {
+                "auth-token": `${token}`
+            }
         });
     }
 

@@ -188,6 +188,13 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@hookform/resolvers@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/@hookform/resolvers/-/resolvers-5.2.1.tgz"
+  integrity sha512-u0+6X58gkjMcxur1wRWokA7XsiiBJ6aK17aPZxhkoYiK5J+HcTx0Vhu9ovXe6H+dVpO6cjrn2FkJTryXEMlryQ==
+  dependencies:
+    "@standard-schema/utils" "^0.3.0"
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   dependencies:
@@ -302,6 +309,11 @@
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
+
+"@standard-schema/utils@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/@standard-schema/utils/-/utils-0.3.0.tgz"
+  integrity sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==
 
 "@testing-library/dom@^9.0.0":
   version "9.3.4"
@@ -3055,6 +3067,11 @@ prop-types@^15.7.2, prop-types@^15.8.1:
     object-assign "^4.1.1"
     react-is "^16.13.1"
 
+property-expr@^2.0.5:
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/property-expr/-/property-expr-2.0.6.tgz"
+  integrity sha512-SVtmxhRE/CGkn3eZY1T6pC8Nln6Fr/lu1mKSgRud0eC73whjGfoAogbn78LkD8aFL0zz3bAFerKSnOl7NlErBA==
+
 proxy-addr@~2.0.7:
   version "2.0.7"
   dependencies:
@@ -3118,6 +3135,11 @@ react-dropzone@^14.2.3:
     file-selector "^0.6.0"
     prop-types "^15.8.1"
 
+react-hook-form@^7.55.0, react-hook-form@^7.62.0:
+  version "7.62.0"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.62.0.tgz"
+  integrity sha512-7KWFejc98xqG/F4bAxpL41NB3o1nnvQO1RWZT3TqRZYL8RryQETGfEdVnJN2fy1crCiBLLjkRBVK05j24FxJGA==
+
 react-is@^16.13.1:
   version "16.13.1"
 
@@ -3158,7 +3180,7 @@ react-toastify@^10.0.5:
   dependencies:
     clsx "^2.1.0"
 
-"react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, react@^18.3.1, "react@>= 16.8 || 18.0.0", react@>=15, react@>=16.8, react@>=18:
+"react@^16.8.0 || ^17 || ^18 || ^19", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, react@^18.3.1, "react@>= 16.8 || 18.0.0", react@>=15, react@>=16.8, react@>=18:
   version "18.3.1"
   dependencies:
     loose-envify "^1.1.0"
@@ -3677,6 +3699,11 @@ through2@^2.0.1:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
 
+tiny-case@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/tiny-case/-/tiny-case-1.0.3.tgz"
+  integrity sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==
+
 tinybench@^2.5.0:
   version "2.9.0"
 
@@ -3696,6 +3723,11 @@ to-regex-range@^5.0.1:
 
 toidentifier@1.0.1:
   version "1.0.1"
+
+toposort@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/toposort/-/toposort-2.0.2.tgz"
+  integrity sha512-0a5EOkAUp8D4moMi2W8ZF8jcga7BgZd91O/yabJCFY8az+XSzeGyTKs0Aoo897iV1Nj6guFq8orWDS96z91oGg==
 
 tough-cookie@^4.1.2:
   version "4.1.4"
@@ -3749,6 +3781,11 @@ type-detect@^4.0.0, type-detect@^4.1.0:
 
 type-fest@^0.20.2:
   version "0.20.2"
+
+type-fest@^2.19.0:
+  version "2.19.0"
+  resolved "https://registry.npmjs.org/type-fest/-/type-fest-2.19.0.tgz"
+  integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
 type-is@^1.6.4, type-is@~1.6.18:
   version "1.6.18"
@@ -4089,6 +4126,16 @@ yocto-queue@^0.1.0:
 
 yocto-queue@^1.0.0:
   version "1.1.1"
+
+yup@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/yup/-/yup-1.7.0.tgz"
+  integrity sha512-VJce62dBd+JQvoc+fCVq+KZfPHr+hXaxCcVgotfwWvlR0Ja3ffYKaJBT8rptPOSKOGJDCUnW2C2JWpud7aRP6Q==
+  dependencies:
+    property-expr "^2.0.5"
+    tiny-case "^1.0.3"
+    toposort "^2.0.2"
+    type-fest "^2.19.0"
 
 zustand@^4.5.5:
   version "4.5.5"
