@@ -65,3 +65,4 @@ export function render(url: string) {
     </StrictMode>
   );
 }
+
