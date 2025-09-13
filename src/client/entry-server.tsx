@@ -55,7 +55,7 @@ export function render(url: string) {
             <Route path="/galerie/" element={<Gallery />} />
             <Route path="/galerie/:folder" element={<Gallery />} />
 
-            {/* <Route path="/prihlaska" element={<ApplicationPage />} /> */}
+            <Route path="/prihlaska" element={<ApplicationPage />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

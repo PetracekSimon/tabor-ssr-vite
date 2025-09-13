@@ -6,8 +6,42 @@ import verify from '../utiles/auth.js';
 import requsetHelper from '../utiles/request-helper.js';
 import config from '../../config.js';
 
+import ReactDOMServer from "react-dom/server";
+import PdfApplicationTemplate from "../../client/export/pdfApplicationTemplate.js";
+import puppeteer from "puppeteer";
+import { Application } from '@client/api.js';
+import React from 'react';
+
 const _mongo = new ApplicationMongo();
 const router = express.Router();
+
+
+export async function generatePdf(application: Application) {
+  const html = ReactDOMServer.renderToStaticMarkup(
+    React.createElement(PdfApplicationTemplate, { application })
+  );
+
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.setContent(html, { waitUntil: "networkidle0" });
+
+  const pdfBuffer = await page.pdf({ format: "A4" });
+  await browser.close();
+
+  return pdfBuffer;
+}
+
+
+router.get("/:id/pdf", verify, requsetHelper, async (req, res) => {
+  const application = await _mongo.get(req.params.id); // nebo odkud bereš data
+  if (!application) return res.status(404).send("Not found");
+
+  const pdfBuffer = await generatePdf(application.toObject() as any);
+
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline; filename=prihlaska.pdf");
+  res.end(pdfBuffer);
+});
 
 router.post('/', requsetHelper, async (req, res) => {
   //HDS 1 (body validation)
@@ -43,7 +77,7 @@ router.get('/list', verify, requsetHelper, async (req, res) => {
   if (validate.error?.details) {
     return Errors.List.InvalidBody(res, validate.error.details);
   }
-  
+
   //HDS 2 (list)
   let dtoOut;
   try {

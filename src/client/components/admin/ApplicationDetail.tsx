@@ -8,7 +8,7 @@ export const ApplicationDetail = (props: ApplicationDetailProps) => {
     const app = props.application;
 
     return (
-        <div className="max-w-2xl mx-auto p-6 space-y-6 mb-10 w-[500px]">
+        <div className="max-w-2xl mx-auto p-6 space-y-6 w-[500px]">
             <div className="space-y-2">
                 <p className="text-sm text-slate-700 dark:text-slate-300">
                     <strong>Jméno dítěte:</strong> {app.childFirstName} {app.childLastName}

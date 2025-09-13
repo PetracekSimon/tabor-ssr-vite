@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import config from "../../config.js"
 
 const applicationSchema = new mongoose.Schema({
 
@@ -6,7 +7,7 @@ const applicationSchema = new mongoose.Schema({
 
   // Application info
 
-  summerCampYear: { type: Number, required: true, default: 2026 }, //TODO Tady se z nějakýho důvodu blbě načítá ../../conifg.ts
+  summerCampYear: { type: Number, required: true, default: config.campYearInfo.year },
   applicationNumber: { type: String, required: true },
   state: { type: String, required: true, default: "pending" },
 
