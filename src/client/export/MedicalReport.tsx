@@ -1,5 +1,5 @@
 import { Application } from "@client/api.js";
-import { formtaDate } from "@client/utils.js";
+import { formtaDate } from "../utils.js";
 
 interface MedicalReportProps {
     application: Application;

@@ -1,7 +1,6 @@
 // src/components/ApplicationDetail.tsx
 import { Application, TransportPlace } from "@client/api";
-import config from "../../config.js";
-import { formatPhoneNumber, formtaDate } from "@client/utils.js";
+import { formatPhoneNumber, formtaDate } from "../utils.js";
 import SectionHeader from "./SectionHeader.js";
 
 export interface ChildDescriptionProps {
