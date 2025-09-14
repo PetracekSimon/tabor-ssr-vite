@@ -69,7 +69,7 @@ const ApplicationCard = (props: ApplicationCardProps) => {
   const stateValue = watch("state");
 
   useEffect(() => {
-    if (stateValue && stateValue !== props.application.state) {
+    if (stateValue && stateValue !== props.application.state) { // TODO tohle je blbý, protože to nejde při změně pak změnit zpátky na co to bylo
       handleSubmit(onStatusChange)();
     }
   }, [stateValue])
@@ -79,12 +79,12 @@ const ApplicationCard = (props: ApplicationCardProps) => {
     await toast.promise(api.getApplicationAsPDF(application._id, token), {
       pending: "Generuji PDF přihlášku",
       error: "Něco se pokazilo",
-      success: "Přihláška byl úspěšně vygenerována"
-    }).then((response) => {
+      success: "Přihláška byla úspěšně vygenerována"
+    }).then((response: { data: Blob }) => {
       const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `prihlaska-${config.campYearInfo.year}-${application.applicationNumber}-${application.childFirstName}_${application.childLastName}.pdf`);
+      link.setAttribute('download', `Prihlaska${config.campYearInfo.year}_${application.applicationNumber}_${application.childFirstName}_${application.childLastName}.pdf`);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);

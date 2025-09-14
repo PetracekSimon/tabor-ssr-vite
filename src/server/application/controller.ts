@@ -11,23 +11,72 @@ import PdfApplicationTemplate from "../../client/export/pdfApplicationTemplate.j
 import puppeteer from "puppeteer";
 import { Application } from '@client/api.js';
 import React from 'react';
+import path from 'path';
+import fs from "fs";
+import { fileURLToPath } from 'url';
 
 const _mongo = new ApplicationMongo();
 const router = express.Router();
 
 
 export async function generatePdf(application: Application) {
-  const html = ReactDOMServer.renderToStaticMarkup(
+  const appHtml = ReactDOMServer.renderToStaticMarkup(
     React.createElement(PdfApplicationTemplate, { application })
   );
+
+  // získat cestu k aktuálnímu souboru
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+
+  const imgPath = path.resolve(__dirname, "export-assets", "application_hero.png");
+  console.log(imgPath);
+
+  const imgBase64 = fs.readFileSync(imgPath, { encoding: "base64" });
+
+  const imgSrc = `data:image/png;base64,${imgBase64}`;
+
+  const html = `
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="utf-8"/>
+        <style>
+          @page {
+            @bottom-center {
+              content: counter(page) " / " counter(pages);
+              font-family: Arial, sans-serif;
+              font-size: 11px;
+              color: #555;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div style='border: "1px solid black"; height: "400px"; width: "100%"'>
+          <img src='${imgSrc}' style='width:"100%"; height:"100%"; object-fit:"cover"' />
+        </div>
+        ${appHtml}
+      </body>
+    </html>
+  `;
 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
 
-  const pdfBuffer = await page.pdf({ format: "A4" });
-  await browser.close();
+  const pdfBuffer = await page.pdf({
+    format: "A4",
+    printBackground: true,
+    margin: {
+      top: "10mm",
+      right: "10mm",
+      bottom: "10mm",
+      left: "10mm",
+    }
+  });
 
+  await browser.close();
   return pdfBuffer;
 }
 

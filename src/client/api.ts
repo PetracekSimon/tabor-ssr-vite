@@ -436,6 +436,8 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
 }
 
 
+export type TransportPlace = "radotin" | "radlice" | "vlastni";
+
 export interface Application {
     _id: string;
     summerCampYear: number;
@@ -460,6 +462,6 @@ export interface Application {
     healthProblems: string;
     foodAllergy: string;
     childDescription: string;
-    boardingPlace: string;
-    leavingPlace: string;
+    boardingPlace: TransportPlace;
+    leavingPlace: TransportPlace;
 }

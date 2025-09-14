@@ -3,7 +3,8 @@ export default {
 
     campYearInfo: {
         year: 2026,
-        dateAsString: "30.6. – 18.7." //TODO
+        dateAsString: "30.6. – 18.7.", //TODO
+        paymentDeadline: "31.5."
     }
     
 }
