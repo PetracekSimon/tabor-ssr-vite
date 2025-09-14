@@ -9,6 +9,14 @@ import * as yup from "yup";
 import { Api, ApiError } from "@client/api";
 import { toast } from "react-toastify";
 
+const phoneValidator = yup
+  .string()
+  .required("Tento údaj je povinný")
+  .matches(
+    /^(\d{3})(?:\s*)(\d{3})(?:\s*)(\d{3})$/,
+    "Zadejte telefon ve správném formátu",
+  );
+
 const applicationSchema = yup.object({
   childFirstName: yup.string().required("Vyplňte jméno dítěte"),
   childLastName: yup.string().required("Vyplňte příjmení dítěte"),
@@ -34,9 +42,9 @@ const applicationSchema = yup.object({
   firstTime: yup.boolean().default(false),
   hobbies: yup.string().nullable().optional(),
   motherName: yup.string().nullable().optional(),
-  motherPhone: yup.string().nullable().optional(),
+  motherPhone: phoneValidator,
   fatherName: yup.string().nullable().optional(),
-  fatherPhone: yup.string().nullable().optional(),
+  fatherPhone: phoneValidator,
   parentEmail: yup.string().email("Neplatný e-mail").required("Vyplňte e-mail"),
   swimming: yup.string().oneOf(["plavec", "neplavec"]).required(),
   healthProblems: yup.string().nullable().optional(),
@@ -298,9 +306,13 @@ const ApplicationPage = () => {
                   <input
                     id="motherPhone"
                     type="tel"
+                    aria-invalid={!!errors.motherPhone}
                     className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
                     {...register("motherPhone")}
                   />
+                  {errors.motherPhone && (
+                    <p className="text-sm text-red-600">{errors.motherPhone.message as string}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -327,9 +339,13 @@ const ApplicationPage = () => {
                   <input
                     id="fatherPhone"
                     type="tel"
+                    aria-invalid={!!errors.fatherPhone}
                     className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
                     {...register("fatherPhone")}
                   />
+                  {errors.fatherPhone && (
+                    <p className="text-sm text-red-600">{errors.fatherPhone.message as string}</p>
+                  )}
                 </div>
               </div>
             </div>

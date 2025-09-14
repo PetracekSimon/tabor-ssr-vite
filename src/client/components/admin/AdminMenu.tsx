@@ -90,8 +90,13 @@ const AdminMenu = () => {
                         </Link>
                     </li>
                     <li className="group">
-                        <Link to="/admin/galerie" className="block py-4 px-6 text-lg text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-300">
+                        <Link to="/admin/gallery" className="block py-4 px-6 text-lg text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-300">
                             Galerie
+                        </Link>
+                    </li>
+                    <li className="group">
+                        <Link to="/admin/test-prihlaska" className="block py-4 px-6 text-lg text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-300">
+                            Vytoření testovací přihlášky
                         </Link>
                     </li>
                 </ul>

@@ -55,16 +55,17 @@ export function render(url: string) {
             <Route path="/galerie/" element={<Gallery />} />
             <Route path="/galerie/:folder" element={<Gallery />} />
 
-            <Route path="/prihlaska" element={<ApplicationPage />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/admin" element={<AdminLogin />} />
           <Route element={<AdminLayout><Outlet /></AdminLayout>}>
             <Route path="/admin/home" element={<AdminHome />} />
-            <Route path="/admin/galerie" element={<AdminGallery />} />
+            <Route path="/admin/gallery" element={<AdminGallery />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
+            {/* TODO: přehodit do normálně public routes */}
+            <Route path="/admin/test-prihlaska" element={<ApplicationPage />} />
           </Route>
         </Routes>
       </StaticRouter>
