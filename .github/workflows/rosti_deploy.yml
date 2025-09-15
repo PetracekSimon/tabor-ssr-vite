@@ -51,7 +51,7 @@ jobs:
           cat << EOF > rosti.app.conf
           [program:app]
           command=/srv/bin/primary_tech/npm start
-          environment=PATH="/srv/bin/primary_tech:/usr/local/bin:/usr/bin:/bin:/srv/.npm-packages/bin"
+          environment=PATH="/srv/bin/primary_tech:/usr/local/bin:/usr/bin:/bin:/srv/.npm-packages/bin",PUPPETEER_CACHE_DIR="/srv/.cache/puppeteer"
           stopasgroup=true
           directory=/srv/app
           process_name=app
@@ -75,8 +75,8 @@ jobs:
               location / {
                       proxy_pass         http://127.0.0.1:8080/;
                       proxy_redirect     default;
-                      proxy_set_header   X-Real-IP  \$remote_addr;
-                      proxy_set_header   Host       \$host;
+                      proxy_set_header   X-Real-IP  $remote_addr;
+                      proxy_set_header   Host       $host;
               }
               location /static/ {
                       alias /srv/app/public/;
@@ -88,6 +88,9 @@ jobs:
       - name: Copy code
         run: |
           rsync -ae "ssh -o UserKnownHostsFile=./known_hosts -p $PORT" --delete-after --exclude=.git ./ $USER@$HOST:/srv/app/
+      - name: Install Puppeteer's Chrome on server
+        run: |
+          ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST "mkdir -p /srv/.cache/puppeteer && PUPPETEER_CACHE_DIR=/srv/.cache/puppeteer /srv/bin/primary_tech/npx --yes puppeteer browsers install chrome"
       - name: Apply changes
         run: |
           ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST supervisorctl reread
