@@ -137,6 +137,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
     optimizeDeps: { include: [] },
   });
 
+  //TODO: zkusit https://github.com/bluwy/create-vite-extra/tree/master/template-ssr-react
   // use vite's connect instance as middleware
   // if you use your own express router (express.Router()), you should use router.use
   app.use(vite.middlewares);

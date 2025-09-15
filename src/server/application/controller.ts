@@ -28,9 +28,9 @@ export async function generatePdf(application: Application) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-
-  const imgPath = path.resolve(__dirname, "export-assets", "application_hero.png");
-  console.log(imgPath);
+  // Prefer image from public assets (works in dev and prod), fallback to local export-assets
+  const publicImgPath = path.resolve(__dirname, "../../../public", "assets", "application_hero.png");
+  const imgPath = fs.existsSync(publicImgPath) ? publicImgPath : "";
 
   const imgBase64 = fs.readFileSync(imgPath, { encoding: "base64" });
 
@@ -53,8 +53,8 @@ export async function generatePdf(application: Application) {
         </style>
       </head>
       <body>
-        <div style='border: "1px solid black"; height: "400px"; width: "100%"'>
-          <img src='${imgSrc}' style='width:"100%"; height:"100%"; object-fit:"cover"' />
+        <div style='border: 1px solid black; height: 400px; width: 100%'>
+          <img src='${imgSrc}' style='width: 100%; height: 100%; object-fit: cover' />
         </div>
         ${appHtml}
       </body>
