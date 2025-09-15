@@ -1,6 +1,6 @@
 import { Application } from "@client/api";
 import SectionHeader from "./SectionHeader.js";
-import { formtaDate } from "@client/utils.js";
+import { formtaDate } from "../utils.js";
 import config from "../../config.js";
 
 interface ParentsConsentProps {
