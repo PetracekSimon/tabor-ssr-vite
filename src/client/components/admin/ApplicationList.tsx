@@ -3,6 +3,7 @@ import ApplicationCard from "./ApplicationCard"
 import { useAppStore } from "@client/ZustandContext";
 import { useEffect, useState } from "react";
 import ApplicationFilter from "./ApplicationFilter";
+import ApplicationsTable from "./ApplicationTable";
 
 
 const ApplicationList = () => {
@@ -10,6 +11,7 @@ const ApplicationList = () => {
 
     const [applications, setApplications] = useState<Application[]>([]);
     const [isLoading, setIslLoading] = useState<boolean>(true);
+    const [viewType, setViewType] = useState<"card" | "table">("card");
 
     const api = new Api();
 
@@ -52,37 +54,59 @@ const ApplicationList = () => {
             </div>
 
             <ApplicationFilter submitHandler={loadApplications} />
+            <div className="flex gap-4">
+                <button
+                    onClick={() => setViewType("card")}
+                    className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-slate-600 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" rx="1" ry="1" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" ry="1" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" ry="1" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" ry="1" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
 
-            {/* TODO: předělat tohle je divný */}
+                <button
+                    onClick={() => setViewType("table")}
+                    className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-slate-600 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="1" ry="1" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <line x1="3" y1="9" x2="21" y2="9" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <line x1="3" y1="15" x2="21" y2="15" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <line x1="9" y1="3" x2="9" y2="21" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        <line x1="15" y1="3" x2="15" y2="21" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+
+                </button>
+            </div>
+
             {isLoading && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[...Array(1)].map((_, i) => (
-                        <div key={i} className="bg-white dark:bg-slate-800 rounded-lg shadow-md border border-gray-200 dark:border-slate-700 p-6 animate-pulse">
-                            <div className="flex justify-between items-start mb-4">
-                                <div className="space-y-2">
-                                    <div className="h-6 bg-gray-300 dark:bg-slate-600 rounded w-24"></div>
-                                    <div className="h-4 bg-gray-300 dark:bg-slate-600 rounded w-32"></div>
-                                </div>
-                                <div className="h-6 bg-gray-300 dark:bg-slate-600 rounded w-20"></div>
-                            </div>
-                            <div className="space-y-3">
-                                {[...Array(4)].map((_, j) => (
-                                    <div key={j} className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-1">
-                                            <div className="h-3 bg-gray-300 dark:bg-slate-600 rounded w-16"></div>
-                                            <div className="h-4 bg-gray-300 dark:bg-slate-600 rounded w-24"></div>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <div className="h-3 bg-gray-300 dark:bg-slate-600 rounded w-16"></div>
-                                            <div className="h-4 bg-gray-300 dark:bg-slate-600 rounded w-24"></div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
+                <div className="flex justify-center items-center h-64">
+                    <svg
+                        className="animate-spin h-10 w-10 text-primary-500"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                        ></circle>
+                        <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        ></path>
+                    </svg>
                 </div>
             )}
+
 
             {applications.length === 0 && !isLoading &&
                 <div className="text-center py-12">
@@ -95,7 +119,8 @@ const ApplicationList = () => {
                     <p className="text-slate-600 dark:text-slate-400">Zatím nebyly podány žádné přihlášky.</p>
                 </div>
             }
-            {applications.length !== 0 && !isLoading &&
+
+            {viewType === "card" && applications.length !== 0 && !isLoading &&
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {applications.map((application) => (
                         <ApplicationCard
@@ -106,6 +131,10 @@ const ApplicationList = () => {
                 </div>
             }
 
+            {viewType === "table"
+                && applications.length !== 0 && !isLoading &&
+                <ApplicationsTable applications={applications} />
+            }
         </div>
     )
 }

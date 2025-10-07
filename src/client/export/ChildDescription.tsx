@@ -96,17 +96,19 @@ export default function ChildDescription(props: ChildDescriptionProps) {
       <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "10px" }}>
         <tbody>
           <tr>
-            <td style={labelStyle}>Matka:</td>
-            <td style={inputBox}>{a.motherName}</td>
+            <td style={labelStyle}>Zákonný zástupce 1:</td>
+            <td style={inputBox}>{a.parent1Name}</td>
             <td style={labelStyle}>Telefon:</td>
-            <td style={inputBox}>{formatPhoneNumber(a.motherPhone)}</td>
+            <td style={inputBox}>{formatPhoneNumber(a.parent1Phone)}</td>
           </tr>
-          <tr>
-            <td style={labelStyle}>Otec:</td>
-            <td style={inputBox}>{a.fatherName}</td>
-            <td style={labelStyle}>Telefon:</td>
-            <td style={inputBox}>{formatPhoneNumber(a.fatherPhone)}</td>
-          </tr>
+          {a.parent2Name &&
+            <tr>
+              <td style={labelStyle}>Zákonný zástupce 2:</td>
+              <td style={inputBox}>{a.parent2Name}</td>
+              <td style={labelStyle}>Telefon:</td>
+              <td style={inputBox}>{formatPhoneNumber(a.parent2Phone)}</td>
+            </tr>
+          }
           <tr>
             <td style={labelStyle}>Email:</td>
             <td style={inputBox} colSpan={3}>{a.parentEmail}</td>

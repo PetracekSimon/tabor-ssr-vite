@@ -6,6 +6,7 @@ const applicationTypes = {
     childLastName: Joi.string().required(),
     childBirthDate: Joi.string().required(),
     childAddress: Joi.string().required(),
+    childGender: Joi.string().required(),
 
     insuranceNumber: Joi.string().required(),
     tetanusDate: Joi.string().required(),
@@ -15,10 +16,10 @@ const applicationTypes = {
     firstTime: Joi.boolean(),
     hobbies: Joi.string().allow(""),
 
-    motherName: Joi.string().allow(""),
-    motherPhone: Joi.string().allow(""),
-    fatherName: Joi.string().allow(""),
-    fatherPhone: Joi.string().allow(""),
+    parent1Name: Joi.string().allow(""),
+    parent1Phone: Joi.string().allow(""),
+    parent2Name: Joi.string().allow(""),
+    parent2Phone: Joi.string().allow(""),
 
     parentEmail: Joi.string().email().required(),
 
@@ -26,9 +27,14 @@ const applicationTypes = {
     healthProblems: Joi.string().allow(""),
     foodAllergy: Joi.string().allow(""),
     childDescription: Joi.string().allow(""),
+    tentPreference: Joi.string().allow(""),
 
     boardingPlace: Joi.string().valid("radotin", "radlice", "vlastni").required(),
     leavingPlace: Joi.string().valid("radotin", "radlice", "vlastni").required(),
+
+    tripFreeTimeConsent: Joi.boolean(),
+    photoConsent: Joi.boolean(),
+    medicalTreatmentConsent: Joi.boolean(),
   }),
   list: Joi.object({
     filter: Joi.object(),
@@ -42,7 +48,7 @@ const applicationTypes = {
   }),
   updateState: Joi.object({
     id: Joi.string().required(),
-    state: Joi.string().valid("pending", "approved", "rejected", "paid").required(), //TODO: zamyslet se nad states
+    state: Joi.string().valid("pending", "approved", "rejected", "paid").required(),
   }),
 };
 

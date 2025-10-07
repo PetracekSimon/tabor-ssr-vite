@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 
 const phoneValidator = yup
   .string()
-  .required("Tento údaj je povinný")
   .matches(
     /^(\d{3})(?:\s*)(\d{3})(?:\s*)(\d{3})$/,
     "Zadejte telefon ve správném formátu",
@@ -22,6 +21,7 @@ const applicationSchema = yup.object({
   childLastName: yup.string().required("Vyplňte příjmení dítěte"),
   childBirthDate: yup.string().required("Zadejte datum narození"),
   childAddress: yup.string().required("Vyplňte bydliště"),
+  childGender: yup.string().oneOf(["kluk", "holka"]).required("Tento údaj je povinný"),
   insuranceNumber: yup
     .string()
     .required("Vyplňte číslo zdravotní pojišťovny")
@@ -41,17 +41,21 @@ const applicationSchema = yup.object({
     .optional(),
   firstTime: yup.boolean().default(false),
   hobbies: yup.string().nullable().optional(),
-  motherName: yup.string().nullable().optional(),
-  motherPhone: phoneValidator,
-  fatherName: yup.string().nullable().optional(),
-  fatherPhone: phoneValidator,
+  parent1Name: yup.string().nullable().required(),
+  parent1Phone: phoneValidator.required(),
+  parent2Name: yup.string().nullable().optional(),
+  parent2Phone: phoneValidator.optional(),
   parentEmail: yup.string().email("Neplatný e-mail").required("Vyplňte e-mail"),
   swimming: yup.string().oneOf(["plavec", "neplavec"]).required(),
   healthProblems: yup.string().nullable().optional(),
   foodAllergy: yup.string().nullable().optional(),
   childDescription: yup.string().nullable().optional(),
+  tentPreference: yup.string().nullable().optional(),
   boardingPlace: yup.string().oneOf(["radotin", "radlice", "vlastni"]).required("Vyberte nástupní místo"),
   leavingPlace: yup.string().oneOf(["radotin", "radlice", "vlastni"]).required("Vyberte výstupní místo"),
+  tripFreeTimeConsent: yup.boolean().default(false),
+  photoConsent: yup.boolean().default(false),
+  medicalTreatmentConsent: yup.boolean().default(false),
 });
 
 type ApplicationFormValues = yup.InferType<typeof applicationSchema>;
@@ -75,10 +79,11 @@ const ApplicationPage = () => {
       siblingsCount: 2,
       firstTime: false,
       hobbies: "Hra na kytaru",
-      motherName: "Jana Křivánková",
-      motherPhone: "1234567890",
-      fatherName: "David Křivánek",
-      fatherPhone: "1234567890",
+      childGender: "kluk",
+      parent1Name: "Jana Křivánková",
+      parent1Phone: "1234567890",
+      parent2Name: "David Křivánek",
+      parent2Phone: "1234567890",
       parentEmail: "david.krivanek@gmail.com",
       swimming: "plavec",
       healthProblems: "Nemá žádné",
@@ -86,6 +91,9 @@ const ApplicationPage = () => {
       childDescription: "David je chytrý a hravý",
       boardingPlace: "radotin",
       leavingPlace: "radotin",
+      tripFreeTimeConsent: false,
+      photoConsent: false,
+      medicalTreatmentConsent: false,
     },
   });
 
@@ -111,7 +119,7 @@ const ApplicationPage = () => {
     <>
       <PageTitle />
       <div className="flex bg-white-100 font-sans items-center flex-col">
-        <Hero title="Online přihláška" subtitle="2026" background="/assets/hero.jpg" />
+        <Hero title="Online přihláška" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
         <Container>
           <form
             className="max-w-2xl mx-auto p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-md space-y-6 mb-10"
@@ -162,19 +170,34 @@ const ApplicationPage = () => {
             </div>
 
             {/* Datum narození */}
-            <div className="flex flex-col space-y-2">
-              <label htmlFor="childBirthDate" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Datum narození
-              </label>
-              <input
-                id="childBirthDate"
-                type="date"
-                className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col space-y-2">
+                <label htmlFor="childBirthDate" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Datum narození
+                </label>
+                <input
+                  id="childBirthDate"
+                  type="date"
+                  className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 
             focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
-                aria-invalid={!!errors.childBirthDate}
-                {...register("childBirthDate")}
-              />
-              {errors.childBirthDate && <p className="text-sm text-red-600">{errors.childBirthDate.message}</p>}
+                  aria-invalid={!!errors.childBirthDate}
+                  {...register("childBirthDate")}
+                />
+                {errors.childBirthDate && <p className="text-sm text-red-600">{errors.childBirthDate.message}</p>}
+              </div>
+              <div className="flex flex-col space-y-2">
+                <label htmlFor="childGender" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Pohlaví dítěte
+                </label>
+                <select
+                  id="childGender"
+                  className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  {...register("childGender")}
+                >
+                  <option value="kluk">Kluk</option>
+                  <option value="holka">Holka</option>
+                </select>
+              </div>
             </div>
 
             {/* Bydliště */}
@@ -284,67 +307,67 @@ const ApplicationPage = () => {
               />
             </div>
 
-            {/* Matka */}
+            {/* Zákonný zástupce 1 */}
             <div className="space-y-2">
-              <h2 className="text-md font-semibold text-slate-800 dark:text-white">Matka</h2>
+              <h2 className="text-md font-semibold text-slate-800 dark:text-white">Zákonný zástupce 1</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="motherName" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="parent1Name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     Jméno a příjmení
                   </label>
                   <input
-                    id="motherName"
+                    id="parent1Name"
                     type="text"
                     className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
-                    {...register("motherName")}
+                    {...register("parent1Name")}
                   />
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="motherPhone" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="parent1Phone" className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     Telefon
                   </label>
                   <input
-                    id="motherPhone"
+                    id="parent1Phone"
                     type="tel"
-                    aria-invalid={!!errors.motherPhone}
+                    aria-invalid={!!errors.parent1Phone}
                     className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
-                    {...register("motherPhone")}
+                    {...register("parent1Phone")}
                   />
-                  {errors.motherPhone && (
-                    <p className="text-sm text-red-600">{errors.motherPhone.message as string}</p>
+                  {errors.parent1Phone && (
+                    <p className="text-sm text-red-600">{errors.parent1Phone.message as string}</p>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* Otec */}
+            {/* Zákonný zástupce 2 */}
             <div className="space-y-2">
-              <h2 className="text-md font-semibold text-slate-800 dark:text-white">Otec</h2>
+              <h2 className="text-md font-semibold text-slate-800 dark:text-white">Zákonný zástupce 2</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="fatherName" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="parent2Name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     Jméno a příjmení
                   </label>
                   <input
-                    id="fatherName"
+                    id="parent2Name"
                     type="text"
                     className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
-                    {...register("fatherName")}
+                    {...register("parent2Name")}
                   />
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="fatherPhone" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <label htmlFor="parent2Phone" className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     Telefon
                   </label>
                   <input
-                    id="fatherPhone"
+                    id="parent2Phone"
                     type="tel"
-                    aria-invalid={!!errors.fatherPhone}
+                    aria-invalid={!!errors.parent2Phone}
                     className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
-                    {...register("fatherPhone")}
+                    {...register("parent2Phone")}
                   />
-                  {errors.fatherPhone && (
-                    <p className="text-sm text-red-600">{errors.fatherPhone.message as string}</p>
+                  {errors.parent2Phone && (
+                    <p className="text-sm text-red-600">{errors.parent2Phone.message as string}</p>
                   )}
                 </div>
               </div>
@@ -394,6 +417,9 @@ const ApplicationPage = () => {
                 className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
                 {...register("healthProblems")}
               />
+              <span className="italic text-sm text-gray-500">
+                * Jiné zdravotní skutečnosti o kterých bychom měli vědět
+              </span>
             </div>
 
             <div className="flex flex-col space-y-2">
@@ -417,6 +443,18 @@ const ApplicationPage = () => {
                 rows={3}
                 className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
                 {...register("childDescription")}
+              />
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="tentPreference" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                S kým chci být ve stanu
+              </label>
+              <textarea
+                id="tentPreference"
+                rows={3}
+                className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
+                {...register("tentPreference")}
               />
             </div>
 
@@ -455,6 +493,50 @@ const ApplicationPage = () => {
                 {errors.leavingPlace && <p className="text-sm text-red-600">{errors.leavingPlace.message}</p>}
               </div>
             </div>
+
+
+
+
+            {/* Checkbox souhlasím s rozchodem */}
+            <div className="flex items-center space-x-2">
+              <input
+                id="tripFreeTimeConsent"
+                type="checkbox"
+                className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
+                {...register("tripFreeTimeConsent")}
+              />
+              <label htmlFor="tripFreeTimeConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Souhlasím s rozchodem
+
+              </label>
+            </div>
+
+            {/* Checkbox souhlasím s fotografií */}
+            <div className="flex items-center space-x-2">
+              <input
+                id="photoConsent"
+                type="checkbox"
+                className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
+                {...register("photoConsent")}
+              />
+              <label htmlFor="photoConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Souhlasím s fotografií
+              </label>
+            </div>
+
+            {/* Checkbox souhlasím s ošetřením */}
+            <div className="flex items-center space-x-2">
+              <input
+                id="medicalTreatmentConsent"
+                type="checkbox"
+                className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
+                {...register("medicalTreatmentConsent")}
+              />
+              <label htmlFor="medicalTreatmentConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Souhlasím s ošetřením
+              </label>
+            </div>
+
 
             {/* Submit */}
             <button

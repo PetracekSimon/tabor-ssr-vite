@@ -126,17 +126,19 @@ const ApplicationCard = (props: ApplicationCardProps) => {
         <div className="grid grid-cols-1 gap-4 text-sm">
           <div>
             <span className="text-slate-600 dark:text-slate-400">E-mail:</span>
-            <p className="font-medium text-slate-800 dark:text-white">{application.parentEmail}</p>
+            <p className="font-medium text-slate-800 dark:text-white">
+              <a href={`mailto:${application.parentEmail}`}>{application.parentEmail}</a>
+            </p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-slate-600 dark:text-slate-400">Telefon matka:</span>
-            <p className="font-medium text-slate-800 dark:text-white">{application.motherPhone || "Neuveden"}</p>
+            <span className="text-slate-600 dark:text-slate-400">Telefon rodič 1:</span>
+            <p className="font-medium text-slate-800 dark:text-white">{application.parent1Phone || "Neuveden"}</p>
           </div>
           <div>
-            <span className="text-slate-600 dark:text-slate-400">Telefon otec:</span>
-            <p className="font-medium text-slate-800 dark:text-white">{application.fatherPhone || "Neuveden"}</p>
+            <span className="text-slate-600 dark:text-slate-400">Telefon rodič 2:</span>
+            <p className="font-medium text-slate-800 dark:text-white">{application.parent2Phone || "Neuveden"}</p>
           </div>
         </div>
 
@@ -155,7 +157,7 @@ const ApplicationCard = (props: ApplicationCardProps) => {
 
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-slate-600 dark:text-slate-400">Nástup:</span>
+            <span className="text-slate-600 dark:text-slate-400">Příjezd:</span>
             <p className="font-medium text-slate-800 dark:text-white">
               {application.boardingPlace === "radotin"
                 ? "Radotín"
@@ -165,7 +167,7 @@ const ApplicationCard = (props: ApplicationCardProps) => {
             </p>
           </div>
           <div>
-            <span className="text-slate-600 dark:text-slate-400">Výstup:</span>
+            <span className="text-slate-600 dark:text-slate-400">Odjezd:</span>
             <p className="font-medium text-slate-800 dark:text-white">
               {application.leavingPlace === "radotin"
                 ? "Radotín"

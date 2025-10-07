@@ -45,20 +45,20 @@ export const ApplicationDetail = (props: ApplicationDetailProps) => {
             <div className="space-y-2">
                 <h2 className="text-md font-semibold text-slate-800 dark:text-white">Matka</h2>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
-                    <strong>Jméno a příjmení:</strong> {app.motherName || "Neuvedeno"}
+                    <strong>Jméno a příjmení:</strong> {app.parent1Name || "Neuvedeno"}
                 </p>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
-                    <strong>Telefon:</strong> {app.motherPhone || "Neuvedeno"}
+                    <strong>Telefon:</strong> {app.parent1Phone || "Neuvedeno"}
                 </p>
             </div>
 
             <div className="space-y-2">
-                <h2 className="text-md font-semibold text-slate-800 dark:text-white">Otec</h2>
+                <h2 className="text-md font-semibold text-slate-800 dark:text-white">Rodič 2</h2>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
-                    <strong>Jméno a příjmení:</strong> {app.fatherName || "Neuvedeno"}
+                    <strong>Jméno a příjmení:</strong> {app.parent2Name || "Neuvedeno"}
                 </p>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
-                    <strong>Telefon:</strong> {app.fatherPhone || "Neuvedeno"}
+                    <strong>Telefon:</strong> {app.parent2Phone || "Neuvedeno"}
                 </p>
             </div>
 
@@ -77,6 +77,9 @@ export const ApplicationDetail = (props: ApplicationDetailProps) => {
                 </p>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
                     <strong>Charakteristika dítěte:</strong> {app.childDescription || "Neuvedeno"}
+                </p>
+                <p className="text-sm text-slate-700 dark:text-slate-300">
+                    <strong>Preferovaný spolubydlící:</strong> {app.tentPreference || "Neuvedeno"}
                 </p>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
                     <strong>Nástupní místo:</strong> {app.boardingPlace || "Neuvedeno"}

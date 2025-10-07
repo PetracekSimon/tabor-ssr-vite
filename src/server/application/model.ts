@@ -16,6 +16,7 @@ const applicationSchema = new mongoose.Schema({
   childLastName: { type: String, required: true },
   childBirthDate: { type: String, required: true },
   childAddress: { type: String, required: true },
+  childGender: { type: String, required: true },
 
   // Health / insurance
   insuranceNumber: { type: String, required: true },
@@ -28,10 +29,10 @@ const applicationSchema = new mongoose.Schema({
   hobbies: { type: String },
 
   // Parents
-  motherName: { type: String },
-  motherPhone: { type: String },
-  fatherName: { type: String },
-  fatherPhone: { type: String },
+  parent1Name: { type: String, required: true },
+  parent1Phone: { type: String, required: true },
+  parent2Name: { type: String },
+  parent2Phone: { type: String },
 
   // Contact
   parentEmail: { type: String, required: true },
@@ -41,10 +42,16 @@ const applicationSchema = new mongoose.Schema({
   healthProblems: { type: String },
   foodAllergy: { type: String },
   childDescription: { type: String },
+  tentPreference: { type: String },
 
   // Logistics
   boardingPlace: { type: String, enum: ["radotin", "radlice", "vlastni"], required: true },
   leavingPlace: { type: String, enum: ["radotin", "radlice", "vlastni"], required: true },
+
+  // Consents
+  tripFreeTimeConsent: { type: Boolean, default: false },
+  photoConsent: { type: Boolean, default: false },
+  medicalTreatmentConsent: { type: Boolean, default: false },
 
 }, { timestamps: true });
 
