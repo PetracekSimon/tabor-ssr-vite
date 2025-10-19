@@ -1,0 +1,33 @@
+Formulář: 
+	Přidat: 	
+		S kým chci být ve stanu  -> Doplněno do přihlášky (potřeba dodělat všude dál)
+		Checkbox souhlasím s rozchodem (text bude specifikován)  -> Doplněno do přihlášky (potřeba dodělat všude dál)
+		Checkbox souhlasím s fotografií (text bude specifikován)  -> Doplněno do přihlášky (potřeba dodělat všude dál)
+		Checkbox souhlasím s ošetřením (text bude specifikován)  -> Doplněno do přihlášky (potřeba dodělat všude dál)
+		holka/kluk  -> Doplněno do přihlášky (potřeba dodělat všude dál)
+
+	Upravit: 
+			Zákonný zástupce 1 -> OK
+		Zákonný zástupce 2 (není povinný) -> OK (otestovat)
+			"Má tyto zdravotní problémy" -> přidat pod "Jiné zdravotní skutečnosti o kterých bychom měli vědět" -> OK
+	
+PDF: 
+	Přeformulovat: "všech typů plateb použijte rodné číslo dítěte jako variabilní symbol"
+
+
+Odeslání přihlášky
+	-> odešle se na kontaktní email informace o vytvoření přihlášky (KONKRÉTNÍ TEXT VYMYSLÍME)
+
+
+Administrace 
+	Přehled přihlášek 
+		- možnost tabulkového zobrazení (Jméno Příjemní, Datum narození, )
+		- možnost exportovat do excelu (asi spíš csv) 
+			+ počítat věk k začátku tábor
+
+		Odebrat:
+			plavec/neplavec
+			poprvé: ano/ne
+
+		Přidat 
+			Souhlasy
