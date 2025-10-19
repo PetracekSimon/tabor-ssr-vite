@@ -33,7 +33,7 @@ const CourseCamp = () => {
         <>
             <PageTitle />
             <div>
-                <Hero title="Průběh tábora" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
+                <Hero title="Průběh tábora" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
 
                 <section id="stravovani" className="section-anchor">
                     <div className="container mx-auto">

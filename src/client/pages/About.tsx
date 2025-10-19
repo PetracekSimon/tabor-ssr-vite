@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import config from "../../config";
 import Hero from "../components/Hero";
 import PageTitle from "../components/PageTitle";
 import { useEffect } from "react";
@@ -31,7 +32,7 @@ const About = () => {
     <>
       <PageTitle />
       <div>
-        <Hero title="O táboře" subtitle="Stanový tábor Kamenná 2025" background="/assets/hero.jpg" />
+        <Hero title="O táboře" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
 
         <section id="meta-info" className="section-anchor">
           <div className="container mx-auto">

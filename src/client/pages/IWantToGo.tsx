@@ -37,7 +37,7 @@ const IWantToGo = () => {
         <>
             <PageTitle />
             <div>
-                <Hero title="Chci jet" subtitle={config.heroSubtitle} background="/assets/hero.jpg" />
+                <Hero title="Chci jet" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
                 <section id="vseobecne-informace" className="section-anchor">
                     <div className="container mx-auto">
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Všeobecné informace</h2>
