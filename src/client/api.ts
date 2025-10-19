@@ -433,6 +433,18 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             format: "blob"
         });
     }
+    public generateApplicationsExcel = (data: any, token: string) => {
+        return this.request<Blob>({
+            path: `${this.apiUrl}/application/exportXLSX`,
+            method: HttpMethods.POST,
+            type: ContentType.UrlEncoded,
+            body: data,
+            headers: {
+                "auth-token": `${token}`
+            },
+            format: "blob"
+        });
+    }
 }
 
 

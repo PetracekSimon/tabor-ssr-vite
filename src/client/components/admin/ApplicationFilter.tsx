@@ -9,7 +9,7 @@ const schema = yup.object().shape({
     childName: yup.string().optional(),
 });
 
-type FilterFormValues = yup.InferType<typeof schema>;
+export type FilterFormValues = yup.InferType<typeof schema>;
 
 interface ApplicationFilterProps {
     submitHandler: (filters: FilterFormValues) => void;

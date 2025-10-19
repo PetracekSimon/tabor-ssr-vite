@@ -14,6 +14,7 @@ import React from 'react';
 import path from 'path';
 import fs from "fs";
 import { fileURLToPath } from 'url';
+import { exportApplicationsToExcel } from './xlsx/helper.js';
 
 const _mongo = new ApplicationMongo();
 const router = express.Router();
@@ -61,7 +62,7 @@ export async function generatePdf(application: Application) {
     </html>
   `;
 
-  const browser = await puppeteer.launch({ 
+  const browser = await puppeteer.launch({
     headless: true,
     args: [
       '--no-sandbox',
@@ -173,6 +174,33 @@ router.patch('/updateState', verify, requsetHelper, async (req, res) => {
   return res.send(updated);
 });
 
+
+router.post("/exportXLSX", verify, requsetHelper, async (req, res) => {
+
+  //HDS 1 (body validation)
+  const validate = Types.list.validate(req.data);
+  if (validate.error?.details) {
+    return Errors.ExportXLSX.InvalidBody(res, validate.error.details);
+  }
+
+  //HDS 2 (list)
+  let applications;
+  try {
+    applications = await _mongo.list(req.data.filter, req.data.pageInfo);
+  } catch (error) {
+    return Errors.ExportXLSX.DatabaseFailed(res, error);
+  }
+
+  try {
+    const buffer = await exportApplicationsToExcel(applications.itemList);
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename="prihlasky.xlsx"');
+    res.send(buffer);
+  } catch (error) {
+    return Errors.ExportXLSX.XlsxExportFailed(res, error);
+  }
+});
 
 
 export default router; 

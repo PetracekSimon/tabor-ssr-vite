@@ -121,9 +121,14 @@ export default [
         method: 'patch',
         roles: ['SuperAdmin', 'Admin'],
     },
-        {
+    {
         path: '/api/application/:id/pdf',
         method: 'get',
+        roles: ['SuperAdmin', 'Admin'],
+    },
+    {
+        path: '/api/application/exportXLSX',
+        method: 'post',
         roles: ['SuperAdmin', 'Admin'],
     },
 

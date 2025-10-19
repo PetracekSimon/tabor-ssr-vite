@@ -77,6 +77,29 @@ const Errors = {
       });
     },
   },
+  ExportXLSX: {
+    InvalidBody(res: Response, details: any) {
+      return res.status(400).send({
+        code: "application/exportXLSX/invalidBody",
+        message: "Požadavek má neplatná data.",
+        details,
+      });
+    },
+    DatabaseFailed(res: Response, error: any) {
+      return res.status(500).send({
+        code: "application/exportXLSX/databaseFailed",
+        message: "Nepodařilo se načíst přihlášky.",
+        error,
+      });
+    },
+    XlsxExportFailed(res: Response, error: any) {
+      return res.status(500).send({
+        code: "application/exportXLSX/xlsxExportFailed",
+        message: "Nepodařilo se vygenerovat excel soubor.",
+        error,
+      });
+    },
+  }
 };
 
 export default Errors;

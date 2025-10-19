@@ -194,7 +194,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
     applications(req, res, next);
   });
 
-  app.use("*", async (req: Request, res: Response, next: NextFunction) => {
+  app.use(/.*/, async (req: Request, res: Response, next: NextFunction) => {
     const url = req.originalUrl;
 
     const initialData = {

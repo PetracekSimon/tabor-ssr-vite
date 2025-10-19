@@ -2,7 +2,7 @@ import { Api, Application } from "@client/api"
 import ApplicationCard from "./ApplicationCard"
 import { useAppStore } from "@client/ZustandContext";
 import { useEffect, useState } from "react";
-import ApplicationFilter from "./ApplicationFilter";
+import ApplicationFilter, { FilterFormValues } from "./ApplicationFilter";
 import ApplicationsTable from "./ApplicationTable";
 
 
@@ -12,15 +12,16 @@ const ApplicationList = () => {
     const [applications, setApplications] = useState<Application[]>([]);
     const [isLoading, setIslLoading] = useState<boolean>(true);
     const [viewType, setViewType] = useState<"card" | "table">("card");
+    const [filters, setFilters] = useState<FilterFormValues>({});
 
     const api = new Api();
 
-    const loadApplications = (filters = {}) => {
+    const loadApplications = () => {
         setApplications([]);
 
         setIslLoading(true);
 
-        api.getApplications({ filter: filters }, token).then(res => {
+        api.getApplications({ stringify: JSON.stringify({ filter: filters }) }, token).then(res => {
             setApplications(res.data.itemList);
             setIslLoading(false);
         });
@@ -28,7 +29,22 @@ const ApplicationList = () => {
 
     useEffect(() => {
         loadApplications();
-    }, []);
+    }, [filters]);
+
+    const generateExcelFile = async () => {
+        const res = await api.generateApplicationsExcel({ filter: filters }, token);
+
+
+        // res.data už je Blob, žádné .blob()
+        const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'prihlasky.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
 
 
     return (
@@ -53,7 +69,7 @@ const ApplicationList = () => {
                 </div>
             </div>
 
-            <ApplicationFilter submitHandler={loadApplications} />
+            <ApplicationFilter submitHandler={setFilters} />
             <div className="flex gap-4">
                 <button
                     onClick={() => setViewType("card")}
@@ -135,6 +151,18 @@ const ApplicationList = () => {
                 && applications.length !== 0 && !isLoading &&
                 <ApplicationsTable applications={applications} />
             }
+
+            <div>
+                <button
+                    onClick={generateExcelFile}
+                    className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-slate-600 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                    <svg className="w-4 h-4" stroke="currentColor" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+            </div>
+
         </div>
     )
 }

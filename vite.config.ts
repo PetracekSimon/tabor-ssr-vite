@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         "@client": fileURLToPath(new URL("./src/client", import.meta.url)),
+        "@app-assets": fileURLToPath(new URL("./src/client/assets", import.meta.url)),
       },
     },
   }

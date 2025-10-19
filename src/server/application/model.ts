@@ -1,10 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 import config from "../../config.js"
 
 const applicationSchema = new mongoose.Schema({
-
-  //TODO: přidat příznaky zda máme fyzicky (mail etc...) přilohy k přihlášce (jako kartička pojištěnce atd..)
-
   // Application info
 
   summerCampYear: { type: Number, required: true, default: config.campYearInfo.year },
@@ -57,4 +54,5 @@ const applicationSchema = new mongoose.Schema({
 
 applicationSchema.index({ summerCampYear: 1, applicationNumber: 1 }, { unique: true });
 
+export type ApplicationType = InferSchemaType<typeof applicationSchema>;
 export default mongoose.model("Application", applicationSchema); 
