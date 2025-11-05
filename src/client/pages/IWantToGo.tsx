@@ -40,6 +40,7 @@ const IWantToGo = () => {
                 <Hero title="Chci jet" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
                 <section id="vseobecne-informace" className="section-anchor">
                     <div className="container mx-auto">
+                        <h3 className="text-center text-xl font-bold mb-8 uppercase">Přihlášky budou k dispozici od ledna</h3>
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Všeobecné informace</h2>
                         <hr className="border-t border-gray-300 my-4" />
                         <div>
@@ -100,7 +101,7 @@ const IWantToGo = () => {
                                     <p className="font-bold">Cena:</p>
                                 </div>
                                 <div className="md:col-span-10 mb-4 md:mb-0">
-                                    <p>7 100,- Kč  / 19 dní</p>
+                                    <p>7 100,- Kč  / 17 dní</p>
                                 </div>
 
                                 <div className="md:col-span-2">

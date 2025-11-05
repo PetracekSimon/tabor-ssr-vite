@@ -22,7 +22,7 @@ export const getMetaTags = (url: string) => {
 	].join(", ");
 
 	let title = "Letní stanový tábor";
-	let description = "Užijte si 19 dní plných dobrodružství na letním stanovém táboře Kamenná! Děti se mohou těšit na hry, sportovní aktivity a objevování přírody, které jim zanechají nezapomenutelné zážitky. Ideální dětský letní tábor na Vysočině.";
+	let description = "Užijte si 17 dní plných dobrodružství na letním stanovém táboře Kamenná! Děti se mohou těšit na hry, sportovní aktivity a objevování přírody, které jim zanechají nezapomenutelné zážitky. Ideální dětský letní tábor na Vysočině.";
 	let linkCanonical = `<link rel="canonical" href="${baseUrl}"/>`;
 	let keywords = commonKeywords;
 	let ogTitle = title;
@@ -30,7 +30,7 @@ export const getMetaTags = (url: string) => {
 	switch (url) {
 		case "/":
 			title = "Letní stanový dětský tábor Kamenná | Letní tábor pro děti";
-			description = "Tradiční letní dětský stanový tábor Kamenná na Vysočině. 19 dní dobrodružství, hry, sport a nové zážitky pro děti 6–15 let. Ideální letní tábor pro děti.";
+			description = "Tradiční letní dětský stanový tábor Kamenná na Vysočině. 17 dní dobrodružství, hry, sport a nové zážitky pro děti 6–15 let. Ideální letní tábor pro děti.";
 			linkCanonical = `<link rel="canonical" href="${baseUrl}/"/>`;
 			break;
 

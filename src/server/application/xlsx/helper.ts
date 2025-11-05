@@ -2,6 +2,87 @@ import ExcelJS from 'exceljs';
 import path from 'path';
 import { ApplicationType } from '../model';
 
+// Vše:
+const allProps = [
+  { header: 'Rok tábora', key: 'summerCampYear', width: 12 },
+  { header: 'Číslo přihlášky', key: 'applicationNumber', width: 20 },
+  { header: 'Stav', key: 'state', width: 12 },
+
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+  { header: 'Datum narození', key: 'childBirthDate', width: 15 },
+  { header: 'Adresa', key: 'childAddress', width: 30 },
+  { header: 'Pohlaví', key: 'childGender', width: 10 },
+
+  { header: 'Číslo pojišťovny', key: 'insuranceNumber', width: 15 },
+  { header: 'Datum očkování proti tetanu', key: 'tetanusDate', width: 15 },
+  { header: 'Škola', key: 'schoolInfo', width: 25 },
+  { header: 'Sourozenci', key: 'siblingsCount', width: 10 },
+  { header: 'Poprvé?', key: 'firstTime', width: 10 },
+  { header: 'Koníčky', key: 'hobbies', width: 20 },
+
+  { header: 'Rodič 1', key: 'parent1Name', width: 20 },
+  { header: 'Telefon 1', key: 'parent1Phone', width: 15 },
+  { header: 'Rodič 2', key: 'parent2Name', width: 20 },
+  { header: 'Telefon 2', key: 'parent2Phone', width: 15 },
+  { header: 'Email', key: 'parentEmail', width: 25 },
+
+  { header: 'Plavec?', key: 'swimming', width: 10 },
+  { header: 'Zdravotní problémy', key: 'healthProblems', width: 25 },
+  { header: 'Jídlo co nejí', key: 'foodAllergy', width: 20 },
+  { header: 'Popis dítěte', key: 'childDescription', width: 25 },
+  { header: 'Stan preference', key: 'tentPreference', width: 15 },
+
+  { header: 'Nástupní místo', key: 'boardingPlace', width: 15 },
+  { header: 'Odjezdové místo', key: 'leavingPlace', width: 15 },
+
+  { header: 'Souhlas s rozchodem', key: 'tripFreeTimeConsent', width: 10 },
+  { header: 'Souhlas s fotkami', key: 'photoConsent', width: 10 },
+  { header: 'Souhlas s ošetřením', key: 'medicalTreatmentConsent', width: 10 },
+
+  { header: 'Vytvořeno', key: 'createdAt', width: 20 },
+  { header: 'Upraveno', key: 'updatedAt', width: 20 },
+];
+
+const simpleList = [
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+  { header: 'Datum narození', key: 'childBirthDate', width: 15 },
+  { header: 'Věk', key: '{TODO:CALCULATE}', width: 15 },
+  { header: 'Pohlaví', key: 'childGender', width: 15 },
+  { header: 'Nástupní místo', key: 'boardingPlace', width: 15 },
+  { header: 'Odjezdové místo', key: 'leavingPlace', width: 15 },
+
+]
+
+// Seznam co nežerou: 
+const foodAllergy = [
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+  { header: 'Jídlo co nejí', key: 'foodAllergy', width: 20 },
+]
+
+// Nesouhlas s rozchodem
+const antiConsentTripFreeTime = [
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+]
+// NeSouhlas s fotkami
+const antiConsentPhoto = [
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+]
+// Nesouhlas s ošetřením
+const antiConsentMedicalTreatment = [
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+]
+const antiSwiminingChilds = [
+  { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
+  { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
+]
+
+
 /**
  * Vytvoří XLSX soubor z pole aplikací
  * @param {Array} applications - pole objektů z MongoDB
@@ -11,46 +92,7 @@ export async function exportApplicationsToExcel(applications: ApplicationType[])
   const sheet = workbook.addWorksheet('Přihlášky');
 
   // Definuj sloupce (z headeru + key podle schema)
-  sheet.columns = [
-    { header: 'Rok tábora', key: 'summerCampYear', width: 12 },
-    { header: 'Číslo přihlášky', key: 'applicationNumber', width: 20 },
-    { header: 'Stav', key: 'state', width: 12 },
-
-    { header: 'Jméno dítěte', key: 'childFirstName', width: 15 },
-    { header: 'Příjmení dítěte', key: 'childLastName', width: 15 },
-    { header: 'Datum narození', key: 'childBirthDate', width: 15 },
-    { header: 'Adresa', key: 'childAddress', width: 30 },
-    { header: 'Pohlaví', key: 'childGender', width: 10 },
-
-    { header: 'Číslo pojišťovny', key: 'insuranceNumber', width: 15 },
-    { header: 'Datum očkování proti tetanu', key: 'tetanusDate', width: 15 },
-    { header: 'Škola', key: 'schoolInfo', width: 25 },
-    { header: 'Sourozenci', key: 'siblingsCount', width: 10 },
-    { header: 'Poprvé?', key: 'firstTime', width: 10 }, 
-    { header: 'Koníčky', key: 'hobbies', width: 20 },
-
-    { header: 'Rodič 1', key: 'parent1Name', width: 20 },
-    { header: 'Telefon 1', key: 'parent1Phone', width: 15 },
-    { header: 'Rodič 2', key: 'parent2Name', width: 20 },
-    { header: 'Telefon 2', key: 'parent2Phone', width: 15 },
-    { header: 'Email', key: 'parentEmail', width: 25 },
-
-    { header: 'Plavec?', key: 'swimming', width: 10 },
-    { header: 'Zdravotní problémy', key: 'healthProblems', width: 25 },
-    { header: 'Alergie', key: 'foodAllergy', width: 20 },
-    { header: 'Popis dítěte', key: 'childDescription', width: 25 },
-    { header: 'Stan preference', key: 'tentPreference', width: 15 },
-
-    { header: 'Nástupní místo', key: 'boardingPlace', width: 15 },
-    { header: 'Odjezdové místo', key: 'leavingPlace', width: 15 },
-
-    { header: 'Souhlas s výletem', key: 'tripFreeTimeConsent', width: 10 },
-    { header: 'Souhlas s fotkami', key: 'photoConsent', width: 10 },
-    { header: 'Souhlas s ošetřením', key: 'medicalTreatmentConsent', width: 10 },
-
-    { header: 'Vytvořeno', key: 'createdAt', width: 20 },
-    { header: 'Upraveno', key: 'updatedAt', width: 20 },
-  ];
+  sheet.columns = allProps;
 
   // Přidej data
   const formatted = applications.map(app => ({
@@ -64,7 +106,7 @@ export async function exportApplicationsToExcel(applications: ApplicationType[])
   }));
 
   console.log(formatted);
-  
+
   sheet.addRows(formatted);
 
   // Trocha stylu – první řádek tučně
