@@ -28,14 +28,14 @@ const ParticipantInfo = () => {
                     <tr>
                         <td style={{ width: "150px", verticalAlign: "top", fontWeight: "bold" }}>Odjezd:</td>
                         <td>
-                            Odjezd dětí z Prahy je ve pondělí 30. 6. v 9 hodin od Sportovní haly Radotín a v 9:30 z parku naproti ZŠ Radlická (v blízkosti hlavního vjezdu do plaveckého areálu).
+                            Odjezd dětí z Prahy je ve pondělí 1. 7. v 9 hodin od Sportovní haly Radotín a v 9:30 z parku naproti ZŠ Radlická (v blízkosti hlavního vjezdu do plaveckého areálu).
                         </td>
                     </tr>
 
                     <tr>
                         <td style={{ fontWeight: "bold", verticalAlign: "top" }}>Příjezd:</td>
                         <td>
-                            Příjezd dětí k ZŠ Radlická a následně do Radotína je v pátek 18. 7. kolem 18:30.
+                            Příjezd dětí k ZŠ Radlická a následně do Radotína je v pátek 17. 7. kolem 18:30.
                         </td>
                     </tr>
 
@@ -46,7 +46,7 @@ const ParticipantInfo = () => {
 
                     <tr>
                         <td style={{ fontWeight: "bold", verticalAlign: "top" }}>Cena:</td>
-                        <td>7 100,- Kč / 19 dní</td>
+                        <td>7 100,- Kč / 17 dní</td>
                     </tr>
 
                     <tr>

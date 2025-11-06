@@ -43,7 +43,7 @@ const About = () => {
               <p className="mb-3">
                 Letní stanový tábor Kamenná, nazvaný podle nedaleké vísky, pořádáme v překrásném prostředí Vysočiny již od roku 1987
                 zpočátku pod záštitou radotínské cementárny a poslední desetiletí jako nezávislý spolek. Tábor začíná obvykle
-                na začátku července a trvá 19 dní. Během těchto 19 dní budou Vaše děti žít v čistém prostředí a v těsném sepětí s okolní přírodou,
+                na začátku července a trvá 17 dní. Během těchto 17 dní budou Vaše děti žít v čistém prostředí a v těsném sepětí s okolní přírodou,
                 zažijí mnohá dobrodružství a seznámí se s řadou nových kamarádů.
               </p>
               <p className="mb-3">

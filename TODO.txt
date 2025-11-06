@@ -1,0 +1,27 @@
+💡 Návrhy na obecné zlepšení webu:
+
+Přidat samostatnou stránku pro každý ročník - nejen obecné info, ale unikátní obsah → Google to indexuje lépe a cíleněji.
+
+FAQ sekce - odpovědi na nejčastější dotazy (věk dětí, délka pobytu, cena, co s sebou).
+
+Fotogalerie z minulých ročníků - ideálně s popiskama obsahujícíma klíčová slova.
+
+Strukturovaná data (schema.org Event) - Google pak zobrazí termín a místo přímo ve výsledcích.
+
+Více interních odkazů - ať má stránka ročníku prolink na „O táboře“, „Program“, „Historie“, „Přihláška“.
+
+Blog/články - 2-3 před táborem (představování hry, tipy pro rodiče, příběh z minulého ročníku) → lepší organický dosah.💡 Návrhy na obecné zlepšení webu:
+
+Přidat samostatnou stránku pro každý ročník - nejen obecné info, ale unikátní obsah → Google to indexuje lépe a cíleněji.
+
+FAQ sekce - odpovědi na nejčastější dotazy (věk dětí, délka pobytu, cena, co s sebou).
+
+Fotogalerie z minulých ročníků - ideálně s popiskama obsahujícíma klíčová slova.
+
+Strukturovaná data (schema.org Event) - Google pak zobrazí termín a místo přímo ve výsledcích.
+
+Více interních odkazů - ať má stránka ročníku prolink na „O táboře“, „Program“, „Historie“, „Přihláška“.
+
+Blog/články - 2-3 před táborem (představování hry, tipy pro rodiče, příběh z minulého ročníku) → lepší organický dosah.
+
+

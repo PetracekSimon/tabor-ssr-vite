@@ -32,17 +32,17 @@ const Home = (props: HomeProps) => {
               Hledáte <strong>stanový tábor</strong>, kde si vaše dítě užije přírodu, pohyb a
               kamarády?
               <br />
-              Nabízíme 19 dní plných zážitků a srandy, letos s velkolepou hrou <em>Pravěk – King Kong</em>. Včetně vyváženého programu, stravy 5x denně a
+              Nabízíme 17 dní plných zážitků a srandy, letos s velkolepou hrou <em>Pravěk – King Kong</em>. Včetně vyváženého programu, stravy 5x denně a
               bezpečného zázemí uprostřed Vysočiny.
             </p>
             <br />
-            <Link to="/prihlaska" className=" bg-primary-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors disabled:bg-primary-300">Přihláška</Link>
+            <Link to="/chci-jet" className=" bg-primary-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors disabled:bg-primary-300">Chci jet</Link>
           </section>
 
           <section id="game-2026" className="mb-8">
             <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Celotáborová hra 2026: Pravěk – King Kong</h2>
             <p>
-              Během 19 dnů se děti přenesou do <strong>dob prastarých kmenů</strong>, kde se budou učit spolupráci,
+              Během 17 dní se děti přenesou do <strong>dob prastarých kmenů</strong>, kde se budou učit spolupráci,
               strategii a odvaze.
               Celotáborová hra propojí zábavu se strategickým myšlením a rozvojem dovedností.
             </p>
@@ -55,7 +55,7 @@ const Home = (props: HomeProps) => {
               <li><strong>Dohled</strong> – zkušený tým vedoucích s dlouholetou praxí a zapálením pro táborové aktivity.</li>
               <li><strong>Vyvážená strava</strong> – 5–6 jídel denně, pitný režim po celý den.</li>
               <li><strong>Bohatý program</strong> – hry, výlety, sport, večerní táboráky a tematické akce.</li>
-              <li><strong>19 dní v přírodě</strong> – žádná elektronika, maximum pohybu a pobytu venku.</li>
+              <li><strong>17 dní v přírodě</strong> – žádná elektronika, maximum pohybu a pobytu venku.</li>
               <li><strong>Dlouholetá tradice</strong> – pořádáme tábory od roku 1987.</li>
             </ul>
           </section>
@@ -80,7 +80,7 @@ const Home = (props: HomeProps) => {
               </summary>
               <div className="mt-3 text-gray-700">
                 <ul className="list-disc ms-5 space-y-2">
-                  <li><strong>Cena</strong>: 7&nbsp;600&nbsp;Kč / 19&nbsp;dní (viz aktuální ročník).</li>
+                  <li><strong>Cena</strong>: 7&nbsp;100&nbsp;Kč / 17&nbsp;dní (viz aktuální ročník).</li>
                   <li><strong>Platba</strong>: převodem nebo složenkou na účet <strong>82721329/2010 (Fio)</strong>. Variabilní symbol = <strong>rodné číslo dítěte</strong>.</li>
                   <li><strong>Storno</strong>:
                     <ul className="list-disc ms-5 mt-1 space-y-1">
