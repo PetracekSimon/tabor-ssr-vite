@@ -5,6 +5,7 @@ import ApplicationMongo from './mongo.js';
 import verify from '../utiles/auth.js';
 import requsetHelper from '../utiles/request-helper.js';
 import config from '../../config.js';
+import sendEmail from "../helpers/email-helper.js"
 
 import ReactDOMServer from "react-dom/server";
 import PdfApplicationTemplate from "../../client/export/pdfApplicationTemplate.js";
@@ -61,19 +62,19 @@ export async function generatePdf(application: Application) {
     </html>
   `;
 
-  const browser = await puppeteer.launch({ 
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--single-process',
-      '--disable-gpu'
-    ]
-  });
+ const browser = await puppeteer.launch({ 
+   headless: true,
+   args: [
+     '--no-sandbox',
+     '--disable-setuid-sandbox',
+     '--disable-dev-shm-usage',
+     '--disable-accelerated-2d-canvas',
+     '--no-first-run',
+     '--no-zygote',
+     '--single-process',
+     '--disable-gpu'
+   ]
+ });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
 
@@ -128,7 +129,13 @@ router.post('/', requsetHelper, async (req, res) => {
     return Errors.Create.DatabaseFailed(res, error);
   }
 
-  //HDS 4
+  // HDS 4 Vygenerování PDF
+  const pdfBuffer = await generatePdf(dtoOut.toObject() as any);
+
+  // HDS 5 Zaslání emailu
+  sendEmail(dtoOut.parentEmail, `${dtoOut.childFirstName} ${dtoOut.childLastName}`, pdfBuffer);
+
+  //HDS 
   return res.send(dtoOut);
 });
 
