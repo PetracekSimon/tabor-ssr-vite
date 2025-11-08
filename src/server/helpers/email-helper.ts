@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-const sendEmail = (recipient: string = "simonpetracekk@gmail.com", childFullName: string, applicationBuffer: Uint8Array<ArrayBufferLike>) => {
+const sendEmail = (recipient: string = "simonpetracekk@gmail.com", childFullName: string, applicationBuffer: unknown) => {
 
     const mailOptions = {
         from: "prihlasky@stanovytabor.cz",
@@ -18,7 +18,7 @@ const sendEmail = (recipient: string = "simonpetracekk@gmail.com", childFullName
         subject: `Stanový tábor Kamenná | Přihláška - ${childFullName}`,
         attachments: [{
             filename: `Stanový tábor Kamenná | Přihláška - ${childFullName}.pdf`,
-            content: Buffer.from(applicationBuffer)
+            content: Buffer.from(applicationBuffer as Uint8Array)
         }],
         html: `<div>TODO: napast vlastní HTML</div>`
     }
