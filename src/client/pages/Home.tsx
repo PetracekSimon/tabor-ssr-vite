@@ -25,43 +25,67 @@ const Home = (props: HomeProps) => {
         <Hero title="Stanový tábor Kamenná" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
         <Container>
 
-          <section className="my-8">
+          <section className="mt-8 mb-16">
 
-            <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Tábor, na který se nezapomíná</h2>
-            <p>
+            <h2 className="text-center text-3xl font-bold text-butter-cup mb-4">Tábor, na který se nezapomíná</h2>
+            <p className="text-center">
               Hledáte <strong>stanový tábor</strong>, kde si vaše dítě užije přírodu, pohyb a
               kamarády?
+              <br />
               <br />
               Nabízíme 17 dní plných zážitků a srandy, letos s velkolepou hrou <em>Pravěk – King Kong</em>. Včetně vyváženého programu, stravy 5x denně a
               bezpečného zázemí uprostřed Vysočiny.
             </p>
             <br />
-            <Link to="/chci-jet" className=" bg-primary-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors disabled:bg-primary-300">Chci jet</Link>
+            <div className="flex justify-center">
+              <Link to="/chci-jet" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors ">Chci jet</Link>
+            </div>
           </section>
 
-          <section id="game-2026" className="mb-8">
-            <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Celotáborová hra 2026: Pravěk – King Kong</h2>
-            <p>
-              Během 17 dní se děti přenesou do <strong>dob prastarých kmenů</strong>, kde se budou učit spolupráci,
-              strategii a odvaze.
-              Celotáborová hra propojí zábavu se strategickým myšlením a rozvojem dovedností.
-            </p>
+          <section id="game-2026" className="mb-16 border-2 border-orange-100 rounded-xl overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-8">
+
+              <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Celotáborová hra 2026: Pravěk – King Kong</h2>
+              <p>
+                Během 17 dní se děti přenesou do <strong>dob prastarých kmenů</strong>, kde se budou učit spolupráci,
+                strategii a odvaze.
+                Celotáborová hra propojí zábavu se strategickým myšlením a rozvojem dovedností.
+              </p>
+            </div>
           </section>
 
-          <section id="why-choose" className="mb-8">
-            <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Proč právě náš stanový tábor</h2>
-            <ul className="list-image-[url(/assets/chekmark.svg)] ms-8">
-              <li><strong>Bezpečné zázemí</strong> – ubytování ve stanech s podsadou, zdravotník na místě 24/7.</li>
-              <li><strong>Dohled</strong> – zkušený tým vedoucích s dlouholetou praxí a zapálením pro táborové aktivity.</li>
-              <li><strong>Vyvážená strava</strong> – 5–6 jídel denně, pitný režim po celý den.</li>
-              <li><strong>Bohatý program</strong> – hry, výlety, sport, večerní táboráky a tematické akce.</li>
-              <li><strong>17 dní v přírodě</strong> – žádná elektronika, maximum pohybu a pobytu venku.</li>
-              <li><strong>Dlouholetá tradice</strong> – pořádáme tábory od roku 1987.</li>
+          <section id="why-choose" className="mb-16">
+            <h2 className="text-center text-3xl font-bold text-butter-cup mb-4">Proč právě náš stanový tábor</h2>
+            <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <li className="border-2 rounded-xl hover:border-orange-100 transition-all hover:shadow-lg p-8">
+                <strong className="text-xl mb-4 block">Bezpečné zázemí</strong>
+                <p className="text-gray-600 text-sm">Ubytování ve stanech s podsadou, zdravotník na místě 24/7.</p>
+              </li>
+              <li className="border-2 rounded-xl hover:border-orange-100 transition-all hover:shadow-lg p-8">
+                <strong className="text-xl mb-4 block">Dohled</strong>
+                <p className="text-gray-600 text-sm">Zkušený tým vedoucích s dlouholetou praxí a zapálením pro táborové aktivity.</p>
+              </li>
+              <li className="border-2 rounded-xl hover:border-orange-100 transition-all hover:shadow-lg p-8">
+                <strong className="text-xl mb-4 block">Vyvážená strava</strong>
+                <p className="text-gray-600 text-sm">5–6 jídel denně, pitný režim po celý den.</p>
+              </li>
+              <li className="border-2 rounded-xl hover:border-orange-100 transition-all hover:shadow-lg p-8">
+                <strong className="text-xl mb-4 block">Bohatý program</strong>
+                <p className="text-gray-600 text-sm">Hry, výlety, sport, večerní táboráky a tematické akce.</p>
+              </li>
+              <li className="border-2 rounded-xl hover:border-orange-100 transition-all hover:shadow-lg p-8">
+                <strong className="text-xl mb-4 block">17 dní v přírodě</strong>
+                <p className="text-gray-600 text-sm">Žádná elektronika, maximum pohybu a pobytu venku.</p>
+              </li>
+              <li className="border-2 rounded-xl hover:border-orange-100 transition-all hover:shadow-lg p-8">
+                <strong className="text-xl mb-4 block">Dlouholetá tradice</strong>
+                <p className="text-gray-600 text-sm">Pořádáme tábory od roku 1987.</p>
+              </li>
             </ul>
           </section>
 
           <section id="faq" className="mb-8">
-            <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Časté dotazy</h2>
+            <h2 className="text-center text-3xl font-bold text-butter-cup mb-4">Časté dotazy</h2>
 
             <details className="group p-4 bg-white rounded-lg shadow-md border border-gray-200 transition-shadow duration-300 mb-4">
               <summary className="flex list-none cursor-pointer items-center justify-between">
