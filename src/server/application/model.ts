@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 import config from "../../config.js"
 
 const applicationSchema = new mongoose.Schema({
@@ -56,5 +56,6 @@ const applicationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 applicationSchema.index({ summerCampYear: 1, applicationNumber: 1 }, { unique: true });
-
+//TODO: možná jestli tohle nerozjebává celej build;
+export type ApplicationType = InferSchemaType<typeof applicationSchema>;
 export default mongoose.model("Application", applicationSchema); 

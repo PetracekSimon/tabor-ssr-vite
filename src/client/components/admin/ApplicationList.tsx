@@ -4,6 +4,7 @@ import { useAppStore } from "@client/ZustandContext";
 import { useEffect, useState } from "react";
 import ApplicationFilter from "./ApplicationFilter";
 import ApplicationsTable from "./ApplicationTable";
+import { toast } from "react-toastify";
 
 
 const ApplicationList = () => {
@@ -14,6 +15,23 @@ const ApplicationList = () => {
     const [viewType, setViewType] = useState<"card" | "table">("card");
 
     const api = new Api();
+
+    const downloadApplications = async () => {
+        await toast.promise(api.downloadApplications({}, token), {
+            pending: "Generuji export přihlášek...",
+            error: "Něco se pokazilo :(",
+            success: "Export byl úspěšně vygenerován!"
+        }).then((response: { data: ArrayBuffer }) => {
+            const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `Prihlasky.csv`);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        });
+    }
 
     const loadApplications = (filters = {}) => {
         setApplications([]);
@@ -79,6 +97,13 @@ const ApplicationList = () => {
                         <line x1="15" y1="3" x2="15" y2="21" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
 
+                </button>
+
+                <button
+                    onClick={downloadApplications}
+                    className="inline-flex items-center ms-auto px-3 py-2 border border-gray-300 dark:border-slate-600 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                >
+                    Stáhnout přihlášky
                 </button>
             </div>
 
