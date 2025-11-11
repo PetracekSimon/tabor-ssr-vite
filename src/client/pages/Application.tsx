@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Api, ApiError } from "@client/api";
 import { toast } from "react-toastify";
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useRef } from "react";
 
 const phoneValidator = yup
   .string()
@@ -59,8 +61,9 @@ const applicationSchema = yup.object({
 });
 
 type ApplicationFormValues = yup.InferType<typeof applicationSchema>;
-
 const ApplicationPage = () => {
+  const recaptcha = useRef<ReCAPTCHA>(null);
+
   const api = new Api();
   const {
     register,
@@ -81,9 +84,9 @@ const ApplicationPage = () => {
       hobbies: "Hra na kytaru",
       childGender: "kluk",
       parent1Name: "Jana Křivánková",
-      parent1Phone: "1234567890",
+      parent1Phone: "123456789",
       parent2Name: "David Křivánek",
-      parent2Phone: "1234567890",
+      parent2Phone: "123456789",
       parentEmail: "david.krivanek@gmail.com",
       swimming: "plavec",
       healthProblems: "Nemá žádné",
@@ -98,8 +101,14 @@ const ApplicationPage = () => {
   });
 
   async function onSubmit(data: ApplicationFormValues) {
+
+    const captchaResponse = recaptcha.current?.getValue()
+    if (!captchaResponse) {
+      return toast('Formulář nelze odeslat bez ověření reCAPTCHA', { type: "error" });
+    }
+
     await toast
-      .promise(api.createApplication(data), {
+      .promise(api.createApplication({ ...data, captchaResponse  }), {
         pending: "Odesílám přihlášku...",
         success: "Přihláška odeslána 🎉",
         error: {
@@ -536,8 +545,7 @@ const ApplicationPage = () => {
                 Souhlasím s ošetřením
               </label>
             </div>
-
-
+            <ReCAPTCHA ref={recaptcha} sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY as string} />
             {/* Submit */}
             <button
               type="submit"

@@ -15,6 +15,7 @@ import React from 'react';
 import path from 'path';
 import fs from "fs";
 import { fileURLToPath } from 'url';
+import axios from 'axios';
 
 const _mongo = new ApplicationMongo();
 const router = express.Router();
@@ -95,7 +96,7 @@ export async function generatePdf(application: Application) {
 
 
 router.get("/:id/pdf", verify, requsetHelper, async (req, res) => {
-  const application = await _mongo.get(req.params.id); // nebo odkud bereš data
+  const application = await _mongo.get(req.params.id);
   if (!application) return res.status(404).send("Not found");
 
   const pdfBuffer = await generatePdf(application.toObject() as any);
@@ -106,14 +107,36 @@ router.get("/:id/pdf", verify, requsetHelper, async (req, res) => {
 });
 
 router.post('/', requsetHelper, async (req, res) => {
-  //HDS 1 (body validation)
+
+  //HDS 1 (reCAPTCHA validation)
+  if (!req.data.captchaResponse) {
+    return Errors.Create.ReCaptchaError(res);
+  }
+  const params = new URLSearchParams();
+  if (!process.env.CAPTCHA_SECRET_KEY){
+    return Errors.Create.ReCaptchaError(res);
+  }
+  params.append("secret", process.env.CAPTCHA_SECRET_KEY);
+  params.append("response", req.data.captchaResponse);
+  params.append("remoteip", req.ip ? req.ip : "" );
+
+  const captchaVerified = await axios.post(
+    "https://www.google.com/recaptcha/api/siteverify",
+    params
+  );
+
+  if (!captchaVerified.data.success) {
+    return Errors.Create.ReCaptchaError(res);
+  }
+
+
+  //HDS 2 (body validation)
   const validate = Types.create.validate(req.data);
   if (validate.error?.details) {
     return Errors.Create.InvalidBody(res, validate.error.details);
   }
-  //TODO: recaptcha
 
-  //HDS 2 (assign incremental number per year)
+  //HDS 3 (assign incremental number per year)
   try {
     const nextNum = await _mongo.getNextApplicationNumber(config.campYearInfo.year);
     req.data.applicationNumber = String(nextNum);
@@ -121,7 +144,7 @@ router.post('/', requsetHelper, async (req, res) => {
     return Errors.Create.DatabaseFailed(res, error);
   }
 
-  //HDS 3 (create)
+  //HDS 4 (create)
   let dtoOut;
   try {
     dtoOut = await _mongo.create(req.data);
@@ -129,13 +152,13 @@ router.post('/', requsetHelper, async (req, res) => {
     return Errors.Create.DatabaseFailed(res, error);
   }
 
-  // HDS 4 Vygenerování PDF
+  // HDS 5 Vygenerování PDF
   const pdfBuffer = await generatePdf(dtoOut.toObject() as any);
 
-  // HDS 5 Zaslání emailu
+  // HDS 6 Zaslání emailu
   sendEmail(dtoOut.parentEmail, `${dtoOut.childFirstName} ${dtoOut.childLastName}`, pdfBuffer);
 
-  //HDS 
+  //HDS 7 Vrácení odpovědi
   return res.send(dtoOut);
 });
 

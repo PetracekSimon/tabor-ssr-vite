@@ -2,6 +2,18 @@ import type { Response } from "express";
 
 const Errors = {
   Create: {
+    CaptchaSecretError(res: Response) {
+      return res.status(500).send({
+        code: "application/create/CaptchaSecretError",
+        message: "Není nastaven klíč pro zpracování reCaptcha ověření"
+      });
+    },
+    ReCaptchaError(res: Response) {
+      return res.status(400).send({
+        code: "application/create/ReCaptchaError",
+        message: "Došlo k chybě při zpracování reCAPTCHA ověření"
+      });
+    },
     InvalidBody(res: Response, details: any) {
       return res.status(400).send({
         code: "application/create/invalidBody",

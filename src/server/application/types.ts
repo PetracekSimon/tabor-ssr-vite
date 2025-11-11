@@ -2,6 +2,7 @@ import Joi from "joi";
 
 const applicationTypes = {
   create: Joi.object({
+    captchaResponse: Joi.string().required(),
     childFirstName: Joi.string().required(),
     childLastName: Joi.string().required(),
     childBirthDate: Joi.string().required(),

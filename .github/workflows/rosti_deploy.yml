@@ -35,6 +35,8 @@ jobs:
           PROJECT_NAME=${{ secrets.PROJECT_NAME }}
           GMAIL_USER=${{ secrets.GMAIL_USER }}
           GMAIL_PASWD=${{ secrets.GMAIL_PASWD }}
+          VITE_CAPTCHA_SITE_KEY=${{ secrets.VITE_CAPTCHA_SITE_KEY }}
+          CAPTCHA_SECRET_KEY=${{ secrets.CAPTCHA_SECRET_KEY }}
           EOF
       - name: Dependencies
         run: |
