@@ -13,23 +13,3 @@ export function slugify(str: string): string {
         .replace(/\s+/g, '-') // replace spaces with hyphens
         .replace(/-+/g, '-'); // remove consecutive hyphens
 }
-
-/**
- * Slouží pro namapování stavu přihlášky na český text
- * @param state 
- * @returns 
- */
-export function getStatusText(state: string) {
-    switch (state) {
-        case "pending":
-            return "Čeká na vyřízení";
-        case "approved":
-            return "Schváleno";
-        case "rejected":
-            return "Zamítnuto";
-        case "paid":
-            return "Zaplaceno";
-        default:
-            return state;
-    }
-}

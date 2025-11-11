@@ -16,7 +16,6 @@ import path from 'path';
 import fs from "fs";
 import { fileURLToPath } from 'url';
 import axios from 'axios';
-import { exportApplicationsToCsv } from '../helpers/csv-helper.js';
 
 const _mongo = new ApplicationMongo();
 const router = express.Router();
@@ -64,19 +63,19 @@ export async function generatePdf(application: Application) {
     </html>
   `;
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--single-process',
-      '--disable-gpu'
-    ]
-  });
+ const browser = await puppeteer.launch({ 
+   headless: true,
+   args: [
+     '--no-sandbox',
+     '--disable-setuid-sandbox',
+     '--disable-dev-shm-usage',
+     '--disable-accelerated-2d-canvas',
+     '--no-first-run',
+     '--no-zygote',
+     '--single-process',
+     '--disable-gpu'
+   ]
+ });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
 
@@ -114,12 +113,12 @@ router.post('/', requsetHelper, async (req, res) => {
     return Errors.Create.ReCaptchaError(res);
   }
   const params = new URLSearchParams();
-  if (!process.env.CAPTCHA_SECRET_KEY) {
+  if (!process.env.CAPTCHA_SECRET_KEY){
     return Errors.Create.ReCaptchaError(res);
   }
   params.append("secret", process.env.CAPTCHA_SECRET_KEY);
   params.append("response", req.data.captchaResponse);
-  params.append("remoteip", req.ip ? req.ip : "");
+  params.append("remoteip", req.ip ? req.ip : "" );
 
   const captchaVerified = await axios.post(
     "https://www.google.com/recaptcha/api/siteverify",
@@ -204,32 +203,6 @@ router.patch('/updateState', verify, requsetHelper, async (req, res) => {
   return res.send(updated);
 });
 
-router.post("/exportCsv", verify, requsetHelper, async (req, res) => {
-
-  //HDS 1 (body validation)
-  const validate = Types.list.validate(req.data);
-  if (validate.error?.details) {
-    return Errors.ExportCSV.InvalidBody(res, validate.error.details);
-  }
-
-  //HDS 2 (list)
-  let applications;
-  try {
-    applications = await _mongo.list(req.data.filter, req.data.pageInfo);
-  } catch (error) {
-    return Errors.ExportCSV.DatabaseFailed(res, error);
-  }
-
-  try {
-    const buffer = await exportApplicationsToCsv(applications.itemList);
-
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', 'attachment; filename="prihlasky.csv"');
-    res.send(Buffer.from(buffer));
-  } catch (error) {
-    return Errors.ExportCSV.CsvExportFailed(res);
-  }
-});
 
 
 export default router; 

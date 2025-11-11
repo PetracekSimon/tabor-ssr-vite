@@ -87,29 +87,6 @@ const Errors = {
         message: "Nepodařilo se aktualizovat stav přihlášky.",
         error,
       });
-    }
-  },
-
-  ExportCSV: {
-    InvalidBody(res: Response, details: any) {
-      return res.status(400).send({
-        code: "application/exportCSV/invalidBody",
-        message: "Požadavek má neplatná data.",
-        details,
-      });
-    },
-    CsvExportFailed(res: Response) {
-      return res.status(404).send({
-        code: "application/exportCSV/csvExportFailed",
-        message: `Nepodařilo se vygenerovat soubor.`,
-      });
-    },
-    DatabaseFailed(res: Response, error: any) {
-      return res.status(500).send({
-        code: "application/exportCSV/databaseFailed",
-        message: "Nepodařilo se aktualizovat stav přihlášky.",
-        error,
-      });
     },
   },
 };
