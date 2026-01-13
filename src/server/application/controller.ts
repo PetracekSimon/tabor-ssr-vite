@@ -77,7 +77,13 @@ export async function generatePdf(application: Application) {
    ]
  });
   const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: "networkidle0" });
+  await page.setViewport({
+    width: 794,
+    height: 1123,
+  });
+  await page.emulateMediaType('screen');
+
+  await page.setContent(html, { waitUntil: "domcontentloaded" });
 
   const pdfBuffer = await page.pdf({
     format: "A4",
