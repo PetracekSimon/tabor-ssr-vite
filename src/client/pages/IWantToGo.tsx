@@ -50,7 +50,7 @@ const IWantToGo = () => {
                                 </div>
                                 <div className="md:col-span-10 mb-4 md:mb-0">
                                     <p>
-                                        Odjezd dětí z Radotína je v pondělí &nbsp;1. 7. 2024 v 9 hodin od Sportovní haly Radotín (<a className="text-blue-600 dark:text-blue-500 hover:underline" href="http://maps.google.com/maps?q=U+star%C3%A9ho+stadi%C3%B3nu+9&amp;hl=cs&amp;ie=UTF8&amp;sll=49.98204,14.35739&amp;sspn=0.008389,0.017467&amp;t=h&amp;z=16" target="_blank" rel="noopener noreferrer">zde</a>)
+                                        Odjezd dětí z Radotína je v pondělí &nbsp;1. 7. 2026 v 9 hodin od Sportovní haly Radotín (<a className="text-blue-600 dark:text-blue-500 hover:underline" href="http://maps.google.com/maps?q=U+star%C3%A9ho+stadi%C3%B3nu+9&amp;hl=cs&amp;ie=UTF8&amp;sll=49.98204,14.35739&amp;sspn=0.008389,0.017467&amp;t=h&amp;z=16" target="_blank" rel="noopener noreferrer">zde</a>)
                                         a v 9.30 z parku naproti ZŠ Radlická (v blízkosti hlavního vjezdu do plaveckého areálu <a className="text-blue-600 dark:text-blue-500 hover:underline" href="https://www.google.com/maps/place/50%C2%B003'30.8%22N+14%C2%B023'35.3%22E/@50.058557,14.3920507,259m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x0!8m2!3d50.058557!4d14.393145?hl=cs">zde</a>).
                                     </p>
                                 </div>
@@ -59,7 +59,7 @@ const IWantToGo = () => {
                                     <p className="font-bold">Příjezd:</p>
                                 </div>
                                 <div className="md:col-span-10 mb-4 md:mb-0">
-                                    <p>Příjezd dětí k ZŠ Radlická a do Radotína je v pátek 19. 7. kolem 18:30.</p>
+                                    <p>Příjezd dětí k ZŠ Radlická a do Radotína je v pátek 17. 7. kolem 18:30.</p>
                                 </div>
 
                                 <div className="md:col-span-2">
