@@ -1,5 +1,6 @@
 import { Application } from "@client/api.js";
 import { formtaDate } from "../utils.js";
+import config from "../../config.js";
 
 interface MedicalReportProps {
     application: Application;
@@ -44,7 +45,7 @@ const MedicalReport = (props: MedicalReportProps) => {
             <div style={{ marginBottom: "10px" }}>
                 <h3 style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "0px" }}>2. Účel vydání posudku</h3>
                 <p style={{ fontSize: "12px", marginTop: "0" }}>
-                    Účast na stanoveném táboře v termínu 30. 6. - 18. 7. 2025
+                    Účast na stanoveném táboře v termínu {config.campYearInfo.dateAsString} {config.campYearInfo.year}
                 </p>
             </div>
 
