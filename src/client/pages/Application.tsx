@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { Api, ApiError } from "@client/api";
 import { toast } from "react-toastify";
 import ReCAPTCHA from 'react-google-recaptcha'
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const phoneValidator = yup
   .string()
@@ -67,7 +67,9 @@ const ApplicationPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    watch,
+    setValue,
+    formState: { errors, isSubmitting, touchedFields },
   } = useForm({
     resolver: yupResolver(applicationSchema),
     defaultValues: {
@@ -97,6 +99,14 @@ const ApplicationPage = () => {
       tripFreeTimeConsent: true,
     },
   });
+
+  const childAdrressWachtedValue = watch("childAddress");
+
+  useEffect(() => {
+    if (!touchedFields.parentAddress) {
+      setValue("parentAddress", childAdrressWachtedValue);
+    }
+  }, [childAdrressWachtedValue, touchedFields.parentAddress, setValue]);
 
   async function onSubmit(data: ApplicationFormValues) {
 
@@ -219,6 +229,7 @@ const ApplicationPage = () => {
             focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
                 aria-invalid={!!errors.childAddress}
                 {...register("childAddress")}
+                onBlur={(e) => console.log(e.target.value)}
               />
               {errors.childAddress && <p className="text-sm text-red-600">{errors.childAddress.message}</p>}
             </div>
