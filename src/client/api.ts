@@ -459,6 +459,7 @@ export interface Application {
     parent2Name: string;
     parent2Phone: string;
     parentEmail: string;
+    parentAddress: string;
     swimming: string;
     healthProblems: string;
     foodAllergy: string;

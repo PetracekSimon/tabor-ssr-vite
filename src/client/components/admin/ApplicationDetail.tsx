@@ -67,6 +67,9 @@ export const ApplicationDetail = (props: ApplicationDetailProps) => {
                     <strong>Kontaktní e-mail:</strong> {app.parentEmail || "Neuvedeno"}
                 </p>
                 <p className="text-sm text-slate-700 dark:text-slate-300">
+                    <strong>Kontaktní adresa zákonného zástupce:</strong> {app.parentAddress || "Neuvedeno"}
+                </p>
+                <p className="text-sm text-slate-700 dark:text-slate-300">
                     <strong>Plavec / neplavec:</strong> {app.swimming || "Neuvedeno"}
                 </p>
                 <p className="text-sm text-slate-700 dark:text-slate-300">

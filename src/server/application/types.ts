@@ -23,6 +23,7 @@ const applicationTypes = {
     parent2Phone: Joi.string().allow(""),
 
     parentEmail: Joi.string().email().required(),
+    parentAddress: Joi.string().required(),
 
     swimming: Joi.string().valid("plavec", "neplavec").required(),
     healthProblems: Joi.string().allow(""),

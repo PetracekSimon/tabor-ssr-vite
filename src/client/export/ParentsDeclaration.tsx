@@ -73,11 +73,9 @@ const ParentsDeclaration = (props: ParentsDeclarationProps) => {
                     Adresa a telefon zákonného zástupce dosažitelného v době konání tábora a jeho vztah k
                     dítěti:
                     <br />
-                    E-mail: {props.application.parentEmail}
+                    {props.application.parent1Name} - tel: {props.application.parent1Phone}
                     <br />
-                    Zákonný zástupce 1: {props.application.parent1Name} {props.application.parent1Phone}
-                    <br />
-                    Zákonný zástupce 2: {props.application.parent2Name} {props.application.parent2Phone}
+                    Kontaktní adresa zákonného zástupce: {props.application.parentAddress}
                 </p>
             </div>
         </div>

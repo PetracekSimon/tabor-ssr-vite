@@ -131,6 +131,14 @@ const ApplicationCard = (props: ApplicationCardProps) => {
             </p>
           </div>
         </div>
+        <div className="grid grid-cols-1 gap-4 text-sm">
+          <div>
+            <span className="text-slate-600 dark:text-slate-400">Kontaktní adresa zákonného zástupce:</span>
+            <p className="font-medium text-slate-800 dark:text-white">
+              {application.parentAddress}
+            </p>
+          </div>
+        </div>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
             <span className="text-slate-600 dark:text-slate-400">Telefon rodič 1:</span>

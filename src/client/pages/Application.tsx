@@ -48,6 +48,7 @@ const applicationSchema = yup.object({
   parent2Name: yup.string().nullable().optional(),
   parent2Phone: phoneValidator.optional(),
   parentEmail: yup.string().email("Neplatný e-mail").required("Vyplňte e-mail"),
+  parentAddress: yup.string().required("Vyplňte adresu"),
   swimming: yup.string().oneOf(["plavec", "neplavec"]).required(),
   healthProblems: yup.string().nullable().optional(),
   foodAllergy: yup.string().nullable().optional(),
@@ -70,26 +71,27 @@ const ApplicationPage = () => {
   } = useForm({
     resolver: yupResolver(applicationSchema),
     defaultValues: {
-      childFirstName: "David",
-      childLastName: "Křivánek",
-      childBirthDate: "2025-01-01",
-      childAddress: "Test",
-      insuranceNumber: "111",
-      tetanusDate: "2025-01-01",
-      schoolInfo: "ZŠ Jihlava",
-      siblingsCount: 2,
+      childFirstName: "",
+      childLastName: "",
+      childBirthDate: "",
+      childAddress: "",
+      insuranceNumber: "",
+      tetanusDate: "",
+      schoolInfo: "",
+      siblingsCount: undefined,
       firstTime: false,
-      hobbies: "Hra na kytaru",
+      hobbies: "",
       childGender: "kluk",
-      parent1Name: "Jana Křivánková",
-      parent1Phone: "123456789",
-      parent2Name: "David Křivánek",
-      parent2Phone: "123456789",
-      parentEmail: "david.krivanek@gmail.com",
+      parent1Name: "",
+      parent1Phone: "",
+      parent2Name: "",
+      parent2Phone: "",
+      parentEmail: "",
+      parentAddress: "",
       swimming: "plavec",
-      healthProblems: "Nemá žádné",
-      foodAllergy: "Nemá žádné",
-      childDescription: "David je chytrý a hravý",
+      healthProblems: "",
+      foodAllergy: "",
+      childDescription: "",
       boardingPlace: "radotin",
       leavingPlace: "radotin",
       tripFreeTimeConsent: true,
@@ -395,6 +397,21 @@ const ApplicationPage = () => {
                 * Emailovou adresu použijeme pouze pro účely potvrzení přijetí přihlášky, platby a pro zjištění účasti
                 na příští rok.
               </span>
+            </div>
+
+            {/* Kontkatní adresa */}
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="parentAddress" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Kontkatní adresa zákonného zástupce dostižitelného v době konání tábora
+              </label>
+              <input
+                id="parentAddress"
+                type="email"
+                className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
+                aria-invalid={!!errors.parentAddress}
+                {...register("parentAddress")}
+              />
+              {errors.parentAddress && <p className="text-sm text-red-600">{errors.parentAddress.message}</p>}
             </div>
 
             {/* Sdělení rodičů */}

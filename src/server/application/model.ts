@@ -36,6 +36,7 @@ const applicationSchema = new mongoose.Schema({
 
   // Contact
   parentEmail: { type: String, required: true },
+  parentAddress: { type: String, required: true },
 
   // Additional info
   swimming: { type: String, enum: ["plavec", "neplavec"], required: true },
