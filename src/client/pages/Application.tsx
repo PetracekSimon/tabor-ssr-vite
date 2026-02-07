@@ -410,14 +410,14 @@ const ApplicationPage = () => {
               </span>
             </div>
 
-            {/* Kontkatní adresa */}
+            {/* Kontaktní adresa */}
             <div className="flex flex-col space-y-2">
               <label htmlFor="parentAddress" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Kontkatní adresa zákonného zástupce dostižitelného v době konání tábora
+                Kontaktní adresa zákonného zástupce dostižitelného v době konání tábora
               </label>
               <input
                 id="parentAddress"
-                type="email"
+                type="text"
                 className="w-full rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-800 dark:text-white"
                 aria-invalid={!!errors.parentAddress}
                 {...register("parentAddress")}

@@ -1,6 +1,8 @@
 import nodemailer from "nodemailer";
 
 
+// TODO: rosti nabízí SMTP službu ->
+// https://admin.rosti.cz/5396/apps/services/7746/
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
