@@ -60,7 +60,7 @@ const ParentsDeclaration = (props: ParentsDeclarationProps) => {
                         <tr>
                             <td>V</td>
                             <td style={{ width: "150px", borderBottom: "1px solid black" }}></td>
-                            <td>&nbsp;dne 30. 6. {config.campYearInfo.year}</td>
+                            <td>&nbsp;dne 1. 7. {config.campYearInfo.year}</td>
                             <td style={{ width: "30px" }}>&nbsp;</td>
                             <td style={{ width: "200px", padding: "0 5px", borderBottom: "1px solid black" }}>Podpis:</td>
                         </tr>
