@@ -413,7 +413,7 @@ const ApplicationPage = () => {
             {/* Kontaktní adresa */}
             <div className="flex flex-col space-y-2">
               <label htmlFor="parentAddress" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Kontaktní adresa zákonného zástupce dostižitelného v době konání tábora
+                Kontaktní adresa zákonného zástupce dostižitelného v době konání tábora a tel. číslo
               </label>
               <input
                 id="parentAddress"

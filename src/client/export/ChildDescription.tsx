@@ -22,7 +22,7 @@ export default function ChildDescription(props: ChildDescriptionProps) {
       case "radotin":
         return "Radotín";
       default:
-        "Valstní doprava"
+        return "Valstní doprava";
     }
   }
 
