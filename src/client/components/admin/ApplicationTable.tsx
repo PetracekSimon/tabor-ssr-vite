@@ -23,8 +23,6 @@ export default function ApplicationsTable(props: ApplicationsTableProps) {
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Rodič 1</th>
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Rodič 2</th>
                                 <th className="w-[90px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Focením</th>
-                                <th className="w-[90px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Ošetřením</th>
-                                <th className="w-[90px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Rozchod</th>
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Status</th>
                                 {/* TODO: další property */}
                             </tr>
@@ -50,20 +48,6 @@ export default function ApplicationsTable(props: ApplicationsTableProps) {
                                         {application.parent2Name}
                                         <br />
                                         <a className="text-blue-600 dark:text-blue-500 hover:underline" href={"tel:" + application.parent2Phone}>{application.parent2Phone}</a>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        {application.photoConsent ? (
-                                            <span className="text-green-600 dark:text-green-400 font-medium">Ano</span>
-                                        ) : (
-                                            <span className="text-red-600 dark:text-red-400 font-medium">Ne</span>
-                                        )}
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        {application.medicalTreatmentConsent ? (
-                                            <span className="text-green-600 dark:text-green-400 font-medium">Ano</span>
-                                        ) : (
-                                            <span className="text-red-600 dark:text-red-400 font-medium">Ne</span>
-                                        )}
                                     </td>
                                     <td className="px-4 py-3">
                                         {application.tripFreeTimeConsent ? (

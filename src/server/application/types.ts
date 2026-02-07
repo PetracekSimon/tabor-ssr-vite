@@ -34,8 +34,6 @@ const applicationTypes = {
     leavingPlace: Joi.string().valid("radotin", "radlice", "vlastni").required(),
 
     tripFreeTimeConsent: Joi.boolean(),
-    photoConsent: Joi.boolean(),
-    medicalTreatmentConsent: Joi.boolean(),
   }),
   list: Joi.object({
     filter: Joi.object(),

@@ -467,6 +467,4 @@ export interface Application {
     boardingPlace: TransportPlace;
     leavingPlace: TransportPlace;
     tripFreeTimeConsent: boolean;
-    photoConsent: boolean;
-    medicalTreatmentConsent: boolean;
 }

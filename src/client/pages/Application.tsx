@@ -56,8 +56,6 @@ const applicationSchema = yup.object({
   boardingPlace: yup.string().oneOf(["radotin", "radlice", "vlastni"]).required("Vyberte nástupní místo"),
   leavingPlace: yup.string().oneOf(["radotin", "radlice", "vlastni"]).required("Vyberte výstupní místo"),
   tripFreeTimeConsent: yup.boolean().default(false),
-  photoConsent: yup.boolean().default(false),
-  medicalTreatmentConsent: yup.boolean().default(false),
 });
 
 type ApplicationFormValues = yup.InferType<typeof applicationSchema>;
@@ -94,9 +92,7 @@ const ApplicationPage = () => {
       childDescription: "David je chytrý a hravý",
       boardingPlace: "radotin",
       leavingPlace: "radotin",
-      tripFreeTimeConsent: false,
-      photoConsent: false,
-      medicalTreatmentConsent: false,
+      tripFreeTimeConsent: true,
     },
   });
 
@@ -108,7 +104,7 @@ const ApplicationPage = () => {
     }
 
     await toast
-      .promise(api.createApplication({ ...data, captchaResponse  }), {
+      .promise(api.createApplication({ ...data, captchaResponse }), {
         pending: "Odesílám přihlášku...",
         success: "Přihláška odeslána 🎉",
         error: {
@@ -507,44 +503,28 @@ const ApplicationPage = () => {
 
 
             {/* Checkbox souhlasím s rozchodem */}
-            <div className="flex items-center space-x-2">
-              <input
-                id="tripFreeTimeConsent"
-                type="checkbox"
-                className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
-                {...register("tripFreeTimeConsent")}
-              />
-              <label htmlFor="tripFreeTimeConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Souhlasím s rozchodem
-
-              </label>
+            <div className="flex flex-col">
+              <div className="flex items-center space-x-2">
+                <input
+                  id="tripFreeTimeConsent"
+                  type="checkbox"
+                  className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
+                  {...register("tripFreeTimeConsent")}
+                />
+                <label htmlFor="tripFreeTimeConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Souhlasím s tím, aby můj syn/dcera dostal/a na výletech rozchod
+                </label>
+              </div>
+              <small className="text-slate-700 dark:text-slate-300 pl-6 text-[10px]">
+                Rozchod bude vyhlášen po omezenou a jasně stanovenou dobu v průběhu výletu. Děti budou náležitě poučeny o
+                chování a dodržování bezpečnostních pravidel a budou se smět pohybovat pouze ve skupinkách. Tábor se
+                takovým rozchodem nezříká dohledové povinnosti. Dohledová povinnost bude vykonávána tak, že vedoucí se
+                budou pohybovat v prostoru, který bude pro rozchod vymezen (např. náměstí, areál zoo apod.), a děti budou znát
+                místo, na kterém bude možné vedoucí kdykoliv zastihnout. V případě Vašeho nesouhlasu se dítě bude pohybovat
+                po celou dobu s některým z vedoucích.
+              </small>
             </div>
 
-            {/* Checkbox souhlasím s fotografií */}
-            <div className="flex items-center space-x-2">
-              <input
-                id="photoConsent"
-                type="checkbox"
-                className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
-                {...register("photoConsent")}
-              />
-              <label htmlFor="photoConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Souhlasím s fotografií
-              </label>
-            </div>
-
-            {/* Checkbox souhlasím s ošetřením */}
-            <div className="flex items-center space-x-2">
-              <input
-                id="medicalTreatmentConsent"
-                type="checkbox"
-                className="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
-                {...register("medicalTreatmentConsent")}
-              />
-              <label htmlFor="medicalTreatmentConsent" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Souhlasím s ošetřením
-              </label>
-            </div>
             <ReCAPTCHA ref={recaptcha} sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY as string} />
             {/* Submit */}
             <button

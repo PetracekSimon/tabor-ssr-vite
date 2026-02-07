@@ -50,8 +50,6 @@ const applicationSchema = new mongoose.Schema({
 
   // Consents
   tripFreeTimeConsent: { type: Boolean, default: false },
-  photoConsent: { type: Boolean, default: false },
-  medicalTreatmentConsent: { type: Boolean, default: false },
 
 }, { timestamps: true });
 

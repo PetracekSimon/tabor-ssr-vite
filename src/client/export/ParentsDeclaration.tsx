@@ -37,15 +37,14 @@ const ParentsDeclaration = (props: ParentsDeclarationProps) => {
                 odvšivení dítěte, oblečení a lůžkovin.
             </p>
             <p style={{ fontSize: "14px" }}>
-                <b>Souhlasím - nesouhlasím</b> s tím, aby můj syn/dcera dostal/a na výletech rozchod.
+                <b>{props.application.tripFreeTimeConsent ? "Souhlasím" : "Nesouhlasím"}</b> s tím, aby můj syn/dcera dostal/a na výletech rozchod.
                 <br />
                 Rozchod bude vyhlášen po omezenou a jasně stanovenou dobu v průběhu výletu. Děti budou náležitě
                 poučeny o chování a dodržování bezpečnostních pravidel a budou se smět pohybovat pouze ve skupinkách.
                 Tábor se takovým rozchodem nezříká dohledové povinnosti. Dohledová povinnost bude vykonávána tak, že
                 vedoucí se budou pohybovat v prostoru, který bude pro rozchod vymezen (např. náměstí, areál zoo apod.),
                 a děti budou znát místo, na kterém bude možné vedoucí kdykoliv zastihnout. V případě Vašeho nesouhlasu
-                se dítě bude pohybovat po celou dobu s některým z vedoucích. Pokud nebude zákonným zástupcem dítěte
-                zaškrtnuta žádná volba s rozchodem na začátku tohoto odstavce, bude brána tato volba jako <b>„souhlasím“</b>.
+                se dítě bude pohybovat po celou dobu s některým z vedoucích.
             </p>
             <p style={{ fontSize: "14px" }}>
                 Se všemi vyplněnými částmi tohoto formuláře jsem byl/a seznámen/a, všechny údaje jsou přesné
@@ -73,6 +72,12 @@ const ParentsDeclaration = (props: ParentsDeclarationProps) => {
                 <p style={{padding: "10px"}}>
                     Adresa a telefon zákonného zástupce dosažitelného v době konání tábora a jeho vztah k
                     dítěti:
+                    <br />
+                    E-mail: {props.application.parentEmail}
+                    <br />
+                    Zákonný zástupce 1: {props.application.parent1Name} {props.application.parent1Phone}
+                    <br />
+                    Zákonný zástupce 2: {props.application.parent2Name} {props.application.parent2Phone}
                 </p>
             </div>
         </div>
