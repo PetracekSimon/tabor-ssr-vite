@@ -31,7 +31,7 @@ export async function generatePdf(application: Application) {
   const __dirname = path.dirname(__filename);
 
   // Prefer image from public assets (works in dev and prod), fallback to local export-assets
-  const publicImgPath = path.resolve(__dirname, "../../../public", "assets", "application_hero.png");
+  const publicImgPath = path.resolve(__dirname, "../../../public", "assets", "application_hero.jpg");
   const imgPath = fs.existsSync(publicImgPath) ? publicImgPath : "";
 
   const imgBase64 = fs.readFileSync(imgPath, { encoding: "base64" });
