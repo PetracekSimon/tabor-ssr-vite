@@ -23,6 +23,11 @@ export const Navbar = () => {
       </div>
       <ul className={`menu flex-col ${isOpen ? "open" : "hidden"} md:flex-row md:flex gap-4`}>
         <li className="navbar-main__item text-xl ">
+          <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/prihlaska">
+            Přihláška
+          </NavLink>
+        </li>
+        <li className="navbar-main__item text-xl ">
           <NavLink className={({ isActive }) => isActive ? "active" : ""} onClick={() => setIsOpen(false)} to="/">
             Aktuálně
           </NavLink>

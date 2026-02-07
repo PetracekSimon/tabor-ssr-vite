@@ -168,6 +168,10 @@ const About = () => {
                 <Link to="/galerie/2024/" className="text-blue-600 dark:text-blue-500 hover:underline">
                   2024 Muž se železnou maskou
                 </Link>
+                <br />
+                <Link to="/galerie/2025/" className="text-blue-600 dark:text-blue-500 hover:underline">
+                  2025 Egypt 
+                </Link>
               </p>
             </div>
           </div>

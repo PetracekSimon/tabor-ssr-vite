@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import PageTitle from "../components/PageTitle";
 import config from "../../config";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 /**
@@ -40,7 +40,6 @@ const IWantToGo = () => {
                 <Hero title="Chci jet" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
                 <section id="vseobecne-informace" className="section-anchor">
                     <div className="container mx-auto">
-                        <h3 className="text-center text-xl font-bold mb-8 uppercase">Přihlášky budou k dispozici od ledna</h3>
                         <h2 className="text-left text-2xl font-bold text-butter-cup">Všeobecné informace</h2>
                         <hr className="border-t border-gray-300 my-4" />
                         <div>
@@ -116,6 +115,9 @@ const IWantToGo = () => {
                                 </div>
                             </div>
                         </div>
+                    <div className="flex justify-end">
+                        <Link to="/prihlaska" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors">Vyplnit přihlášku</Link>
+                    </div>
                     </div>
                 </section>
                 <section id="seznam-veci" className="section-anchor">

@@ -1,7 +1,6 @@
 import Hero from "../components/Hero";
 import Container from "../components/Container";
 import PageTitle from "../components/PageTitle";
-import { useEffect, } from "react";
 import { Link } from "react-router-dom";
 import config from "../../config";
 
@@ -38,7 +37,7 @@ const Home = (props: HomeProps) => {
             </p>
             <br />
             <div className="flex justify-center">
-              <Link to="/chci-jet" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors ">Chci jet</Link>
+              <Link to="/prihlaska" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors ">Vyplnit přihlášku</Link>
             </div>
           </section>
 
