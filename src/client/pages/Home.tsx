@@ -138,7 +138,7 @@ const Home = (props: HomeProps) => {
               <div className="mt-3 text-gray-700">
                 <ul className="list-disc ms-5 space-y-1">
                   <li>Strava je zajištěna <strong>5–6x denně</strong> (snídaně, svačiny, oběd, večeře, často i druhá večeře).</li>
-                  <li>Vaří náši <strong>zkušený kuchaři s dlouholetou praxí</strong>.</li>
+                  <li>Vaří naši <strong>zkušený kuchaři s dlouholetou praxí</strong>.</li>
                   <li>Děti se pod dohledem v rámci <strong>služeb</strong> podílejí na drobných přípravách v kuchyni.</li>
                 </ul>
               </div>
@@ -166,7 +166,7 @@ const Home = (props: HomeProps) => {
                 <ul className="list-disc ms-5 space-y-1 mt-2">
                   <li>Denní <strong>etapové hry</strong> v lese i na louce (kombinujeme sportovní a kreativní aktivity).</li>
                   <li>Při parném dni pořádáme <strong>vodní bitvy</strong> v tábořišti.</li>
-                  <li><strong>Výlety</strong> - tradičně jezdíme do Jihlavy (Zoo) a jednoho z okolních měst</li>
+                  <li><strong>Výlety</strong> - tradičně jezdíme do Jihlavy (Zoo) a jednoho z okolních měst.</li>
                   <li><strong>Večerní program</strong>: 3× diskotéka, letní kino pod širým nebem a táboráky.</li>
                   <li>Táborová olympiáda, pouť, karneval.</li>
                 </ul>
@@ -183,7 +183,7 @@ const Home = (props: HomeProps) => {
                   <li><strong>Dostatečně teplý spacák</strong> (na Vysočině bývají noční teploty i 5–10 °C).</li>
                   <li><strong>Pláštěnka</strong> (dlouhá, pevná, tenký igelit je nevhodný).</li>
                   <li>Více druhů obuvi (<strong>holínky</strong>, pevné boty/pohorky, sandály, sportovní obuv).</li>
-                  <li><strong>Kompletní ešusová sada</strong> - tři díly + hrnek (např. <a className="text-blue-600 dark:text-blue-500 hover:underline" target="_blank" rel="noreferrer" href="https://www.decathlon.cz/p/mp/yate/esus-nezer-3-dily/_/R-p-b50c5339-0138-48c9-a6ec-bc8c4debc830?mc=b50c5339-0138-48c9-a6ec-bc8c4debc830_c249&c=%C5%A0ED%C3%81">toto</a>)</li>
+                  <li><strong>Kompletní ešusová sada</strong> - tři díly + hrnek (např. <a className="text-blue-600 dark:text-blue-500 hover:underline" target="_blank" rel="noreferrer" href="https://www.decathlon.cz/p/mp/yate/esus-nezer-3-dily/_/R-p-b50c5339-0138-48c9-a6ec-bc8c4debc830?mc=b50c5339-0138-48c9-a6ec-bc8c4debc830_c249&c=%C5%A0ED%C3%81">toto</a>).</li>
                   <li>Láhev na pití, příbor, <strong>čepice</strong>, hygienické potřeby, opalovací krém, repelent.</li>
                   <li>Věci <strong>jasně podepište jménem</strong> – usnadní to hledání ztrát.</li>
                 </ul>
@@ -201,7 +201,7 @@ const Home = (props: HomeProps) => {
                 <ul className="list-disc ms-5 space-y-1 mt-2">
                   <li>stany nelze zabezpečit jako chatku/domek a hrozí riziko ztráty</li>
                   <li>vlhko a chlad elektronice nesvědčí</li>
-                  <li>v táboře <strong>není běžně dostupná elektřina</strong> (pouze agregát pro potřeby provozu, nemáme kapacitu nabíjet desítky elektornických zařízení)</li>
+                  <li>v táboře <strong>není běžně dostupná elektřina</strong> (pouze agregát pro potřeby provozu, nemáme kapacitu nabíjet desítky elektronických zařízení)</li>
                 </ul>
               </div>
             </details>
