@@ -34,6 +34,12 @@ export const getMetaTags = (url: string) => {
 			linkCanonical = `<link rel="canonical" href="${baseUrl}/"/>`;
 			break;
 
+		case "/prihlaska":
+			title = "Letní stanový tábor | Online přihláška";
+			description = "Letní dětský stanový tábor Kamenná 2025 – online přihláška pro vaše dítě na nezapomenutelný zážitek.";
+			linkCanonical = `<link rel="canonical" href="${baseUrl}/prihlaska"/>`;
+			break;
+
 		case "/o-tabore":
 			title = "Letní stanový tábor | O táboře";
 			description = "Letní dětský stanový tábor Kamenná 2025 – vše o programu, zázemí a vedení. Bezpečný a smysluplný letní tábor pro děti na Vysočině.";

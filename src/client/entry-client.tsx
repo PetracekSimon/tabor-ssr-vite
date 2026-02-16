@@ -42,6 +42,7 @@ const FullApp = (initialData: FullAppProps) => {
             <Route path="/" element={<Home initialData={initialData} />} />
 
             <Route path="/prihlaska" element={<ApplicationPage />} />
+            <Route path="/prihlaska/" element={<ApplicationPage />} />
 
             <Route path="/o-tabore" element={<About />} />
             <Route path="/o-tabore/" element={<About />} />

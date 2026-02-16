@@ -26,6 +26,9 @@ export function render(url: string) {
           <Route element={<PublicLayout><Outlet /></PublicLayout>}>
             <Route path="/" element={<Home />} />
 
+            <Route path="/prihlaska" element={<ApplicationPage />} />
+            <Route path="/prihlaska/" element={<ApplicationPage />} />
+
             <Route path="/o-tabore" element={<About />} />
             <Route path="/o-tabore/" element={<About />} />
             <Route path="/o-tabore/etapova-hra" element={<About />} />

@@ -70,6 +70,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
   // Staré WP struktury, které už neexistují
   const GONE_URLS = [
+    "/feed/",
     "/author/pav/",
     "/fotodenik-2022/",
     "/ngg_tag/5-7-2016/",
