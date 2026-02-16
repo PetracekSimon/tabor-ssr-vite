@@ -205,7 +205,7 @@ const IWantToGo = () => {
                                     </tr>
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-3"></th>
-                                        <td className="text-red-500 font-bold px-6 py-3">teplný spacák</td>
+                                        <td className="text-red-500 font-bold px-6 py-3">teplý spacák</td>
                                     </tr>
 
                                     <tr className="text-gray-700 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -318,13 +318,13 @@ const IWantToGo = () => {
                             <p className="mb-3">
                                 Milí rodiče, snažíme se vám vyjít maximálně vstříc a chápeme, že někdy se do cesty postaví jakákoliv překážka,
                                 kvůli které dítě nemůže na tábor odjet. <strong>V&nbsp;tom případě nám prosím dejte co nejdříve vědět</strong>.
-                                S blížícím se termínem tábora začínáme totiž nakupovat zásoby, a tedy máme vydaní ještě před samotným začátkem.
+                                S blížícím se termínem tábora začínáme totiž nakupovat zásoby, a tedy máme výdaje ještě před samotným začátkem.
                                 Je tedy důležité, abychom o změně věděli co nejdříve a mohli případně sehnat náhradníka.
                                 Pokud ho neseženeme, budeme uplatňovat storno podmínky, které najdete podrobně popsané níže.
                             </p>
                             <p className="mb-3">
-                                <strong>Pokud sami seženete náhradníka</strong> za Vaše dítě které nemůže jet, tak vám vrátíme celý uhrazený poplatek
-                                (po tom, co obdržíme platbu za náhradníka), nehledě na to jak blízko začátku tábora to je.
+                                <strong>Pokud sami seženete náhradníka</strong> za Vaše dítě které nemůže jet, vrátíme vám celý uhrazený poplatek
+                                (poté, co obdržíme platbu za náhradníka), nehledě na to jak blízko začátku tábora to je.
                             </p>
                             <p className="mb-2"><strong>Pokud sami náhradníka neseženete:</strong></p>
                             <ul className="list-disc ms-5">
