@@ -22,7 +22,7 @@ export default function ApplicationsTable(props: ApplicationsTableProps) {
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Jméno dítěte</th>
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Rodič 1</th>
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Rodič 2</th>
-                                <th className="w-[90px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Focením</th>
+                                <th className="w-[90px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Rozchod</th>
                                 <th className="w-[160px] px-4 py-3 border-b border-slate-200 dark:border-slate-600">Status</th>
                                 {/* TODO: další property */}
                             </tr>
