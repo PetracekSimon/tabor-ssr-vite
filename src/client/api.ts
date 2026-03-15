@@ -422,6 +422,18 @@ export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
             }
         });
     }
+    public exportApplications = (data: any, token: string) => {
+        return this.request<Blob>({
+            path: `${this.apiUrl}/application/export-list`,
+            method: HttpMethods.POST,
+            type: ContentType.UrlEncoded,
+            query: data,
+            headers: {
+                "auth-token": `${token}`
+            },
+            format: "blob",
+        });
+    }
     public getApplicationAsPDF = (id: string, token: string) => {
         return this.request<any>({
             path: `${this.apiUrl}/application/${id}/pdf`,

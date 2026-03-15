@@ -31,6 +31,18 @@ const ApplicationList = () => {
     }, []);
 
 
+    const handleDownload = async () => {
+        const res = await api.exportApplications({}, token);
+        const url = window.URL.createObjectURL(res.data);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "applications.csv";
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+    }
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center flex-wrap">
@@ -79,6 +91,14 @@ const ApplicationList = () => {
                         <line x1="15" y1="3" x2="15" y2="21" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
 
+                </button>
+
+                <button
+                    type="button"
+                    onClick={handleDownload}
+                    className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-slate-600 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors ml-auto"
+                >
+                    Export CSV
                 </button>
             </div>
 

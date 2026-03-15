@@ -16,6 +16,7 @@ import path from 'path';
 import fs from "fs";
 import { fileURLToPath } from 'url';
 import axios from 'axios';
+import { exportDataToCsv } from './utils/export-csv.js';
 
 const _mongo = new ApplicationMongo();
 const router = express.Router();
@@ -63,19 +64,19 @@ export async function generatePdf(application: Application) {
     </html>
   `;
 
- const browser = await puppeteer.launch({ 
-   headless: true,
-   args: [
-     '--no-sandbox',
-     '--disable-setuid-sandbox',
-     '--disable-dev-shm-usage',
-     '--disable-accelerated-2d-canvas',
-     '--no-first-run',
-     '--no-zygote',
-     '--single-process',
-     '--disable-gpu'
-   ]
- });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process',
+      '--disable-gpu'
+    ]
+  });
   const page = await browser.newPage();
   await page.setViewport({
     width: 794,
@@ -112,6 +113,21 @@ router.get("/:id/pdf", verify, requsetHelper, async (req, res) => {
   res.end(pdfBuffer);
 });
 
+router.post('/export-list', verify, requsetHelper, async (req, res) => {
+  let applications;
+  try {
+    applications = await _mongo.list(req.data.filter, req.data.pageInfo);
+  } catch (error) {
+    return Errors.List.DatabaseFailed(res, error);
+  }
+  const csv = await exportDataToCsv(applications.itemList);
+
+  res.setHeader("Content-Type", "text/csv; charset=utf-8");
+  res.setHeader("Content-Disposition", "attachment; filename=applications.csv");
+  
+  return res.send("\uFEFF" + csv);
+});
+
 router.post('/', requsetHelper, async (req, res) => {
 
   //HDS 1 (reCAPTCHA validation)
@@ -119,12 +135,12 @@ router.post('/', requsetHelper, async (req, res) => {
     return Errors.Create.ReCaptchaError(res);
   }
   const params = new URLSearchParams();
-  if (!process.env.CAPTCHA_SECRET_KEY){
+  if (!process.env.CAPTCHA_SECRET_KEY) {
     return Errors.Create.ReCaptchaError(res);
   }
   params.append("secret", process.env.CAPTCHA_SECRET_KEY);
   params.append("response", req.data.captchaResponse);
-  params.append("remoteip", req.ip ? req.ip : "" );
+  params.append("remoteip", req.ip ? req.ip : "");
 
   const captchaVerified = await axios.post(
     "https://www.google.com/recaptcha/api/siteverify",

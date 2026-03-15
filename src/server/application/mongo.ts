@@ -43,7 +43,6 @@ class ApplicationMongo {
     // --- paging & query ---
     const total = await ApplicationModel.countDocuments(filter);
     const itemList = await ApplicationModel.find(filter, "", page).sort({ createdAt: -1 });
-
     return {
       itemList,
       pageInfo: { ...pageInfo, total },
