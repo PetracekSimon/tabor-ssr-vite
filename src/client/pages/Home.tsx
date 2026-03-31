@@ -13,10 +13,6 @@ interface HomeProps {
  * @returns 
  */
 const Home = (props: HomeProps) => {
-  //TODO: SSR
-  // useEffect(() => {
-  //   console.log(props);
-  // }, []);
   return (
     <>
       <PageTitle />
@@ -24,10 +20,10 @@ const Home = (props: HomeProps) => {
         <Hero title="Stanový tábor Kamenná" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
         <Container>
 
-          <section className="mt-8 mb-16">
+          <section className="mt-8 mb-8">
 
             <h2 className="text-center text-3xl font-bold text-butter-cup mb-4">Tábor, na který se nezapomíná</h2>
-            <p className="text-center">
+            <p className="text-center text-gray-600">
               Hledáte <strong>stanový tábor</strong>, kde si vaše dítě užije přírodu, pohyb a
               kamarády?
               <br />
@@ -41,11 +37,43 @@ const Home = (props: HomeProps) => {
             </div>
           </section>
 
+          <section  className="mb-16 border-2 border-blue-200 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-50 to-sky-50 p-8">
+                <div className="p-0 mb-4">
+                  <h2 className="text-left text-2xl font-bold text-blue-700 mb-4">
+                    Informace k termínu letošního tábora
+                  </h2>
+                </div>
+                <div className="p-0 space-y-4">
+                  <p className="text-gray-600">
+                    V souvislosti s <a className="text-blue-600 dark:text-blue-500 hover:underline" href="https://msmt.gov.cz/vyuka-ve-skolach-letos-skonci-drive" target="_blank" rel="noreferrer">rozhodnutím ministra školství</a> o dřívějším ukončení školního roku aktuálně řešíme, zda zachováme původně ohlášený termín tábora, nebo jej přizpůsobíme nové situaci.
+                  </p>
+                  <div className="space-y-2">
+                    <p className="text-gray-600">
+                      <span className="font-bold">Původní varianta:</span> Začátek ve středu 1. 7. (zkrácený termín 17 dní).
+                    </p>
+                    <p className="text-gray-600">
+                      <span className="font-bold">Zvažovaná varianta:</span> Začátek už v pondělí 29. 6. (tradiční délka 19 dní do pátku 17. 7.).
+                    </p>
+                  </div>
+                  <p className="text-gray-600 ">
+                    Ať už se rozhodneme pro kteroukoli z těchto variant, <span className="font-semibold">cena tábora zůstává v obou případech stejná</span>.
+                  </p>
+                  <div className="bg-white/60 rounded-lg p-6 mt-6 border border-blue-100">
+                    <p className="text-gray-600 italic">
+                      V tuto chvíli prověřujeme naše kapacity a budeme kontaktovat rodiče již přihlášených dětí, abychom zohlednili i jejich časové možnosti. 
+                      Definitivní informaci o tom, kterou cestou se vydáme, zveřejníme zde na webu do poloviny dubna a přihlášeným dáme vědět. Děkujeme za pochopení.
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </section>
+
           <section id="game-2026" className="mb-16 border-2 border-orange-100 rounded-xl overflow-hidden">
             <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-8">
 
               <h2 className="text-left text-2xl font-bold text-butter-cup mb-4">Celotáborová hra 2026: Pravěk – King Kong</h2>
-              <p>
+              <p className="text-gray-600">
                 Během 17 dní se děti přenesou do <strong>dob prastarých kmenů</strong>, kde se budou učit spolupráci,
                 strategii a odvaze.
                 Celotáborová hra propojí zábavu se strategickým myšlením a rozvojem dovedností.
