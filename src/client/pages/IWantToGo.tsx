@@ -116,7 +116,7 @@ const IWantToGo = () => {
                             </div>
                         </div>
                     <div className="flex justify-end">
-                        <Link to="/prihlaska" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors">Vyplnit přihlášku</Link>
+                        {/* <Link to="/prihlaska" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors">Vyplnit přihlášku</Link> */}
                     </div>
                     </div>
                 </section>

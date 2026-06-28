@@ -32,9 +32,9 @@ const Home = (props: HomeProps) => {
               bezpečného zázemí uprostřed Vysočiny.
             </p>
             <br />
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <Link to="/prihlaska" className="bg-primary-500 text-white font-medium py-3 px-5 rounded-lg hover:bg-primary-600 transition-colors ">Vyplnit přihlášku</Link>
-            </div>
+            </div> */}
           </section>
 
 
