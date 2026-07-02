@@ -52,9 +52,12 @@ export const Navbar = () => {
           <div className="group-hover:block dropdown-menu absolute hidden h-auto right-0">
             <ul className="top-0 w-35 bg-light pt-4 text-right">
               <li className="py-1 navbar-main__item navbar-main__item--child">
+                <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? "active px-4" : "px-4"} to="/galerie/2026">2026</NavLink>
+              </li>
+              <li className="py-1 navbar-main__item navbar-main__item--child">
                 <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? "active px-4" : "px-4"} to="/galerie/2025">2025</NavLink>
               </li>
-              {/* 
+              {/*
               <li className="py-1 navbar-main__item navbar-main__item--child">
                 <NavLink className="px-4" to="/galerie/2024">2024</NavLink>
               </li>
