@@ -10,7 +10,7 @@ interface HomeProps {
 
 /**
  * Domovská stránka - v navigaci je jako "Aktuálně" - url "/"
- * @returns 
+ * @returns
  */
 const Home = (props: HomeProps) => {
   return (
@@ -19,6 +19,18 @@ const Home = (props: HomeProps) => {
       <div className="flex bg-white-100 font-sans items-center flex-col">
         <Hero title="Stanový tábor Kamenná" subtitle={config.campYearInfo.dateAsString + "" + config.campYearInfo.year} background="/assets/hero.jpg" />
         <Container>
+
+          <section id="game-2026" className="mb-16 mt-8 border-2 border-cyan-100 rounded-xl overflow-hidden">
+            <div className="bg-gradient-to-r from-cyan-50 to-teal-50 p-8">
+
+              <h2 className="text-left text-2xl font-bold mb-4 text-blue-600">Aktuálně</h2>
+              <p className="text-gray-600">
+                Rodičové, už počítáme poslední hodiny a za chvíli nás máte doma. Startujte pračky a koupelny.
+                Sledujte naše <a className="text-blue-300 underline" href="https://www.facebook.com/people/D%C4%9Btsk%C3%BD-stanov%C3%BD-t%C3%A1bor-Kamenn%C3%A1/61559911625763/" aria-label="Facebook - Dětský stanový tábor Kamenná" target="_blank" rel="noreferrer">facebookové</a> stránky pro přesný odjezd autobusu.
+                Jak jsme se letos měli najdete v naší <Link className="text-blue-300 underline" to="/galerie/2026">galerii</Link>.
+              </p>
+            </div>
+          </section>
 
           <section className="mt-8 mb-8">
 
