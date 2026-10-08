@@ -172,6 +172,10 @@ const About = () => {
                 <Link to="/galerie/2025/" className="text-blue-600 dark:text-blue-500 hover:underline">
                   2025 Egypt 
                 </Link>
+                <br />
+                <Link to="/galerie/2026/" className="text-blue-600 dark:text-blue-500 hover:underline">
+                  2026 Pravěk – King Kong
+                </Link>
               </p>
             </div>
           </div>
